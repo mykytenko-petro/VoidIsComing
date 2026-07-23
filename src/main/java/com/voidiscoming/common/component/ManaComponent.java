@@ -1,4 +1,4 @@
-package com.voidiscoming.component;
+package com.voidiscoming.common.component;
 
 import dev.onyxstudios.cca.api.v3.component.Component;
 
