@@ -14,11 +14,14 @@
 	"license": "CC0-1.0",
 	"icon": "assets/voidiscoming/icon.png",
 	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"com.voidiscoming.VoidIsComing"
-		]
-	},
+"entrypoints": {
+  "main": [
+    "com.voidiscoming.VoidIsComing"
+  ],
+  "client": [
+    "com.voidiscoming.VoidIsComingClient"
+  ]
+},
 	"mixins": [
 		"voidiscoming.mixins.json"
 	],
