@@ -16,8 +16,8 @@ public class ManaHudOverlay {
         if (client.player == null || client.options.hudHidden) return;
         if (!client.interactionManager.hasStatusBars()) return;
 
-        float currentMana = 13.0f;
-        float maxMana = 20.0f;
+        float currentMana = 13.0f;//тут мана щас
+        float maxMana = 20.0f;//тут макс мана
 
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
