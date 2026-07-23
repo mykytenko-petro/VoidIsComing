@@ -16,11 +16,9 @@ public class VoidIsComingClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // Привязываем визуальную модель свиньи к нашей сущности
         EntityRendererRegistry.register(VoidIsComing.VOID_PIG, VoidPigRenderer::new);
     }
 
-    // Внутренний класс, отвечающий за отрисовку
     public static class VoidPigRenderer extends MobEntityRenderer<VoidPigEntity, PigEntityModel<VoidPigEntity>> {
 
     private static final Identifier TEXTURE = new Identifier(VoidIsComing.MOD_ID, "textures/entity/pig.png");
