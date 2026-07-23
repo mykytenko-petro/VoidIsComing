@@ -1,0 +1,33 @@
+package com.voidiscoming.common.entity;
+
+import com.voidiscoming.common.VoidIsComing;
+
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+
+public class ModEntities {
+
+    public static final EntityType<VoidPigEntity> VOID_PIG = registerMob(
+        "void_pig",
+        FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidPigEntity::new)
+            .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
+    );
+
+    private static <T extends Entity> EntityType<T> registerMob(String name, FabricEntityTypeBuilder<T> builder) {
+        return Registry.register(
+            Registries.ENTITY_TYPE,
+            VoidIsComing.id(name),
+            builder.build()
+        );
+    }
+
+    public static void registerModEntities() {
+        FabricDefaultAttributeRegistry.register(VOID_PIG, VoidPigEntity.createVoidPigAttributes());
+    }
+}
