@@ -1,6 +1,7 @@
 package com.voidiscoming.common;
 
 import com.voidiscoming.common.entity.ModEntities;
+import com.voidiscoming.server.command.ModCommands;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
@@ -10,6 +11,7 @@ public class VoidIsComing implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ModCommands.registerCommands();
         ModEntities.registerModEntities();
     }
 
