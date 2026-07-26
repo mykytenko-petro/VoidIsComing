@@ -16,10 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.voidiscoming.VoidIsComing"
+      "com.voidiscoming.common.VoidIsComing"
     ],
     "client": [
-      "com.voidiscoming.VoidIsComingClient"
+      "com.voidiscoming.client.VoidIsComingClient"
     ]
   },
   "mixins": [

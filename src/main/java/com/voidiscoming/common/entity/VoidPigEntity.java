@@ -1,7 +1,5 @@
 
-package com.voidiscoming.entity;
-
-
+package com.voidiscoming.common.entity;
 
 
 import net.minecraft.entity.EntityType;
