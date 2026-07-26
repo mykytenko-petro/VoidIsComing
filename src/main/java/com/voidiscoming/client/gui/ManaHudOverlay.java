@@ -1,19 +1,22 @@
 package com.voidiscoming.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.component.ManaComponent;
+import com.voidiscoming.common.component.ModComponents;
+
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
+import net.fabricmc.api.EnvType;
 
+@Environment(EnvType.CLIENT)
 public class ManaHudOverlay {
-    private static final Identifier MANA_FULL = new Identifier("voidiscoming", "textures/gui/mana_full.png");
-    private static final Identifier MANA_HALF = new Identifier("voidiscoming", "textures/gui/mana_half.png");
-    private static final Identifier MANA_EMPTY = new Identifier("voidiscoming", "textures/gui/mana_empty.png");
-
-    // Static test values for now
-    private static final float TEST_CURRENT_MANA = 35.0f;
-    private static final float TEST_MAX_MANA = 60.0f;
+    private static final Identifier MANA_FULL = VoidIsComing.id("textures/gui/mana_full.png");
+    private static final Identifier MANA_HALF = VoidIsComing.id("textures/gui/mana_half.png");
+    private static final Identifier MANA_EMPTY = VoidIsComing.id("textures/gui/mana_empty.png");
 
     public static void init() {
         HudRenderCallback.EVENT.register((DrawContext drawContext, float tickDelta) -> {
@@ -22,9 +25,9 @@ public class ManaHudOverlay {
             if (client.player == null || client.options.hudHidden) return;
             if (!client.interactionManager.hasStatusBars()) return;
 
-            // TODO: Replace with live component values when ready
-            float currentMana = TEST_CURRENT_MANA;
-            float maxMana = TEST_MAX_MANA;
+            ManaComponent mana = ModComponents.MANA.get(client.player);
+            float currentMana = mana.getMana();
+            float maxMana = mana.getMaxMana();
 
             int width = client.getWindow().getScaledWidth();
             int height = client.getWindow().getScaledHeight();
