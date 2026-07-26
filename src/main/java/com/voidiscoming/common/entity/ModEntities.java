@@ -11,11 +11,18 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
+
 public class ModEntities {
 
     public static final EntityType<VoidPigEntity> VOID_PIG = registerMob(
         "void_pig",
         FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidPigEntity::new)
+            .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
+    );
+    
+    public static final EntityType<VoidCowEntity> VOID_COW = registerMob(
+        "void_cow",
+        FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidCowEntity::new)
             .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
     );
 
@@ -29,5 +36,8 @@ public class ModEntities {
 
     public static void registerModEntities() {
         FabricDefaultAttributeRegistry.register(VOID_PIG, VoidPigEntity.createVoidPigAttributes());
+        FabricDefaultAttributeRegistry.register(VOID_COW, VoidCowEntity.createVoidCowAttributes());
     }
+
+ 
 }

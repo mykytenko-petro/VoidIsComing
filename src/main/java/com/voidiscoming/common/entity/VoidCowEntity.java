@@ -1,4 +1,4 @@
-package com.voidiscoming.entity;
+package com.voidiscoming.common.entity;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -6,17 +6,15 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.CowEntity;
-import com.voidiscoming.entity.VoidCowEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class VoidCowEntity extends CowEntity {
-
     public VoidCowEntity(EntityType<? extends CowEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    // Характеристики моба
+    
     public static DefaultAttributeContainer.Builder createVoidCowAttributes() {
         return CowEntity.createCowAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)

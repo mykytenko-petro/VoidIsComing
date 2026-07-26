@@ -9,5 +9,6 @@ import net.fabricmc.api.EnvType;
 public class ModRenderers {
     public static void registerRenderers() {
         EntityRendererRegistry.register(ModEntities.VOID_PIG, VoidPigRenderer::new);
+        EntityRendererRegistry.register(ModEntities.VOID_COW, VoidCowRenderer::new);
     }
 }
