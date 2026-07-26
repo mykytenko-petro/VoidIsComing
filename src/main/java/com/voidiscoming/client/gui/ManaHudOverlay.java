@@ -37,6 +37,17 @@ public class ManaHudOverlay {
             int baseX = (width / 2) + 91 - 9;
             int baseY = height - 49;
 
+            // --- ПРОВЕРКА ВОДА / КИСЛОРОД ---
+            // Если запас воздуха меньше максимального, пузырьки выводятся над голодом.
+            // Поднимаем ману на 10 пикселей выше, чтобы не перекрывать пузырьки.
+            int air = client.player.getAir();
+            int maxAir = client.player.getMaxAir();
+
+            if (air < maxAir) {
+                baseY -= 10;
+            }
+            // ---------------------------------
+
             int totalIcons = (int) Math.ceil(maxMana / 2.0f);
             int iconsPerRow = 10;
 
@@ -45,7 +56,7 @@ public class ManaHudOverlay {
                 int row = i / iconsPerRow;
 
                 int x = baseX - (column * 8);
-                int y = baseY - (row * 10);
+                int y = baseY - (row * 10); // Внутренний сдвиг рядов (если маны больше 20) поднимется автоматически!
 
                 Identifier textureToDraw;
                 float iconValue = (i + 1) * 2.0f;
