@@ -1,12 +1,13 @@
 package com.voidiscoming.common.component;
 
-import dev.onyxstudios.cca.api.v3.component.Component;
+import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
 
-public interface ManaComponent extends Component {
-    int getMana();
-    int getMaxMana();
+public interface ManaComponent extends AutoSyncedComponent, CommonTickingComponent {
+    float getMana();
+    float getMaxMana();
     
-    void setMana(int mana);
-    void addMana(int amount);
-    void removeMana(int amount);
+    void setMana(float mana);
+    void addMana(float amount);
+    void removeMana(float amount);
 }

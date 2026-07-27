@@ -37,6 +37,13 @@ public class ManaHudOverlay {
             int baseX = (width / 2) + 91 - 9;
             int baseY = height - 49;
 
+            int air = client.player.getAir();
+            int maxAir = client.player.getMaxAir();
+
+            if (air < maxAir) {
+                baseY -= 10;
+            }
+
             int totalIcons = (int) Math.ceil(maxMana / 2.0f);
             int iconsPerRow = 10;
 
