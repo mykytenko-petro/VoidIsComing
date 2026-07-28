@@ -22,7 +22,7 @@ public class Buff {
                 attack.addPersistentModifier(new EntityAttributeModifier(
                         ATTACK_ID, 
                         "expMechanick.level_attack", 
-                        (double) level, 
+                        level,
                         EntityAttributeModifier.Operation.ADDITION
                 ));
             }
@@ -37,7 +37,7 @@ public class Buff {
                 health.addPersistentModifier(new EntityAttributeModifier(
                         HEALTH_ID, 
                         "expMechanick.level_health", 
-                        (double) healthBonus, 
+                        healthBonus,
                         EntityAttributeModifier.Operation.ADDITION
                 ));
             }
