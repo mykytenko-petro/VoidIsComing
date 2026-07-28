@@ -1,6 +1,7 @@
 package com.voidiscoming.common;
 
 import com.voidiscoming.common.entity.ModEntities;
+import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.server.command.ModCommands;
 
 import net.fabricmc.api.ModInitializer;
@@ -11,8 +12,10 @@ public class VoidIsComing implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ModMechanics.init();
         ModCommands.registerCommands();
         ModEntities.registerModEntities();
+
     }
 
     public static Identifier id(String path) {
