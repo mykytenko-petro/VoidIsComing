@@ -5,9 +5,13 @@ import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
 
 public interface ManaComponent extends AutoSyncedComponent, CommonTickingComponent {
     float getMana();
-    float getMaxMana();
-    
     void setMana(float mana);
-    void addMana(float amount);
-    void removeMana(float amount);
+    void addMana(double amount);
+    void removeMana(double amount);
+
+    double getMaxMana();
+    void setMaxMana(double maxMana);
+
+    double getManaRegen();
+    void setManaRegen(double manaRegen);
 }

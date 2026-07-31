@@ -27,7 +27,7 @@ public class ManaHudOverlay {
 
             ManaComponent mana = ModComponents.MANA.get(client.player);
             float currentMana = mana.getMana();
-            float maxMana = mana.getMaxMana();
+            double maxMana = mana.getMaxMana();
 
             int width = client.getWindow().getScaledWidth();
             int height = client.getWindow().getScaledHeight();
