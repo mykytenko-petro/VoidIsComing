@@ -1,4 +1,4 @@
-package com.voidiscoming.client.gui;
+package com.voidiscoming.client.gui.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.voidiscoming.common.VoidIsComing;

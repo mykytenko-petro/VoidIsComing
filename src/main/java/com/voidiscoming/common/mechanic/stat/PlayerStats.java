@@ -8,7 +8,7 @@ import java.util.function.ToDoubleFunction;
 
 public enum PlayerStats {
     MAX_HEALTH("stat.voidiscoming.max_health", player -> {
-        double base = getAttribute(player, EntityAttributes.GENERIC_MAX_HEALTH);
+        double base = 20;
         double bonus = (player.experienceLevel / 10) * 2.0;
 
         return base + bonus;
