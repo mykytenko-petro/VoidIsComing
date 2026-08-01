@@ -10,8 +10,6 @@ public interface ManaComponent extends AutoSyncedComponent, CommonTickingCompone
     void removeMana(double amount);
 
     double getMaxMana();
-    void setMaxMana(double maxMana);
 
     double getManaRegen();
-    void setManaRegen(double manaRegen);
 }

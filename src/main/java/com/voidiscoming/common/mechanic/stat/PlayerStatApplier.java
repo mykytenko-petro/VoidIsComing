@@ -6,8 +6,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.UUID;
 
-import com.voidiscoming.common.VoidIsComing;
-
 public class PlayerStatApplier {
 
     private static final UUID HEALTH_BONUS_UUID = UUID.fromString("f482d8a0-2b1c-4f81-a7b2-9388bf379b32");
@@ -22,9 +20,10 @@ public class PlayerStatApplier {
 
         healthInstance.removeModifier(HEALTH_BONUS_UUID);
 
-        double bonusValue = PlayerStats.MAX_HEALTH_BONUS.getValue(player);
-
-        VoidIsComing.LOGGER.info("bonusValue: {}", bonusValue);
+        double targetMaxHealth = PlayerStats.MAX_HEALTH.getValue(player);
+        
+        double baseHealth = healthInstance.getBaseValue();
+        double bonusValue = targetMaxHealth - baseHealth;
 
         if (bonusValue > 0) {
             EntityAttributeModifier modifier = new EntityAttributeModifier(
