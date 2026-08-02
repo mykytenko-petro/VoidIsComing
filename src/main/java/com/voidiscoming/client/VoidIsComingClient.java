@@ -2,6 +2,7 @@ package com.voidiscoming.client;
 
 import com.voidiscoming.client.gui.ModGUI;
 import com.voidiscoming.client.renderer.ModRenderers;
+import com.voidiscoming.client.renderer.ModShieldRenderer;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -13,5 +14,6 @@ public class VoidIsComingClient implements ClientModInitializer {
     public void onInitializeClient() {
         ModRenderers.registerRenderers();
         ModGUI.init();
+        ModShieldRenderer.register();
     }
 } 

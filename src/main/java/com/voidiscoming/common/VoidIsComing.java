@@ -6,6 +6,7 @@ import com.voidiscoming.server.command.ModCommands;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 
+
 public class VoidIsComing implements ModInitializer {
     public static final String MOD_ID = "voidiscoming";
 
@@ -13,6 +14,8 @@ public class VoidIsComing implements ModInitializer {
     public void onInitialize() {
         ModCommands.registerCommands();
         ModEntities.registerModEntities();
+        ModItems.registerModItems();
+        
     }
 
     public static Identifier id(String path) {
