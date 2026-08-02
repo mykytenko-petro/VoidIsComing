@@ -1,9 +1,8 @@
 {
   "entity.voidiscoming.void_pig": "Void Pig",
   "entity.voidiscoming.void_cow": "Void Cow",
-  "item.voidiscoming.wooden_shield": "Wooden_Shield",
-  "item.voidiscoming.golden_shield": "Golden_Shield",
-  "item.voidiscoming.diamond_shield": "Diamond_Shield",
-  "item.voidiscoming.netherite_shield": "Netherite_Shield"
-
+  "item.voidiscoming.wooden_shield": "Wooden Shield",
+  "item.voidiscoming.golden_shield": "Golden Shield",
+  "item.voidiscoming.diamond_shield": "Diamond Shield",
+  "item.voidiscoming.netherite_shield": "Netherite Shield"
 }
