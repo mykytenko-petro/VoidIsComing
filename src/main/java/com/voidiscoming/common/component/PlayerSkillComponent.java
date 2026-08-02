@@ -68,17 +68,16 @@ public class PlayerSkillComponent implements SkillComponent, AutoSyncedComponent
         }
     }
 
-    // --- Запись хотбара в NBT ---
+    
     @Override
     public void writeToNbt(NbtCompound tag) {
-        // Изученные скиллы
+    
         NbtList skillList = new NbtList();
         for (String skillId : unlockedSkills) {
             if (skillId != null) skillList.add(NbtString.of(skillId));
         }
         tag.put("UnlockedSkills", skillList);
 
-        // Хотбар скиллов
         NbtList hotbarList = new NbtList();
         for (String skillId : equippedSkills) {
             hotbarList.add(NbtString.of(skillId != null ? skillId : ""));
@@ -86,7 +85,7 @@ public class PlayerSkillComponent implements SkillComponent, AutoSyncedComponent
         tag.put("SkillHotbar", hotbarList);
     }
 
-    // --- Чтение хотбара из NBT ---
+    
     @Override
     public void readFromNbt(NbtCompound tag) {
         this.unlockedSkills.clear();
