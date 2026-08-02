@@ -7,13 +7,13 @@ import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class ArmorLevelRestriction {
+public class Armor {
 
     private static final EquipmentSlot[] ARMOR_SLOTS = {
-        EquipmentSlot.HEAD,
-        EquipmentSlot.CHEST,
-        EquipmentSlot.LEGS,
-        EquipmentSlot.FEET
+            EquipmentSlot.HEAD,
+            EquipmentSlot.CHEST,
+            EquipmentSlot.LEGS,
+            EquipmentSlot.FEET
     };
 
     public static void enforceArmorRestrictions(ServerPlayerEntity player) {

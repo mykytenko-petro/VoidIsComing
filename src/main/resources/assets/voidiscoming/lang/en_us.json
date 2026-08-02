@@ -1,11 +1,4 @@
 {
   "entity.voidiscoming.void_pig": "Void Pig",
-  "entity.voidiscoming.void_cow": "Void Cow",
-
-  "stat.voidiscoming.max_health": "Max HP",
-  "stat.voidiscoming.max_mana": "Max Mana",
-  "stat.voidiscoming.mana_regen": "Mana Regen",
-  "stat.voidiscoming.attack_damage": "Attack",
-  "stat.voidiscoming.speed": "Speed",
-  "stat.voidiscoming.armor": "Armor"
+  "entity.voidiscoming.void_cow": "Void Cow"
 }

@@ -1,4 +1,4 @@
-package com.voidiscoming.client.gui.overlay;
+package com.voidiscoming.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.voidiscoming.common.VoidIsComing;
@@ -27,7 +27,7 @@ public class ManaHudOverlay {
 
             ManaComponent mana = ModComponents.MANA.get(client.player);
             float currentMana = mana.getMana();
-            double maxMana = mana.getMaxMana();
+            float maxMana = mana.getMaxMana();
 
             int width = client.getWindow().getScaledWidth();
             int height = client.getWindow().getScaledHeight();
