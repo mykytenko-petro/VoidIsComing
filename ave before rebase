@@ -1,0 +1,516 @@
+[1mdiff --git a/src/main/java/com/voidiscoming/client/VoidIsComingClient.java b/src/main/java/com/voidiscoming/client/VoidIsComingClient.java[m
+[1mindex b37af5d..7d1b61a 100644[m
+[1m--- a/src/main/java/com/voidiscoming/client/VoidIsComingClient.java[m
+[1m+++ b/src/main/java/com/voidiscoming/client/VoidIsComingClient.java[m
+[36m@@ -1,13 +1,12 @@[m
+ package com.voidiscoming.client;[m
+ [m
+[32m+[m[32mimport com.voidiscoming.client.description.ModDescriptions;[m
+ import com.voidiscoming.client.gui.ModGUI;[m
+[31m-import com.voidiscoming.client.gui.SkillHotbarHud; [m
+ import com.voidiscoming.client.renderer.ModRenderers;[m
+[31m-import com.voidiscoming.common.mechanic.level.ArmorDescriptionRequirements;[m
+[32m+[m
+ import net.fabricmc.api.ClientModInitializer;[m
+ import net.fabricmc.api.EnvType;[m
+ import net.fabricmc.api.Environment;[m
+[31m-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback; [m
+ [m
+ @Environment(EnvType.CLIENT)[m
+ public class VoidIsComingClient implements ClientModInitializer {[m
+[36m@@ -15,9 +14,6 @@[m [mpublic class VoidIsComingClient implements ClientModInitializer {[m
+     public void onInitializeClient() {[m
+         ModRenderers.registerRenderers();[m
+         ModGUI.init();[m
+[31m-        ArmorDescriptionRequirements.register();[m
+[31m-    [m
+[31m-        [m
+[31m-        HudRenderCallback.EVENT.register(new SkillHotbarHud());[m
+[32m+[m[32m        ModDescriptions.init();[m
+     }[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m[41m [m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/com/voidiscoming/common/mechanic/level/ArmorDescriptionRequirements.java b/src/main/java/com/voidiscoming/client/description/ArmorRequirementsDescription.java[m
+[1msimilarity index 79%[m
+[1mrename from src/main/java/com/voidiscoming/common/mechanic/level/ArmorDescriptionRequirements.java[m
+[1mrename to src/main/java/com/voidiscoming/client/description/ArmorRequirementsDescription.java[m
+[1mindex bd2ab00..94a0f57 100644[m
+[1m--- a/src/main/java/com/voidiscoming/common/mechanic/level/ArmorDescriptionRequirements.java[m
+[1m+++ b/src/main/java/com/voidiscoming/client/description/ArmorRequirementsDescription.java[m
+[36m@@ -1,4 +1,6 @@[m
+[31m-package com.voidiscoming.common.mechanic.level;[m
+[32m+[m[32mpackage com.voidiscoming.client.description;[m
+[32m+[m
+[32m+[m[32mimport com.voidiscoming.common.mechanic.level.ArmorLevelRestriction;[m
+ [m
+ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;[m
+ import net.minecraft.client.MinecraftClient;[m
+[36m@@ -6,11 +8,11 @@[m [mimport net.minecraft.item.ArmorItem;[m
+ import net.minecraft.text.Text;[m
+ import net.minecraft.util.Formatting;[m
+ [m
+[31m-public class ArmorDescriptionRequirements {[m
+[31m-    public static void register() {[m
+[32m+[m[32mpublic class ArmorRequirementsDescription {[m
+[32m+[m[32m    public static void init() {[m
+         ItemTooltipCallback.EVENT.register((stack, context, lines) -> {[m
+             if (stack.getItem() instanceof ArmorItem armor) {[m
+[31m-                int req = Armor.getRequiredLevel(armor.getMaterial());[m
+[32m+[m[32m                int req = ArmorLevelRestriction.getRequiredLevel(armor.getMaterial());[m
+ [m
+                 if (req > 0) {[m
+                     MinecraftClient client = MinecraftClient.getInstance();[m
+[1mdiff --git a/src/main/java/com/voidiscoming/client/description/ModDescriptions.java b/src/main/java/com/voidiscoming/client/description/ModDescriptions.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..80a3499[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/voidiscoming/client/description/ModDescriptions.java[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32mpackage com.voidiscoming.client.description;[m
+[32m+[m
+[32m+[m[32mpublic class ModDescriptions {[m
+[32m+[m[32m    public static void init() {[m
+[32m+[m[32m        ArmorRequirementsDescription.init();[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/voidiscoming/client/gui/ModGUI.java b/src/main/java/com/voidiscoming/client/gui/ModGUI.java[m
+[1mindex f5a2fa2..17f37ba 100644[m
+[1m--- a/src/main/java/com/voidiscoming/client/gui/ModGUI.java[m
+[1m+++ b/src/main/java/com/voidiscoming/client/gui/ModGUI.java[m
+[36m@@ -1,11 +1,16 @@[m
+ package com.voidiscoming.client.gui;[m
+ [m
+ import net.fabricmc.api.Environment;[m
+[32m+[m
+[32m+[m[32mimport com.voidiscoming.client.gui.overlay.InventoryStatOverlay;[m
+[32m+[m[32mimport com.voidiscoming.client.gui.overlay.ManaHudOverlay;[m
+[32m+[m
+ import net.fabricmc.api.EnvType;[m
+ [m
+ @Environment(EnvType.CLIENT)[m
+ public class ModGUI {[m
+     public static void init() {[m
+[32m+[m[32m        InventoryStatOverlay.init();[m
+         ManaHudOverlay.init();[m
+     }[m
+ }[m
+[1mdiff --git a/src/main/java/com/voidiscoming/client/gui/SkillHotbarHud.java b/src/main/java/com/voidiscoming/client/gui/SkillHotbarHud.java[m
+[1mdeleted file mode 100644[m
+[1mindex 3d35846..0000000[m
+[1m--- a/src/main/java/com/voidiscoming/client/gui/SkillHotbarHud.java[m
+[1m+++ /dev/null[m
+[36m@@ -1,80 +0,0 @@[m
+[31m-package com.voidiscoming.client.gui;[m
+[31m-[m
+[31m-import com.mojang.blaze3d.systems.RenderSystem;[m
+[31m-import com.voidiscoming.common.VoidIsComing;[m
+[31m-import com.voidiscoming.common.component.ModComponents;[m
+[31m-import com.voidiscoming.common.component.SkillComponent;[m
+[31m-import com.voidiscoming.common.skill.ModSkills;[m
+[31m-import com.voidiscoming.common.skill.Skill;[m
+[31m-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;[m
+[31m-import net.minecraft.client.MinecraftClient;[m
+[31m-import net.minecraft.client.gui.DrawContext;[m
+[31m-import net.minecraft.util.Identifier;[m
+[31m-[m
+[31m-public class SkillHotbarHud implements HudRenderCallback {[m
+[31m-[m
+[31m-    // Текстура слота хотбара (18x18 px)[m
+[31m-    private static final Identifier SLOT_TEXTURE = VoidIsComing.id("textures/gui/spellbar_cell.png");[m
+[31m-[m
+[31m-    @Override[m
+[31m-    public void onHudRender(DrawContext context, float tickDelta) {[m
+[31m-        MinecraftClient client = MinecraftClient.getInstance();[m
+[31m-[m
+[31m-        if (client.player == null || client.options.hudHidden) return;[m
+[31m-[m
+[31m-        SkillComponent skillComponent = ModComponents.SKILLS.get(client.player);[m
+[31m-        String[] equipped = skillComponent.getEquippedSkills();[m
+[31m-[m
+[31m-       [m
+[31m-        String[] testEquipped = new String[4];[m
+[31m-        testEquipped[0] = (equipped[0] != null) ? equipped[0] : "vampirism"; [m
+[31m-        testEquipped[1] = (equipped[1] != null) ? equipped[1] : "heal";   [m
+[31m-        testEquipped[2] = equipped[2];    [m
+[31m-        testEquipped[3] = equipped[3];                                                                      [m
+[31m-           [m
+[31m-[m
+[31m-        int slotSize = 18;[m
+[31m-        int spacing = 2;[m
+[31m-        int startX = 5; [m
+[31m-        [m
+[31m-        int totalHeight = (4 * slotSize) + (3 * spacing);[m
+[31m-        int startY = (client.getWindow().getScaledHeight() - totalHeight) / 2; [m
+[31m-[m
+[31m-        for (int i = 0; i < 4; i++) {[m
+[31m-            int cellY = startY + i * (slotSize + spacing);[m
+[31m-[m
+[31m-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);[m
+[31m-[m
+[31m-            [m
+[31m-            context.drawTexture([m
+[31m-                SLOT_TEXTURE,[m
+[31m-                startX, cellY,[m
+[31m-                0, 0,[m
+[31m-                slotSize, slotSize,[m
+[31m-                slotSize, slotSize[m
+[31m-            );[m
+[31m-[m
+[31m-            [m
+[31m-            String skillId = testEquipped[i];[m
+[31m-            if (skillId != null && !skillId.isEmpty()) {[m
+[31m-                Skill skill = ModSkills.getById(skillId);[m
+[31m-                [m
+[31m-                [m
+[31m-                if (skill != null && skill.getIcon() != null) {[m
+[31m-                    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);[m
+[31m-                    context.drawTexture([m
+[31m-                        skill.getIcon(),[m
+[31m-                        startX + 1, cellY + 1, [m
+[31m-                        0, 0,[m
+[31m-                        16, 16, [m
+[31m-                        16, 16  [m
+[31m-                    );[m
+[31m-                }[m
+[31m-            }[m
+[31m-[m
+[31m-            // 3. Цифра слота (1, 2, 3, 4)[m
+[31m-            String keyBindText = String.valueOf(i + 1);[m
+[31m-            context.drawText(client.textRenderer, keyBindText, startX + 2, cellY + 2, 0xFFFFFF, true);[m
+[31m-        }[m
+[31m-    }[m
+[31m-}[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/com/voidiscoming/client/gui/overlay/InventoryStatOverlay.java b/src/main/java/com/voidiscoming/client/gui/overlay/InventoryStatOverlay.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4522dc2[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/voidiscoming/client/gui/overlay/InventoryStatOverlay.java[m
+[36m@@ -0,0 +1,74 @@[m
+[32m+[m[32mpackage com.voidiscoming.client.gui.overlay;[m
+[32m+[m
+[32m+[m[32mimport com.voidiscoming.client.gui.util.ModColors;[m
+[32m+[m[32mimport com.voidiscoming.common.mechanic.stat.PlayerStats;[m
+[32m+[m[32mimport com.voidiscoming.common.mixin.gui.HandledScreenAccessor;[m
+[32m+[m
+[32m+[m[32mimport net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;[m
+[32m+[m[32mimport net.minecraft.client.MinecraftClient;[m
+[32m+[m[32mimport net.minecraft.client.gui.DrawContext;[m
+[32m+[m[32mimport net.minecraft.client.gui.screen.ingame.InventoryScreen;[m
+[32m+[m[32mimport net.minecraft.text.Text;[m
+[32m+[m[32mimport net.minecraft.util.Formatting;[m
+[32m+[m
+[32m+[m[32mpublic class InventoryStatOverlay {[m
+[32m+[m
+[32m+[m[32m    public static void init() {[m
+[32m+[m[32m        ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {[m
+[32m+[m[32m            if (screen instanceof InventoryScreen inventoryScreen) {[m
+[32m+[m[32m                ScreenEvents.afterRender(inventoryScreen).register((scr, context, mouseX, mouseY, delta) -> {[m
+[32m+[m[32m                    renderStats(context, inventoryScreen);[m
+[32m+[m[32m                });[m
+[32m+[m[32m            }[m
+[32m+[m[32m        });[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    private static void renderStats(DrawContext context, InventoryScreen screen) {[m
+[32m+[m[32m        MinecraftClient client = MinecraftClient.getInstance();[m
+[32m+[m[32m        if (client.player == null) return;[m
+[32m+[m
+[32m+[m[32m        HandledScreenAccessor accessor = (HandledScreenAccessor) screen;[m
+[32m+[m[32m        int inventoryX = accessor.getX();[m
+[32m+[m[32m        int inventoryY = accessor.getY();[m
+[32m+[m
+[32m+[m[32m        int width = 110;[m
+[32m+[m[32m        int height = accessor.getBackgroundHeight();[m
+[32m+[m
+[32m+[m[32m        int x = inventoryX - width - 5;[m
+[32m+[m[32m        int y = inventoryY;[m
+[32m+[m
+[32m+[m[32m        context.fill(x, y, x + width, y + height, ModColors.Eminence90);[m
+[32m+[m[32m        context.drawBorder(x, y, width, height, ModColors.AttractivePurple90);[m
+[32m+[m
+[32m+[m[32m        context[m
+[32m+[m[32m            .drawText(client.textRenderer, Text.literal("PLAYER STATS")[m
+[32m+[m[32m            .formatted(Formatting.DARK_PURPLE, Formatting.BOLD), x + 8, y + 8, 0xFFFFFF, true);[m
+[32m+[m[32m        context.fill(x + 6, y + 20, x + width - 6, y + 21, ModColors.AttractivePurple90);[m
+[32m+[m
+[32m+[m[32m        int currentY = y + 26;[m
+[32m+[m[32m        int lineSpacing = 12;[m
+[32m+[m
+[32m+[m[32m        for (PlayerStats stat : PlayerStats.values()) {[m
+[32m+[m[32m            double rawValue = stat.getValue(client.player);[m
+[32m+[m[32m            String formattedValue = formatStatValue(stat, rawValue);[m
+[32m+[m[41m            [m
+[32m+[m[32m            Text text = Text.translatable(stat.getTranslationKey()).formatted(Formatting.GRAY)[m
+[32m+[m[32m                    .append(Text.literal(": ").formatted(Formatting.GRAY))[m
+[32m+[m[32m                    .append(Text.literal(formattedValue).formatted(Formatting.GOLD));[m
+[32m+[m
+[32m+[m[32m            context.drawText(client.textRenderer, text, x + 8, currentY, 0xFFFFFF, false);[m
+[32m+[m
+[32m+[m[32m            currentY += lineSpacing;[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    private static String formatStatValue(PlayerStats stat, double val) {[m
+[32m+[m[32m        if (stat == PlayerStats.MOVEMENT_SPEED) {[m
+[32m+[m[32m            return String.format("%.0f%%", val * 1000);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        if (val % 1 == 0) {[m
+[32m+[m[32m            return String.format("%.0f", val);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        return String.format("%.1f", val);[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/com/voidiscoming/client/gui/ManaHudOverlay.java b/src/main/java/com/voidiscoming/client/gui/overlay/ManaHudOverlay.java[m
+[1msimilarity index 96%[m
+[1mrename from src/main/java/com/voidiscoming/client/gui/ManaHudOverlay.java[m
+[1mrename to src/main/java/com/voidiscoming/client/gui/overlay/ManaHudOverlay.java[m
+[1mindex f8e6457..9fb4360 100644[m
+[1m--- a/src/main/java/com/voidiscoming/client/gui/ManaHudOverlay.java[m
+[1m+++ b/src/main/java/com/voidiscoming/client/gui/overlay/ManaHudOverlay.java[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-package com.voidiscoming.client.gui;[m
+[32m+[m[32mpackage com.voidiscoming.client.gui.overlay;[m
+ [m
+ import com.mojang.blaze3d.systems.RenderSystem;[m
+ import com.voidiscoming.common.VoidIsComing;[m
+[36m@@ -27,7 +27,7 @@[m [mpublic class ManaHudOverlay {[m
+ [m
+             ManaComponent mana = ModComponents.MANA.get(client.player);[m
+             float currentMana = mana.getMana();[m
+[31m-            float maxMana = mana.getMaxMana();[m
+[32m+[m[32m            double maxMana = mana.getMaxMana();[m
+ [m
+             int width = client.getWindow().getScaledWidth();[m
+             int height = client.getWindow().getScaledHeight();[m
+[1mdiff --git a/src/main/java/com/voidiscoming/client/gui/util/ModColors.java b/src/main/java/com/voidiscoming/client/gui/util/ModColors.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3f4fd80[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/voidiscoming/client/gui/util/ModColors.java[m
+[36m@@ -0,0 +1,11 @@[m
+[32m+[m[32mpackage com.voidiscoming.client.gui.util;[m
+[32m+[m
+[32m+[m[32mpublic class ModColors {[m
+[32m+[m
+[32m+[m[32m    public static final int Eminence90 = rgba(108, 48, 130, 0.9);[m
+[32m+[m[32m    public static final int AttractivePurple90 = rgba(71, 25, 103, 0.9);[m
+[32m+[m
+[32m+[m[32m    public static int rgba(int red, int green, int blue, double alpha) {[m
+[32m+[m[32m        return ((int)(alpha * 100) << 24) | (red << 16) | (green << 8) | blue;[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/com/voidiscoming/common/VoidIsComing.java b/src/main/java/com/voidiscoming/common/VoidIsComing.java[m
+[1mindex 7edd9d3..4bbe23e 100644[m
+[1m--- a/src/main/java/com/voidiscoming/common/VoidIsComing.java[m
+[1m+++ b/src/main/java/com/voidiscoming/common/VoidIsComing.java[m
+[36m@@ -1,5 +1,8 @@[m
+ package com.voidiscoming.common;[m
+ [m
+[32m+[m[32mimport org.slf4j.Logger;[m
+[32m+[m[32mimport org.slf4j.LoggerFactory;[m
+[32m+[m
+ import com.voidiscoming.common.entity.ModEntities;[m
+ import com.voidiscoming.common.mechanic.ModMechanics;[m
+ import com.voidiscoming.server.command.ModCommands;[m
+[36m@@ -10,12 +13,15 @@[m [mimport net.minecraft.util.Identifier;[m
+ public class VoidIsComing implements ModInitializer {[m
+     public static final String MOD_ID = "voidiscoming";[m
+ [m
+[32m+[m[32m    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);[m
+[32m+[m
+     @Override[m
+     public void onInitialize() {[m
+[31m-        ModMechanics.init();[m
+[32m+[m[32m        LOGGER.info("Initializing Void Is Coming...");[m
+[32m+[m
+[32m+[m[32m        ModMechanics.registerMechanics();[m
+         ModCommands.registerCommands();[m
+         ModEntities.registerModEntities();[m
+[31m-[m
+     }[m
+ [m
+     public static Identifier id(String path) {[m
+[1mdiff --git a/src/main/java/com/voidiscoming/common/component/ManaComponent.java b/src/main/java/com/voidiscoming/common/component/ManaComponent.java[m
+[1mindex 2867d6c..74c2ccb 100644[m
+[1m--- a/src/main/java/com/voidiscoming/common/component/ManaComponent.java[m
+[1m+++ b/src/main/java/com/voidiscoming/common/component/ManaComponent.java[m
+[36m@@ -5,9 +5,11 @@[m [mimport dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;[m
+ [m
+ public interface ManaComponent extends AutoSyncedComponent, CommonTickingComponent {[m
+     float getMana();[m
+[31m-    float getMaxMana();[m
+[31m-    [m
+     void setMana(float mana);[m
+[31m-    void addMana(float amount);[m
+[31m-    void removeMana(float amount);[m
+[31m-}[m
+[32m+[m[32m    void addMana(double amount);[m
+[32m+[m[32m    void removeMana(double amount);[m
+[32m+[m
+[32m+[m[32m    double getMaxMana();[m
+[32m+[m
+[32m+[m[32m    double getManaRegen();[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/com/voidiscoming/common/component/ModComponents.java b/src/main/java/com/voidiscoming/common/component/ModComponents.java[m
+[1mindex 94fa17b..18e27b7 100644[m
+[1m--- a/src/main/java/com/voidiscoming/common/component/ModComponents.java[m
+[1m+++ b/src/main/java/com/voidiscoming/common/component/ModComponents.java[m
+[36m@@ -8,17 +8,11 @@[m [mimport dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;[m
+ import net.minecraft.util.Identifier;[m
+ [m
+ public class ModComponents implements EntityComponentInitializer {[m
+[31m-    [m
+     public static final ComponentKey<ManaComponent> MANA = [m
+         ComponentRegistry.getOrCreate(new Identifier("voidiscoming", "mana"), ManaComponent.class);[m
+ [m
+[31m-    public static final ComponentKey<SkillComponent> SKILLS = [m
+[31m-        ComponentRegistry.getOrCreate(new Identifier("voidiscoming", "skills"), SkillComponent.class);[m
+[31m-[m
+     @Override[m
+     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {[m
+         registry.registerForPlayers(MANA, PlayerManaComponent::new, RespawnCopyStrategy.ALWAYS_COPY);[m
+[31m-        [m
+[31m-        registry.registerForPlayers(SKILLS, PlayerSkillComponent::new, RespawnCopyStrategy.ALWAYS_COPY);[m
+     }[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/com/voidiscoming/common/component/PlayerManaComponent.java b/src/main/java/com/voidiscoming/common/component/PlayerManaComponent.java[m
+[1mindex 3468a64..d9c64c1 100644[m
+[1m--- a/src/main/java/com/voidiscoming/common/component/PlayerManaComponent.java[m
+[1m+++ b/src/main/java/com/voidiscoming/common/component/PlayerManaComponent.java[m
+[36m@@ -1,68 +1,82 @@[m
+ package com.voidiscoming.common.component;[m
+ [m
+[32m+[m[32mimport com.voidiscoming.common.mechanic.stat.PlayerStats;[m
+ import net.minecraft.entity.player.PlayerEntity;[m
+ import net.minecraft.nbt.NbtCompound;[m
+ [m
+ public class PlayerManaComponent implements ManaComponent {[m
+     private float mana = 20.0f;[m
+[31m-    private float maxMana = 20.0f;[m
+[32m+[m[32m    private final int manaRegenTickRequired = 50;[m
+ [m
+     private final PlayerEntity player;[m
+[31m-    [m
+     private int ticks = 0;[m
+ [m
+     public PlayerManaComponent(PlayerEntity player) {[m
+         this.player = player;[m
+     }[m
+ [m
+[32m+[m[32m    // mana[m
+     @Override[m
+[31m-    public void tick() { [m
+[31m-        if (this.player.getWorld().isClient()) return; [m
+[32m+[m[32m    public float getMana() {[m[41m [m
+[32m+[m[32m        return this.mana;[m[41m [m
+[32m+[m[32m    }[m
+ [m
+[31m-        this.ticks++;[m
+[31m-        if (this.ticks >= 20) { [m
+[31m-            this.ticks = 0;[m
+[31m-            if (this.mana < this.maxMana) {[m
+[31m-                addMana(1.0f); [m
+[31m-            }[m
+[31m-        }[m
+[32m+[m[32m    @Override[m
+[32m+[m[32m    public void setMana(float mana) {[m
+[32m+[m[32m        this.mana = (float) Math.max(0.0, Math.min(mana, getMaxMana()));[m
+[32m+[m[32m        ModComponents.MANA.sync(this.player);[m
+     }[m
+ [m
+     @Override[m
+[31m-    public float getMana() {[m
+[31m-        return this.mana;[m
+[32m+[m[32m    public void addMana(double amount) {[m[41m [m
+[32m+[m[32m        setMana((float) (this.mana + amount));[m[41m [m
+     }[m
+ [m
+     @Override[m
+[31m-    public float getMaxMana() {[m
+[31m-        return this.maxMana;[m
+[32m+[m[32m    public void removeMana(double amount) {[m[41m [m
+[32m+[m[32m        setMana((float) (this.mana - amount));[m[41m [m
+     }[m
+ [m
+[32m+[m[32m    // max mana[m
+     @Override[m
+[31m-    public void setMana(float mana) {[m
+[31m-        this.mana = Math.max(0.0f, Math.min(mana, this.maxMana));[m
+[31m-        ModComponents.MANA.sync(this.player);[m
+[32m+[m[32m    public double getMaxMana() {[m[41m [m
+[32m+[m[32m        return PlayerStats.MAX_MANA.getValue(this.player);[m[41m [m
+     }[m
+ [m
+     @Override[m
+[31m-    public void addMana(float amount) {[m
+[31m-        setMana(this.mana + amount);[m
+[32m+[m[32m    public double getManaRegen() {[m[41m [m
+[32m+[m[32m        return PlayerStats.MANA_REGEN.getValue(this.player);[m[41m [m
+     }[m
+ [m
+     @Override[m
+[31m-    public void removeMana(float amount) {[m
+[31m-        setMana(this.mana - amount);[m
+[32m+[m[32m    public void tick() {[m
+[32m+[m[32m        if (this.player.getWorld().isClient()) return;[m
+[32m+[m
+[32m+[m[32m        double currentMax = getMaxMana();[m
+[32m+[m
+[32m+[m[32m        if (this.mana > currentMax) {[m
+[32m+[m[32m            setMana((float) currentMax);[m
+[32m+[m[32m        }[m
+[32m+[m[41m        [m
+[32m+[m[32m        this.ticks++;[m
+[32m+[m[32m        if (this.ticks >= manaRegenTickRequired) {[m
+[32m+[m[32m            this.ticks = 0;[m
+[32m+[m
+[32m+[m[32m            if (this.mana < currentMax) {[m
+[32m+[m[32m                addMana(getManaRegen());[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+     }[m
+ [m
+     @Override[m
+     public void readFromNbt(NbtCompound tag) {[m
+[31m-        if (tag.contains("Mana")) this.mana = tag.getFloat("Mana");[m
+[31m-        if (tag.contains("MaxMana")) this.maxMana = tag.getFloat("MaxMana");[m
+[32m+[m[32m        if (tag.contains("Mana")) {[m
+[32m+[m[32m            this.mana = tag.getFloat("Mana");[m
+[32m+[m[32m        }[m
+     }[m
+ [m
+     @Override[m
+     public void writeToNbt(NbtCompound tag) {[m
+         tag.putFloat("Mana", this.mana);[m
+[31m-        tag.putFloat("MaxMana", this.maxMana);[m
+     }[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/com/voidiscoming/common/component/PlayerSkillComponent.java b/src/main/java/com/voidiscoming/common/component/PlayerSkillComponent.java[m
+[1mdeleted file mode 100644[m
+[1mindex 23b5d57..0000000[m
+[1m--- a/src/main/java/com/voidiscoming/common/component/PlayerSkillComponent.java[m
+[1m+++ /dev/null[m
+[36m@@ -1,110 +0,0 @@[m
+[31m-package com.voidiscoming.common.component;[m
+[31m-[m
+[31m-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;[m
+[31m-import net.minecraft.entity.player.PlayerEntity;[m
+[31m-import net.minecraft.nbt.NbtCompound;[m
+[31m-import net.minecraft.nbt.NbtElement;[m
+[31m-import net.minecraft.nbt.NbtList;[m
+[31m-import net.minecraft.nbt.NbtString;[m
+[31m-[m
+[31m-import java.util.ArrayList;[m
+[31m-import java.util.Arrays;[m
+[31m-import java.util.List;[m
+[31m-[m
+[31m-public class PlayerSkillComponent implements SkillComponent, AutoSyncedComponent {[m
+[31m-    private final PlayerEntity play
