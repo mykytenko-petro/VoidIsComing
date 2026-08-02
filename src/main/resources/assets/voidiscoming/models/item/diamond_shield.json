@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-      "layer0": "voidiscoming:item/diamond_shield"
-    }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "voidiscoming:item/diamond_shield"
   }
+}
