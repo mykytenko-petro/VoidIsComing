@@ -1,12 +1,15 @@
-package com.voidiscoming.common.skill;
+package com.voidiscoming.common.mechanic.spell;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class Skill {
+public abstract class Spell {
+
     public enum ResourceCostType {
         NONE(0xFFFFFF),
-        MANA(0x3366FF), // Темно-синій
-        HP(0xFF3333);   // Червоний
+        MANA(0x3366FF),
+        HP(0xFF3333);
 
         private final int color;
 
@@ -26,8 +29,7 @@ public class Skill {
     private final ResourceCostType costType;
     private final boolean isPassive;
 
-    // Активний скілл
-    public Skill(String id, String name, Identifier icon, int cost, ResourceCostType costType) {
+    public Spell(String id, String name, Identifier icon, int cost, ResourceCostType costType) {
         this.id = id;
         this.name = name;
         this.icon = icon;
@@ -36,8 +38,7 @@ public class Skill {
         this.isPassive = false;
     }
 
-    // Пасивний скілл
-    public Skill(String id, String name, Identifier icon) {
+    public Spell(String id, String name, Identifier icon) {
         this.id = id;
         this.name = name;
         this.icon = icon;
@@ -52,4 +53,9 @@ public class Skill {
     public int getCost() { return cost; }
     public ResourceCostType getCostType() { return costType; }
     public boolean isPassive() { return isPassive; }
+
+    public abstract void cast(PlayerEntity player);
+
+    public void onAttack(PlayerEntity attacker, Entity target) {
+    }
 }

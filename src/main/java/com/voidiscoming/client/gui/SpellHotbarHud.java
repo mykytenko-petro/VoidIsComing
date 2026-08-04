@@ -3,15 +3,16 @@ package com.voidiscoming.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
-import com.voidiscoming.common.component.SkillComponent;
-import com.voidiscoming.common.skill.ModSkills;
-import com.voidiscoming.common.skill.Skill;
+import com.voidiscoming.common.component.SpellComponent;
+import com.voidiscoming.common.mechanic.spell.ModSpells;
+import com.voidiscoming.common.mechanic.spell.Spell;
+
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
-public class SkillHotbarHud implements HudRenderCallback {
+public class SpellHotbarHud implements HudRenderCallback {
 
     private static final Identifier SLOT_TEXTURE = VoidIsComing.id("textures/gui/spellbar_cell.png");
 
@@ -21,8 +22,9 @@ public class SkillHotbarHud implements HudRenderCallback {
 
         if (client.player == null || client.options.hudHidden) return;
 
-        SkillComponent skillComponent = ModComponents.SKILLS.get(client.player);
-        String[] equipped = skillComponent.getEquippedSkills();
+        // Отримуємо компонент саме заклинань
+        SpellComponent spellComponent = ModComponents.SPELLS.get(client.player);
+        String[] equipped = spellComponent.getEquippedSpells();
 
         int slotSize = 18;
         int spacing = 2;
@@ -36,22 +38,19 @@ public class SkillHotbarHud implements HudRenderCallback {
 
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-        
+            // Малюємо слоти HUD
             context.drawTexture(SLOT_TEXTURE, startX, cellY, 0, 0, slotSize, slotSize, slotSize, slotSize);
 
-            // Хардкод 
-            String skillId = equipped[i];
-            if (i == 0 && skillId == null) skillId = "vampirism";
-            if (i == 1 && skillId == null) skillId = "heal";
+            String spellId = equipped[i];
 
-            
-            if (skillId != null && !skillId.isEmpty()) {
-                Skill skill = ModSkills.getById(skillId);
+            if (spellId != null && !spellId.isEmpty()) {
+                Spell spell = ModSpells.getById(spellId);
                 
-                if (skill != null) {
-                    if (skill.getIcon() != null) {
+                if (spell != null) {
+                    // Малюємо іконку заклинання
+                    if (spell.getIcon() != null) {
                         context.drawTexture(
-                            skill.getIcon(),
+                            spell.getIcon(),
                             startX + 1, cellY + 1,
                             0, 0,
                             16, 16,
@@ -59,9 +58,9 @@ public class SkillHotbarHud implements HudRenderCallback {
                         );
                     }
 
-                
-                    if (skill.getCost() > 0 && skill.getCostType() != Skill.ResourceCostType.NONE) {
-                        String costText = String.valueOf(skill.getCost());
+                    // Малюємо вартість (ману/ресурс)
+                    if (spell.getCost() > 0 && spell.getCostType() != Spell.ResourceCostType.NONE) {
+                        String costText = String.valueOf(spell.getCost());
                         
                         int textWidth = client.textRenderer.getWidth(costText);
                         int textX = startX + slotSize - textWidth - 1;
@@ -72,7 +71,7 @@ public class SkillHotbarHud implements HudRenderCallback {
                             costText, 
                             textX, 
                             textY, 
-                            skill.getCostType().getColor(), 
+                            spell.getCostType().getColor(), 
                             true
                         );
                     }

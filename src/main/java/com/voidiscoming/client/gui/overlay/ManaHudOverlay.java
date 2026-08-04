@@ -5,12 +5,12 @@ import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ManaComponent;
 import com.voidiscoming.common.component.ModComponents;
 
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
-import net.fabricmc.api.EnvType;
 
 @Environment(EnvType.CLIENT)
 public class ManaHudOverlay {
@@ -23,11 +23,16 @@ public class ManaHudOverlay {
             MinecraftClient client = MinecraftClient.getInstance();
 
             if (client.player == null || client.options.hudHidden) return;
-            if (!client.interactionManager.hasStatusBars()) return;
+            if (client.interactionManager != null && !client.interactionManager.hasStatusBars()) return;
 
             ManaComponent mana = ModComponents.MANA.get(client.player);
+            if (mana == null) return;
+
             float currentMana = mana.getMana();
             double maxMana = mana.getMaxMana();
+
+            // Якщо максимальна мана 0, не малюємо нічого або ставимо 20 за замовчуванням
+            if (maxMana <= 0) return;
 
             int width = client.getWindow().getScaledWidth();
             int height = client.getWindow().getScaledHeight();
