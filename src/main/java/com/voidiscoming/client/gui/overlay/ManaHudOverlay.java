@@ -2,8 +2,8 @@ package com.voidiscoming.client.gui.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.voidiscoming.common.VoidIsComing;
-import com.voidiscoming.common.component.ManaComponent;
 import com.voidiscoming.common.component.ModComponents;
+import com.voidiscoming.common.component.mana.ManaComponent;
 
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;

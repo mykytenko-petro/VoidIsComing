@@ -1,4 +1,4 @@
-package com.voidiscoming.common.component;
+package com.voidiscoming.common.component.mana;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;

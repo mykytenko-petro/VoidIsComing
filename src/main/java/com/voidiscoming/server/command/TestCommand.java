@@ -4,8 +4,8 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.command.argument.EntityArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.voidiscoming.common.component.ManaComponent;
 import com.voidiscoming.common.component.ModComponents;
+import com.voidiscoming.common.component.mana.ManaComponent;
 
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;

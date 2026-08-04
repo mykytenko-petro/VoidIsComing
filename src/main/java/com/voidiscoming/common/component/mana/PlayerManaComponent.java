@@ -1,5 +1,6 @@
-package com.voidiscoming.common.component;
+package com.voidiscoming.common.component.mana;
 
+import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.stat.PlayerStats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
