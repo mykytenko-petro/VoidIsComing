@@ -1,8 +1,8 @@
 package com.voidiscoming.client.renderer;
 
-import com.voidiscoming.common.entity.StoneGolemEntity;
-import com.voidiscoming.client.Model.StoneGolemModel;
-import com.voidiscoming.client.Model.ModModelLayers;
+import com.voidiscoming.common.entity.StoneGolem.StoneGolemEntity;
+import com.voidiscoming.client.model.StoneGolemModel;
+import com.voidiscoming.client.model.ModModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
@@ -29,6 +29,8 @@ public class StoneGolemRenderer extends MobEntityRenderer<StoneGolemEntity, Ston
     protected void setupTransforms(StoneGolemEntity entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta) {
         super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta);
 
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
+        matrices.translate(0.5f, 0.0f, -1.15f);
+
+         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180));
     }
 }

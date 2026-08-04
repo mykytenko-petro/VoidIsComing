@@ -1,4 +1,4 @@
-package com.voidiscoming.client.Model;
+package com.voidiscoming.client.model;
 
 import com.voidiscoming.common.VoidIsComing;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
