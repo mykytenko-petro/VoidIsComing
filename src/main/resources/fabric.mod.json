@@ -21,7 +21,7 @@
     "client": [
       "com.voidiscoming.client.VoidIsComingClient"
     ],
-    "cardinal-components-entity": [
+    "cardinal-components": [
       "com.voidiscoming.common.component.ModComponents"
     ]
   },
@@ -37,6 +37,7 @@
   "custom": {
     "cardinal-components": [
       "voidiscoming:mana",
+      "voidiscoming:spells",
       "voidiscoming:skills"
     ]
   }
