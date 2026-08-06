@@ -24,6 +24,7 @@ public class SpellHotbarHud implements HudRenderCallback {
 
         SpellComponent spellComponent = ModComponents.SPELLS.get(client.player);
         String[] equipped = spellComponent.getEquippedSpells();
+        long currentTime = client.player.getWorld().getTime();
 
         int slotSize = 18;
         int spacing = 2;
@@ -45,14 +46,41 @@ public class SpellHotbarHud implements HudRenderCallback {
                 Spell spell = ModSpells.getById(spellId);
                 
                 if (spell != null) {
+                    int iconX = startX + 1;
+                    int iconY = cellY + 1;
+                    int iconSize = 16;
+
                     if (spell.getIcon() != null) {
                         context.drawTexture(
                             spell.getIcon(),
-                            startX + 1, cellY + 1,
+                            iconX, iconY,
                             0, 0,
-                            16, 16,
-                            16, 16
+                            iconSize, iconSize,
+                            iconSize, iconSize
                         );
+                    }
+
+                    if (spellComponent.isOnCooldown(spellId)) {
+                        long cooldownEnd = spellComponent.getCooldownEnd(spellId);
+                        int totalCooldown = spellComponent.getTotalCooldownTicks(spellId);
+
+                        if (totalCooldown > 0) {
+                            long ticksLeft = cooldownEnd - currentTime;
+                            
+                            float progress = (float) ticksLeft / totalCooldown;
+                            if (progress > 1.0f) progress = 1.0f;
+                            if (progress < 0.0f) progress = 0.0f;
+
+                            int overlayHeight = (int) (iconSize * progress);
+
+                            context.fill(
+                                iconX,                  
+                                iconY + iconSize - overlayHeight,                  
+                                iconX + iconSize,       
+                                iconY + iconSize,  
+                                0x80FFFFFF              
+                            );
+                        }
                     }
 
                     if (spell.getCost() > 0 && spell.getCostType() != Spell.ResourceCostType.NONE) {

@@ -14,13 +14,10 @@ import net.minecraft.util.Identifier;
 public class VoidIsComing implements ModInitializer {
     public static final String MOD_ID = "voidiscoming";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
     public static final Identifier USE_SPELL_PACKET = id("use_spell");
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Initializing Void Is Coming...");
-
         ModMechanics.registerMechanics();
         ModCommands.registerCommands();
         ModEntities.registerModEntities();
