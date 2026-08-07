@@ -1,4 +1,4 @@
-package com.voidiscoming.common.mixin.gui;
+package com.voidiscoming.client.mixin.gui;
 
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import org.spongepowered.asm.mixin.Mixin;
