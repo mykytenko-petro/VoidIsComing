@@ -1,4 +1,4 @@
-package com.voidiscoming.common.mixin.player;
+package com.voidiscoming.mixin.common.player;
 
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;

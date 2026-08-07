@@ -2,10 +2,9 @@ package com.voidiscoming.common.mechanic.spell.impl;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.mana.ManaComponent;
-import com.voidiscoming.common.mechanic.spell.Spell;
 import com.voidiscoming.common.component.ModComponents;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
+import com.voidiscoming.common.component.spell.PlayerSpellComponent;
+import com.voidiscoming.common.mechanic.spell.Spell;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class HealSpell extends Spell {
@@ -15,36 +14,33 @@ public class HealSpell extends Spell {
             "heal", 
             "Healing", 
             VoidIsComing.id("textures/gui/spells/heal.png"), 
-            5, 
-            ResourceCostType.MANA
+            4, 
+            ResourceCostType.MANA,
+            80 
         );
     }
 
     @Override
     public void cast(PlayerEntity player) {
-        VoidIsComing.LOGGER.info(">>> HealSpell.cast() ВЖЕ ВИКЛИКАНО для гравця: " + player.getName().getString());
+        if (player.getWorld().isClient()) return;
 
-        if (player.getWorld().isClient()) {
-            VoidIsComing.LOGGER.info(">>> Це клієнт, виходимо.");
-            return;
-        }
+        ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
+            if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
+                if (playerSpellComp.isOnCooldown(getId())) {
+                    return;
+                }
+            }
 
-        ManaComponent mana = ModComponents.MANA.get(player);
-        VoidIsComing.LOGGER.info(">>> Поточна мана гравця: " + mana.getMana() + ", вартість спелу: " + getCost());
+            ManaComponent mana = ModComponents.MANA.get(player);
 
-        if (mana.getMana() >= getCost()) {
-            mana.removeMana(getCost());
-            VoidIsComing.LOGGER.info(">>> Ману знято успішно! Накладаємо ефект хіла.");
+            if (mana.getMana() >= getCost()) {
+                mana.removeMana(getCost());
 
-            player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.INSTANT_HEALTH, 
-                1, 
-                10,
-                false, 
-                true   
-            ));
-        } else {
-            VoidIsComing.LOGGER.info(">>> НЕ ВИСТАЧАЄ МАНИ!");
-        }
+                if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
+                    playerSpellComp.setCooldown(getId(), getCooldownTicks());
+                }
+                player.heal(2.0F);
+            }
+        });
     }
 }

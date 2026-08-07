@@ -12,4 +12,9 @@ public interface SpellComponent extends Component {
     String[] getEquippedSpells();
     void equipSpell(int slot, String spellId);
     void unequipSpell(int slot);
+
+    boolean isOnCooldown(String spellId);
+    long getCooldownEnd(String spellId);
+    int getTotalCooldownTicks(String spellId);
+    void setCooldown(String spellId, int ticks);
 }
