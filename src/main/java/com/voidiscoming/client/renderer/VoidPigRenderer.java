@@ -2,15 +2,12 @@ package com.voidiscoming.client.renderer;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.entity.VoidPigEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.PigEntityModel;
 import net.minecraft.util.Identifier;
 
-@Environment(EnvType.CLIENT)
 public class VoidPigRenderer extends MobEntityRenderer<VoidPigEntity, PigEntityModel<VoidPigEntity>> {
 
     private static final Identifier TEXTURE = new Identifier(VoidIsComing.MOD_ID, "textures/entity/pig.png");

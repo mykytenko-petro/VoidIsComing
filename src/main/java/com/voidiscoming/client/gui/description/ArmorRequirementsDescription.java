@@ -1,4 +1,4 @@
-package com.voidiscoming.client.description;
+package com.voidiscoming.client.gui.description;
 
 import com.voidiscoming.common.mechanic.level.ArmorLevelRestriction;
 

@@ -1,11 +1,11 @@
-package com.voidiscoming.client;
+package com.voidiscoming.client.keybind;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
-public class ModKeyBinds {
+public class ModKeyBindings {
     public static final String KEY_CATEGORY = "key.categories.voidiscoming";
 
     public static KeyBinding spell1Key;
@@ -13,7 +13,7 @@ public class ModKeyBinds {
     public static KeyBinding spell3Key;
     public static KeyBinding spell4Key;
 
-    public static void register() {
+    public static void registerBindings() {
         spell1Key = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.voidiscoming.spell_1",
             InputUtil.Type.KEYSYM,

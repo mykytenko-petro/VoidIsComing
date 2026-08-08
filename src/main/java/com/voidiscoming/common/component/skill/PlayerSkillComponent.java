@@ -1,6 +1,6 @@
 package com.voidiscoming.common.component.skill;
 
-import com.voidiscoming.common.mechanic.skill.SkillRegistry;
+import com.voidiscoming.common.mechanic.skill.ModSkills;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.skill.SkillEffectApplier;
 import com.voidiscoming.common.mechanic.skill.SkillNode;
@@ -47,7 +47,7 @@ public class PlayerSkillComponent implements SkillComponent {
     public boolean canUnlock(Identifier skillId) {
         if (hasUnlocked(skillId)) return false;
 
-        Optional<SkillNode> nodeOpt = SkillRegistry.get(skillId);
+        Optional<SkillNode> nodeOpt = ModSkills.get(skillId);
         if (nodeOpt.isEmpty()) return false;
         SkillNode node = nodeOpt.get();
 
@@ -61,7 +61,7 @@ public class PlayerSkillComponent implements SkillComponent {
     public boolean unlockSkill(Identifier skillId) {
         if (!canUnlock(skillId)) return false;
 
-        SkillNode node = SkillRegistry.get(skillId).get();
+        SkillNode node = ModSkills.get(skillId).get();
         this.skillPoints -= node.cost();
         this.unlockedSkills.add(skillId);
 

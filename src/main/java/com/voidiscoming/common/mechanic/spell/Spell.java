@@ -1,6 +1,6 @@
 package com.voidiscoming.common.mechanic.spell;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
@@ -63,6 +63,5 @@ public abstract class Spell {
     public int getCooldownTicks() { return cooldownTicks; } 
 
     public void cast(PlayerEntity player) {}
-
-    public void onAttack(PlayerEntity attacker, Entity target) {}
+    public void onKill(PlayerEntity attacker, LivingEntity target) {}
 }
