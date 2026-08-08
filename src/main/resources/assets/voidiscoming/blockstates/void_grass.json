@@ -1,7 +1,21 @@
 {
-    "variants": {
-      "": {
+  "variants": {
+    "": [
+      {
         "model": "voidiscoming:block/void_grass"
+      },
+      {
+        "model": "voidiscoming:block/void_grass",
+        "y": 90
+      },
+      {
+        "model": "voidiscoming:block/void_grass",
+        "y": 180
+      },
+      {
+        "model": "voidiscoming:block/void_grass",
+        "y": 270
       }
-    }
+    ]
   }
+}

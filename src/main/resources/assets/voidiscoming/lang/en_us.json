@@ -7,5 +7,6 @@
   "stat.voidiscoming.mana_regen": "Mana Regen",
   "stat.voidiscoming.attack_damage": "Attack",
   "stat.voidiscoming.speed": "Speed",
-  "stat.voidiscoming.armor": "Armor"
+  "stat.voidiscoming.armor": "Armor",
+  "block.voidiscoming.void_grass": "Void Grass"
 }

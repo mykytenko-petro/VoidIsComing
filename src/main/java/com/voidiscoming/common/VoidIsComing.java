@@ -24,7 +24,6 @@ public class VoidIsComing implements ModInitializer {
         ModMechanics.registerMechanics();
         ModCommands.registerCommands();
         ModEntities.registerModEntities();
-        ModItems.registerModItems();
         ModBlocks.initialize();
         
     }

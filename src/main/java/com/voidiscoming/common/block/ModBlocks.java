@@ -2,7 +2,9 @@ package com.voidiscoming.common.block;
 
 import com.voidiscoming.common.VoidIsComing;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -13,8 +15,8 @@ import net.minecraft.util.Identifier;
 public class ModBlocks {
 
     public static final Block VOID_GRASS = register(
-            "void_grass",
-            new VoidGrass(Block.Settings.create().strength(1.0f))
+        "void_grass",
+        new VoidGrass(FabricBlockSettings.copyOf(Blocks.GRASS_BLOCK))
     );
 
     private static Block register(String name, Block block) {

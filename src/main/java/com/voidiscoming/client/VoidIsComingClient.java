@@ -10,6 +10,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.color.world.GrassColors;
 
 @Environment(EnvType.CLIENT)
 public class VoidIsComingClient implements ClientModInitializer {
@@ -24,7 +25,11 @@ public class VoidIsComingClient implements ClientModInitializer {
             (state, world, pos, tintIndex) ->
                 world != null && pos != null
                     ? BiomeColors.getGrassColor(world, pos)
-                    : 0x91BD59,
+                    : GrassColors.getColor(0.5D, 1.0D),
+            ModBlocks.VOID_GRASS
+        );
+        ColorProviderRegistry.ITEM.register(
+            (stack, tintIndex) -> GrassColors.getColor(0.5D, 1.0D),
             ModBlocks.VOID_GRASS
         );
     }
