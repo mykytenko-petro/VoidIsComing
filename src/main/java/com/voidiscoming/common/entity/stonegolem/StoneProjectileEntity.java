@@ -1,4 +1,4 @@
-package com.voidiscoming.common.entity.StoneGolem;
+package com.voidiscoming.common.entity.stonegolem;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

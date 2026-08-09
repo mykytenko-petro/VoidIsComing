@@ -1,8 +1,8 @@
 package com.voidiscoming.common.entity;
 
 import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.entity.stonegolem.StoneGolemEntity;
 
-import com.voidiscoming.common.entity.StoneGolem.StoneGolemEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;

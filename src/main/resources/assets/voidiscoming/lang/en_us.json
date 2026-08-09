@@ -1,6 +1,7 @@
 {
   "entity.voidiscoming.void_pig": "Void Pig",
   "entity.voidiscoming.void_cow": "Void Cow",
+  "entity.voidiscoming.stone_golem": "Stone Golem",
 
   "stat.voidiscoming.max_health": "Max HP",
   "stat.voidiscoming.max_mana": "Max Mana",

@@ -1,4 +1,4 @@
-package com.voidiscoming.common.entity.StoneGolem;
+package com.voidiscoming.common.entity.stonegolem;
 
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
@@ -20,14 +20,14 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import com.voidiscoming.common.mechanic.entity.StoneGolemTrowMechanic;
-
 public class StoneGolemEntity extends HostileEntity {
 
     private static final TrackedData<Boolean> THROWING = DataTracker.registerData(StoneGolemEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> SLAMMING = DataTracker.registerData(StoneGolemEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState moveAnimationState = new AnimationState();
     public final AnimationState throwAnimationState = new AnimationState();
+    public final AnimationState slamAnimationState = new AnimationState();
 
     public int throwCooldown = 0;
     public StoneProjectileEntity activeProjectile;
@@ -46,6 +46,7 @@ public class StoneGolemEntity extends HostileEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(THROWING, false);
+        this.dataTracker.startTracking(SLAMMING, false);
     }
 
     public boolean isThrowing() {
@@ -56,15 +57,23 @@ public class StoneGolemEntity extends HostileEntity {
         this.dataTracker.set(THROWING, throwing);
     }
 
+    public boolean isSlamming() {
+        return this.dataTracker.get(SLAMMING);
+    }
+
+    public void setSlamming(boolean slamming) {
+        this.dataTracker.set(SLAMMING, slamming);
+    }
+
     @Override
     protected void initGoals() {
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-
-        this.goalSelector.add(1, new StoneGolemTrowMechanic(this));
-        this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2D, false));
-        this.goalSelector.add(3, new WanderAroundFarGoal(this, 0.8D));
-        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(5, new LookAroundGoal(this));
+        this.goalSelector.add(1, new StoneGolemGroundSlamMechanic(this));
+        this.goalSelector.add(2, new StoneGolemTrowMechanic(this));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 1.2D, false));
+        this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.8D));
+        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.add(6, new LookAroundGoal(this));
     }
 
     public static DefaultAttributeContainer.Builder createStoneGolemAttributes() {
@@ -105,16 +114,24 @@ public class StoneGolemEntity extends HostileEntity {
         }
 
         if (this.getWorld().isClient()) {
-            if (this.isThrowing()) {
+            if (this.isSlamming()) {
                 this.moveAnimationState.stop();
-                this.throwAnimationState.startIfNotRunning(this.age);
-            } else {
                 this.throwAnimationState.stop();
+                this.slamAnimationState.startIfNotRunning(this.age);
+            } else {
+                this.slamAnimationState.stop();
 
-                if (this.getVelocity().horizontalLengthSquared() > 0.001D) {
-                    this.moveAnimationState.startIfNotRunning(this.age);
-                } else {
+                if (this.isThrowing()) {
                     this.moveAnimationState.stop();
+                    this.throwAnimationState.startIfNotRunning(this.age);
+                } else {
+                    this.throwAnimationState.stop();
+
+                    if (this.getVelocity().horizontalLengthSquared() > 0.001D) {
+                        this.moveAnimationState.startIfNotRunning(this.age);
+                    } else {
+                        this.moveAnimationState.stop();
+                    }
                 }
             }
         }
@@ -142,5 +159,15 @@ public class StoneGolemEntity extends HostileEntity {
     public void setCustomName(@Nullable Text name) {
         super.setCustomName(name);
         this.bossBar.setName(this.getDisplayName());
+    }
+
+    @Override
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return false;
+    }
+
+    @Override
+    public boolean isPersistent() {
+        return true;
     }
 }
