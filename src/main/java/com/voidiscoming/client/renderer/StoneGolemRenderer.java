@@ -1,6 +1,6 @@
 package com.voidiscoming.client.renderer;
 
-import com.voidiscoming.common.entity.StoneGolem.StoneGolemEntity;
+import com.voidiscoming.common.entity.stoneGolem.StoneGolemEntity;
 import com.voidiscoming.client.model.StoneGolemModel;
 import com.voidiscoming.client.model.ModModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;

@@ -5,7 +5,7 @@ import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-public class StoneGolemAnimation {
+public class StoneGolemMoveAnimation {
 
     public static final Animation MOVE = Animation.Builder.create(0.7609F).looping()
             .addBoneAnimation("Right Legs", new Transformation(Transformation.Targets.ROTATE,

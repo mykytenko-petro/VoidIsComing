@@ -1,7 +1,7 @@
-package com.voidiscoming.common.mechanic.entityMechanick;
+package com.voidiscoming.common.mechanic.entityMechanick.stoneGolem;
 
-import com.voidiscoming.common.entity.StoneGolem.StoneGolemEntity;
-import com.voidiscoming.common.entity.StoneGolem.StoneProjectileEntity;
+import com.voidiscoming.common.entity.stoneGolem.StoneGolemEntity;
+import com.voidiscoming.common.entity.stoneGolem.StoneProjectileEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.item.ItemStack;
@@ -20,8 +20,6 @@ public class StoneGolemTrowMechanic extends Goal {
     private LivingEntity target;
     private int prepareTime = 0;
 
-    // Длительность анимации броска в тиках (25 тиков = 1.25 секунды).
-    // Подгони это число под реальную длину анимации в Blockbench, если нужно!
     private static final int THROW_DURATION = 25;
 
     public StoneGolemTrowMechanic(StoneGolemEntity golem) {
@@ -69,10 +67,9 @@ public class StoneGolemTrowMechanic extends Goal {
 
     @Override
     public void stop() {
-        // Выключаем анимацию только когда весь процесс полностью завершился
         this.golem.setThrowing(false);
         this.target = null;
-        this.golem.throwCooldown = 60; // Кулдаун до следующего броска
+        this.golem.throwCooldown = 60;
     }
 
     @Override
@@ -82,7 +79,6 @@ public class StoneGolemTrowMechanic extends Goal {
         this.golem.getLookControl().lookAt(this.target, 30.0F, 30.0F);
         this.prepareTime--;
 
-        // Выпускаем снаряд примерно на середине анимации (например, когда руки делают замах/бросок)
         if (this.prepareTime == 13) {
             World world = this.golem.getWorld();
 
