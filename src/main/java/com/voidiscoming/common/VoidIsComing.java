@@ -2,7 +2,6 @@ package com.voidiscoming.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.voidiscoming.common.entity.ModEntities;
 import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.common.mechanic.spell.ModSpells;
