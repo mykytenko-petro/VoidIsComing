@@ -174,8 +174,11 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
         if (this.unlockedSpells.isEmpty()) {
             this.unlockedSpells.add("vampirism");
             this.unlockedSpells.add("heal");
+            this.unlockedSpells.add("invisibility"); 
+            
             this.equippedSpells[0] = "vampirism";
             this.equippedSpells[1] = "heal";
+            this.equippedSpells[2] = "invisibility";
         }
     }
 }
