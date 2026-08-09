@@ -4,8 +4,6 @@ import com.voidiscoming.common.entity.stoneGolem.StoneGolemEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -76,8 +74,7 @@ public class StoneGolemGroundSlamMechanic extends Goal {
             World world = this.golem.getWorld();
             if (!world.isClient()) {
                 ServerWorld serverWorld = (ServerWorld) world;
-
-                // Звук удара
+                
                 serverWorld.playSound(
                         null,
                         this.golem.getBlockPos(),
@@ -116,7 +113,6 @@ public class StoneGolemGroundSlamMechanic extends Goal {
                     }
                 }
 
-                // Проверяем сущности в радиусе 10 блоков
                 Box box = this.golem.getBoundingBox().expand(10.0D, 3.0D, 10.0D);
                 List<LivingEntity> entities = serverWorld.getEntitiesByClass(LivingEntity.class, box, entity -> entity != this.golem);
 
@@ -128,7 +124,6 @@ public class StoneGolemGroundSlamMechanic extends Goal {
                     entity.damage(serverWorld.getDamageSources().mobAttack(this.golem), 14.0F);
                     entity.addVelocity(0.0D, 1.28D, 0.0D);
                     entity.velocityModified = typeCheck(entity);
-                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 260, 1), this.golem);
                 }
             }
         }
