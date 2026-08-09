@@ -13,6 +13,8 @@ public class ModKeyBindings {
     public static KeyBinding spell3Key;
     public static KeyBinding spell4Key;
 
+    public static KeyBinding skillKey;
+
     public static void registerBindings() {
         spell1Key = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.voidiscoming.spell_1",
@@ -39,6 +41,13 @@ public class ModKeyBindings {
             "key.voidiscoming.spell_4",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_V,
+            KEY_CATEGORY
+        ));
+
+        skillKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.voidiscoming.skill",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_K,
             KEY_CATEGORY
         ));
     }

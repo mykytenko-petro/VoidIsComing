@@ -3,7 +3,6 @@ package com.voidiscoming.common.mechanic.spell;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.spell.impl.HealSpell;
 import com.voidiscoming.common.mechanic.spell.impl.VampirismSpell;
