@@ -1,7 +1,5 @@
-package com.voidiscoming.common.mechanic.entity;
+package com.voidiscoming.common.entity.stonegolem;
 
-import com.voidiscoming.common.entity.StoneGolem.StoneGolemEntity;
-import com.voidiscoming.common.entity.StoneGolem.StoneProjectileEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.item.ItemStack;
@@ -67,10 +65,9 @@ public class StoneGolemTrowMechanic extends Goal {
 
     @Override
     public void stop() {
-        // Выключаем анимацию только когда весь процесс полностью завершился
         this.golem.setThrowing(false);
         this.target = null;
-        this.golem.throwCooldown = 60; // Кулдаун до следующего броска
+        this.golem.throwCooldown = 60;
     }
 
     @Override
@@ -80,7 +77,6 @@ public class StoneGolemTrowMechanic extends Goal {
         this.golem.getLookControl().lookAt(this.target, 30.0F, 30.0F);
         this.prepareTime--;
 
-        // Выпускаем снаряд примерно на середине анимации (например, когда руки делают замах/бросок)
         if (this.prepareTime == 13) {
             World world = this.golem.getWorld();
 

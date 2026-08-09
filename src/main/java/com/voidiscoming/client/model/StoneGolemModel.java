@@ -1,8 +1,10 @@
 package com.voidiscoming.client.model;
 
-import com.voidiscoming.client.animation.stoneGolem.StoneGolemAnimation;
-import com.voidiscoming.client.animation.stoneGolem.StoneGolemAnimations;
-import com.voidiscoming.common.entity.StoneGolem.StoneGolemEntity;
+import com.voidiscoming.client.animation.stoneGolem.StoneGolemMoveAnimation;
+import com.voidiscoming.client.animation.stoneGolem.StoneGolemSlamAnimation;
+import com.voidiscoming.client.animation.stoneGolem.StoneGolemTrowAnimation;
+import com.voidiscoming.common.entity.stonegolem.StoneGolemEntity;
+
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -57,11 +59,12 @@ public class StoneGolemModel<T extends StoneGolemEntity> extends SinglePartEntit
 
         this.root.yaw = -1.5707963F;
 
-        this.face.yaw = headYaw * 0.017453292F;
-        this.face.pitch = headPitch * 0.017453292F;
-        
-        this.updateAnimation(entity.throwAnimationState, StoneGolemAnimations.ATTACK_THROW, animationProgress);
-        this.updateAnimation(entity.moveAnimationState, StoneGolemAnimation.MOVE, animationProgress);
+//        this.face.yaw = headYaw * 0.017453292F;
+//        this.face.pitch = headPitch * 0.017453292F;
+
+        this.updateAnimation(entity.slamAnimationState, StoneGolemSlamAnimation.GROUND_SLAM, animationProgress);
+        this.updateAnimation(entity.throwAnimationState, StoneGolemTrowAnimation.ATTACK_THROW, animationProgress);
+        this.updateAnimation(entity.moveAnimationState, StoneGolemMoveAnimation.MOVE, animationProgress);
     }
 
     @Override
