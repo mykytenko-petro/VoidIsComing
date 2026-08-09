@@ -2,7 +2,7 @@ package com.voidiscoming.client.gui.overlay;
 
 import com.voidiscoming.client.gui.util.ModColors;
 import com.voidiscoming.common.mechanic.stat.PlayerStats;
-import com.voidiscoming.common.mixin.gui.HandledScreenAccessor;
+import com.voidiscoming.mixin.client.gui.HandledScreenAccessor;
 
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.minecraft.client.MinecraftClient;

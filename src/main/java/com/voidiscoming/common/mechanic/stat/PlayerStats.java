@@ -48,4 +48,6 @@ public enum PlayerStats {
         var instance = player.getAttributeInstance(attribute);
         return instance != null ? instance.getValue() : 0.0;
     }
+
+
 }

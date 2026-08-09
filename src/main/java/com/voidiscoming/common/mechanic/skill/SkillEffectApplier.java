@@ -1,7 +1,7 @@
 package com.voidiscoming.common.mechanic.skill;
 
-import com.voidiscoming.common.component.ModComponents;
-import com.voidiscoming.common.component.skill.SkillComponent;
+// import com.voidiscoming.common.component.ModComponents;
+// import com.voidiscoming.common.component.skill.SkillComponent;
 // import com.voidiscoming.common.mechanic.stat.PlayerStatApplier;
 import net.minecraft.server.network.ServerPlayerEntity;
 

@@ -5,18 +5,20 @@ import com.voidiscoming.common.component.mana.ManaComponent;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.spell.PlayerSpellComponent;
 import com.voidiscoming.common.mechanic.spell.Spell;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class HealSpell extends Spell {
+public class InvisibilitySpell extends Spell {
 
-    public HealSpell() {
+    public InvisibilitySpell() {
         super(
-            "heal", 
-            "Healing", 
-            VoidIsComing.id("textures/gui/spells/heal.png"), 
-            4, 
+            "invisibility", 
+            "Невидимість", 
+            VoidIsComing.id("textures/gui/spells/invisibility.png"), 
+            15, 
             ResourceCostType.MANA,
-            80 
+            2400
         );
     }
 
@@ -39,7 +41,24 @@ public class HealSpell extends Spell {
                 if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
                     playerSpellComp.setCooldown(getId(), getCooldownTicks());
                 }
-                player.heal(2.0F);
+
+               
+                player.addStatusEffect(new StatusEffectInstance(
+                    StatusEffects.INVISIBILITY, 
+                    1200, 
+                    0, 
+                    false, 
+                    false 
+                ));
+
+                
+                player.addStatusEffect(new StatusEffectInstance(
+                    StatusEffects.SPEED, 
+                    120, 
+                    1, 
+                    false, 
+                    false 
+                ));
             }
         });
     }

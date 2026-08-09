@@ -5,14 +5,11 @@ import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.mana.ManaComponent;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
-@Environment(EnvType.CLIENT)
 public class ManaHudOverlay {
     private static final Identifier MANA_FULL = VoidIsComing.id("textures/gui/mana_full.png");
     private static final Identifier MANA_HALF = VoidIsComing.id("textures/gui/mana_half.png");

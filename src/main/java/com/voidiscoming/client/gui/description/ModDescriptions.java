@@ -1,4 +1,4 @@
-package com.voidiscoming.client.description;
+package com.voidiscoming.client.gui.description;
 
 public class ModDescriptions {
     public static void init() {

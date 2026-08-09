@@ -3,12 +3,9 @@ package com.voidiscoming.client.renderer;
 import com.voidiscoming.client.model.ModModelLayers;
 import com.voidiscoming.client.model.StoneGolemModel;
 import com.voidiscoming.common.entity.ModEntities;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 
-@Environment(EnvType.CLIENT)
 public class ModRenderers {
     public static void registerRenderers() {
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.STONE_GOLEM, StoneGolemModel::getTexturedModelData);

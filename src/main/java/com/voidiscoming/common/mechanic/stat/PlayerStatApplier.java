@@ -1,5 +1,7 @@
 package com.voidiscoming.common.mechanic.stat;
 
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -40,5 +42,15 @@ public class PlayerStatApplier {
         syncPlayerStats(player);
 
         player.setHealth(player.getMaxHealth());
+    }
+
+    public static void registerEvents() {
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            syncPlayerStats(handler.getPlayer());
+        });
+
+        ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+            onSpawn(newPlayer);
+        });
     }
 }
