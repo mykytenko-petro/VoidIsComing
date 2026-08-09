@@ -11,7 +11,6 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-
 public class ModEntities {
 
     public static final EntityType<VoidPigEntity> VOID_PIG = registerMob(
@@ -19,14 +18,23 @@ public class ModEntities {
         FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidPigEntity::new)
             .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
     );
-    
+
     public static final EntityType<VoidCowEntity> VOID_COW = registerMob(
         "void_cow",
         FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidCowEntity::new)
             .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
     );
 
-    private static <T extends Entity> EntityType<T> registerMob(String name, FabricEntityTypeBuilder<T> builder) {
+    public static final EntityType<VoidSheepEntity> VOID_SHEEP = registerMob(
+        "void_sheep",
+        FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidSheepEntity::new)
+            .dimensions(EntityDimensions.fixed(0.9F, 1.3F))
+    );
+
+    private static <T extends Entity> EntityType<T> registerMob(
+            String name,
+            FabricEntityTypeBuilder<T> builder
+    ) {
         return Registry.register(
             Registries.ENTITY_TYPE,
             VoidIsComing.id(name),
@@ -35,9 +43,19 @@ public class ModEntities {
     }
 
     public static void registerModEntities() {
-        FabricDefaultAttributeRegistry.register(VOID_PIG, VoidPigEntity.createVoidPigAttributes());
-        FabricDefaultAttributeRegistry.register(VOID_COW, VoidCowEntity.createVoidCowAttributes());
-    }
+        FabricDefaultAttributeRegistry.register(
+            VOID_PIG,
+            VoidPigEntity.createVoidPigAttributes()
+        );
 
- 
+        FabricDefaultAttributeRegistry.register(
+            VOID_COW,
+            VoidCowEntity.createVoidCowAttributes()
+        );
+
+        FabricDefaultAttributeRegistry.register(
+            VOID_SHEEP,
+            VoidSheepEntity.createVoidSheepAttributes()
+        );
+    }
 }
