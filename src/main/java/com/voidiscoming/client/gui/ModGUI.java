@@ -6,6 +6,7 @@ import com.voidiscoming.client.gui.description.ModDescriptions;
 import com.voidiscoming.client.gui.overlay.InventoryStatOverlay;
 import com.voidiscoming.client.gui.overlay.ManaHudOverlay;
 import com.voidiscoming.client.gui.overlay.SpellHotbarHud;
+import com.voidiscoming.client.gui.screen.skill.SkillNodeDisplayRegistry;
 
 public class ModGUI {
     public static void init() {
@@ -13,5 +14,6 @@ public class ModGUI {
         ManaHudOverlay.init();
         HudRenderCallback.EVENT.register(new SpellHotbarHud());
         ModDescriptions.init();
+        SkillNodeDisplayRegistry.registerNodes();
     }
 }

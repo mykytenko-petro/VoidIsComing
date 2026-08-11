@@ -14,7 +14,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 public class PlayerSkillComponent implements SkillComponent {
@@ -47,9 +46,7 @@ public class PlayerSkillComponent implements SkillComponent {
     public boolean canUnlock(Identifier skillId) {
         if (hasUnlocked(skillId)) return false;
 
-        Optional<SkillNode> nodeOpt = ModSkills.get(skillId);
-        if (nodeOpt.isEmpty()) return false;
-        SkillNode node = nodeOpt.get();
+        SkillNode node = ModSkills.get(skillId);
 
         if (skillPoints < node.cost()) return false;
         if (node.isRoot()) return true;
@@ -61,7 +58,7 @@ public class PlayerSkillComponent implements SkillComponent {
     public boolean unlockSkill(Identifier skillId) {
         if (!canUnlock(skillId)) return false;
 
-        SkillNode node = ModSkills.get(skillId).get();
+        SkillNode node = ModSkills.get(skillId);
         this.skillPoints -= node.cost();
         this.unlockedSkills.add(skillId);
 

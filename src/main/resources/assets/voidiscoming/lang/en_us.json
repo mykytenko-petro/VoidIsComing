@@ -8,5 +8,12 @@
   "stat.voidiscoming.mana_regen": "Mana Regen",
   "stat.voidiscoming.attack_damage": "Attack",
   "stat.voidiscoming.speed": "Speed",
-  "stat.voidiscoming.armor": "Armor"
+  "stat.voidiscoming.armor": "Armor",
+
+  "gui.voidiscoming.equip": "equip",
+  "gui.voidiscoming.upgrade": "upgarde",
+
+  "skill_name.voidiscoming.heal_spell": "Heal spell",
+
+  "skill_description.voidiscoming.heal_spell": "(Spell) just classic heal"
 }
