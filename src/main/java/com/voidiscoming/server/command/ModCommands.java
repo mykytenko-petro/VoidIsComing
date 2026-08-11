@@ -6,9 +6,10 @@ public class ModCommands {
     public static void registerCommands() {
         CommandRegistrationCallback.EVENT.register(
             (dispatcher, registryAccess, environment) -> {
-                // Реєструємо тестові команди та інші майбутні команди сервера
+            
                 TestCommand.register(dispatcher);
                 SpellDebugCommand.register(dispatcher, registryAccess, environment);
+                SkillPointsCommand.register(dispatcher);
             }
         );
     }

@@ -11,7 +11,12 @@ public class SkillNodeDisplayRegistry {
 
     public static void registerNodes() {
         skillNodes = new ArrayList<>();
-
-        skillNodes.add(new SkillNodeDisplay(ModSkills.HEAL_SPELL, 0, 0, "heal_spell", VoidIsComing.id("textures/gui/skills/heal.png")));
+        skillNodes.add(new SkillNodeDisplay(
+            ModSkills.HEAL_SKILL, 
+            0, 
+            0, 
+            "heal_spell", 
+            VoidIsComing.id("textures/gui/skills/heal.png")
+        ));
     }
 }

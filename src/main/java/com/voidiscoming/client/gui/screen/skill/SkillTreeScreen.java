@@ -1,10 +1,15 @@
 package com.voidiscoming.client.gui.screen.skill;
 
 import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.mechanic.skill.ModSkills;
+import com.voidiscoming.common.mechanic.skill.SkillType;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -38,16 +43,40 @@ public class SkillTreeScreen extends Screen {
         int panelX = (this.width - panelWidth) / 2;
         int panelY = this.height - panelHeight - 10;
 
+        // Кнопка купівлі/розблокування скілла
         this.upgradeButton = ButtonWidget.builder(
             Text.translatable("gui.voidiscoming.upgrade"),
-            button -> {}
+            button -> {
+                if (selectedNode != null && this.client != null && this.client.player != null) {
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeIdentifier(selectedNode.getSkillId());
+
+                    // Відправляємо пакет на сервер для розблокування вузла
+                    ClientPlayNetworking.send(VoidIsComing.id("unlock_skill_packet"), buf);
+                }
+            }
         )
         .dimensions(panelX + panelWidth - 80, panelY + panelHeight - 25, 75, 20)
         .build();
 
+        // Кнопка екіпірування спелла (якщо вузол типу SPELL)
         this.equipButton = ButtonWidget.builder(
             Text.translatable("gui.voidiscoming.equip"),
-            button -> {}
+            button -> {
+                if (selectedNode != null && this.client != null && this.client.player != null) {
+                    var nodeData = ModSkills.get(selectedNode.getSkillId());
+                    if (nodeData != null && nodeData.type() == SkillType.SPELL) {
+                        nodeData.spellId().ifPresent(spellId -> {
+                            PacketByteBuf buf = PacketByteBufs.create();
+                            buf.writeInt(0); // Слот 0 за замовчуванням (або можна розширити вибір)
+                            buf.writeIdentifier(spellId);
+
+                            // Відправляємо пакет екіпірування на сервер
+                            ClientPlayNetworking.send(VoidIsComing.id("spell_equip_packet"), buf);
+                        });
+                    }
+                }
+            }
         )
         .dimensions(panelX + panelWidth - 160, panelY + panelHeight - 25, 75, 20)
         .build();
@@ -89,7 +118,7 @@ public class SkillTreeScreen extends Screen {
                 if (node.isMouseOver(mouseX, mouseY, originX, originY)) {                    
                     if (node == selectedNode) {
                         selectedNode = null;
-
+                        updateButtonVisibility();
                         return true;
                     }
 
@@ -183,5 +212,4 @@ public class SkillTreeScreen extends Screen {
         this.upgradeButton.visible = show;
         this.equipButton.visible = show;
     }
-
 }

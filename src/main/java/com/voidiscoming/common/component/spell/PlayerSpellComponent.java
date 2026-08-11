@@ -38,6 +38,14 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
     public void equipSpell(int slot, Identifier spellId) {
         // Перевіряємо валідність слота та чи існує взагалі такий скілл у реєстрі мода
         if (slot >= 0 && slot < equippedSpells.length && spellId != null && ModSpells.getById(spellId) != null) {
+            
+            // Перевіряємо через компонент скіллів, чи вивчено цей спелл у дереві навичок
+            boolean isUnlocked = ModComponents.SKILLS.maybeGet(player)
+                .map(skills -> skills.hasUnlockedSpell(spellId))
+                .orElse(false);
+
+            if (!isUnlocked) return; // Якщо не розблоковано в скіллтрі — скасовуємо екіпірування
+
             // Якщо цей скілл вже стоїть в іншому слоті — спочатку зануляємо його там
             for (int i = 0; i < equippedSpells.length; i++) {
                 if (spellId.equals(equippedSpells[i])) {
@@ -133,7 +141,6 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
                 this.equippedSpells[i] = (str == null || str.isEmpty()) ? null : Identifier.tryParse(str);
             }
         }
-
 
         if (tag.contains("SpellCooldownEnds", NbtElement.COMPOUND_TYPE)) {
             NbtCompound cooldownEndTag = tag.getCompound("SpellCooldownEnds");
