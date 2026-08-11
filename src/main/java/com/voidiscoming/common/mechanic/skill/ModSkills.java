@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import net.minecraft.util.Identifier;
 
-public class SkillRegistry {
+public class ModSkills {
     private static final Map<Identifier, SkillNode> SKILLS = new HashMap<>();
 
     // Sample Skill Identifiers
@@ -29,5 +29,9 @@ public class SkillRegistry {
 
     public static Collection<SkillNode> getAll() {
         return SKILLS.values();
+    }
+
+    public static void registerEvents() {
+        
     }
 }

@@ -15,11 +15,8 @@ public class VampirismSpell extends Spell {
         );
     }
 
-public void onKill(PlayerEntity player, LivingEntity killedEntity) {
-        if (player.getWorld().isClient()) return;
+    @Override
+    public void onKill(PlayerEntity player, LivingEntity killedEntity) {
         player.heal(1F);
-        
-        VoidIsComing.LOGGER.info("Гравець " + player.getName().getString() + " вбив ціль і зцілився завдяки вампіризму!");
-        
-        }
     }
+}
