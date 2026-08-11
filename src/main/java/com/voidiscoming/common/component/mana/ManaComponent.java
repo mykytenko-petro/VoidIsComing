@@ -1,9 +1,8 @@
 package com.voidiscoming.common.component.mana;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
 
-public interface ManaComponent extends AutoSyncedComponent, CommonTickingComponent {
+public interface ManaComponent extends AutoSyncedComponent{
     float getMana();
     void setMana(float mana);
     void addMana(double amount);
