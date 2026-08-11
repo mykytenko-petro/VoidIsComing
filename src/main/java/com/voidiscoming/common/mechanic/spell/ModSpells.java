@@ -1,6 +1,8 @@
 package com.voidiscoming.common.mechanic.spell;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.voidiscoming.common.component.ModComponents;
@@ -10,9 +12,10 @@ import com.voidiscoming.common.mechanic.spell.impl.VampirismSpell;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 
 public class ModSpells {
-    private static final Map<String, Spell> SPELLS = new HashMap<>();
+    private static final Map<Identifier, Spell> SPELLS = new HashMap<>();
 
     public static final HealSpell HEAL = new HealSpell();
     public static final VampirismSpell VAMPIRISM = new VampirismSpell();
@@ -28,18 +31,25 @@ public class ModSpells {
         SPELLS.put(spell.getId(), spell);
     }
 
-    public static Spell getById(String id) {
+    public static Spell getById(Identifier id) {
         return SPELLS.get(id);
+    }
+
+    public static List<Identifier> getAllSpellIds() {
+        return new ArrayList<>(SPELLS.keySet());
     }
 
     public static void registerEvents() {
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
             if (damageSource.getAttacker() instanceof ServerPlayerEntity player) {
+                // Використовуємо .ifPresent напряму з SpellComponent
                 ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
-                    for (String spellId : spellComp.getEquippedSpells()) {
-                        Spell spell = ModSpells.getById(spellId);
-                        if (spell != null) {
-                            spell.onKill(player, entity); 
+                    for (Identifier spellId : spellComp.getEquippedSpells()) {
+                        if (spellId != null) {
+                            Spell spell = ModSpells.getById(spellId);
+                            if (spell != null) {
+                                spell.onKill(player, entity); 
+                            }
                         }
                     }
                 });

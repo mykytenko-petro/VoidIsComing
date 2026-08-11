@@ -9,6 +9,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 
 public class CastSpellReceiver {
 
@@ -22,13 +23,20 @@ public class CastSpellReceiver {
         int slotIndex = buf.readInt();
 
         server.execute(() -> {
+            if (player == null || player.isRemoved()) return;
+
             ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
-                String[] equipped = spellComp.getEquippedSpells();
+                Identifier[] equipped = spellComp.getEquippedSpells();
                 
-                if (slotIndex >= 0 && slotIndex < equipped.length) {
-                    String spellId = equipped[slotIndex];
+                
+                if (equipped == null || (equipped.length > 0 && equipped[0] == null && spellComp.getUnlockedSpells().isEmpty())) {
+                    equipped = spellComp.getEquippedSpells();
+                }
+
+                if (equipped != null && slotIndex >= 0 && slotIndex < equipped.length) {
+                    Identifier spellId = equipped[slotIndex];
                     
-                    if (spellId != null && !spellId.isEmpty()) {
+                    if (spellId != null) {
                         Spell spell = ModSpells.getById(spellId);
                         
                         if (spell != null && !spell.isPassive()) {

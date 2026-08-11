@@ -11,8 +11,7 @@ public class HealSpell extends Spell {
 
     public HealSpell() {
         super(
-            "heal", 
-            "Healing", 
+            VoidIsComing.id("heal"), // Identifier замість рядка
             VoidIsComing.id("textures/gui/spells/heal.png"), 
             4, 
             ResourceCostType.MANA,
