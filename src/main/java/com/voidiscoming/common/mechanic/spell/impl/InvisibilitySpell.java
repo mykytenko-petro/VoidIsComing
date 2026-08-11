@@ -13,8 +13,7 @@ public class InvisibilitySpell extends Spell {
 
     public InvisibilitySpell() {
         super(
-            "invisibility", 
-            "Невидимість", 
+            VoidIsComing.id("invisibility"), // Identifier замість рядка
             VoidIsComing.id("textures/gui/spells/invisibility.png"), 
             15, 
             ResourceCostType.MANA,
@@ -27,38 +26,37 @@ public class InvisibilitySpell extends Spell {
         if (player.getWorld().isClient()) return;
 
         ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
+            // spellComp уже є PlayerSpellComponent, тому зайвий instanceof прибрано
             if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
                 if (playerSpellComp.isOnCooldown(getId())) {
                     return;
                 }
-            }
 
-            ManaComponent mana = ModComponents.MANA.get(player);
+                ManaComponent mana = ModComponents.MANA.get(player);
 
-            if (mana.getMana() >= getCost()) {
-                mana.removeMana(getCost());
+                if (mana.getMana() >= getCost()) {
+                    mana.removeMana(getCost());
 
-                if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
                     playerSpellComp.setCooldown(getId(), getCooldownTicks());
+
+                    // Невидимість на 1 хвилину
+                    player.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.INVISIBILITY, 
+                        1200, 
+                        0, 
+                        false, 
+                        false 
+                    ));
+
+                    // Швидкість
+                    player.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.SPEED, 
+                        120, 
+                        1, 
+                        false, 
+                        false 
+                    ));
                 }
-
-               
-                player.addStatusEffect(new StatusEffectInstance(
-                    StatusEffects.INVISIBILITY, 
-                    1200, 
-                    0, 
-                    false, 
-                    false 
-                ));
-
-                
-                player.addStatusEffect(new StatusEffectInstance(
-                    StatusEffects.SPEED, 
-                    120, 
-                    1, 
-                    false, 
-                    false 
-                ));
             }
         });
     }

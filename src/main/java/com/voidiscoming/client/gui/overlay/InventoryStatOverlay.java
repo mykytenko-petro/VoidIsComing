@@ -37,13 +37,13 @@ public class InventoryStatOverlay {
         int x = inventoryX - width - 5;
         int y = inventoryY;
 
-        context.fill(x, y, x + width, y + height, ModColors.Eminence90);
-        context.drawBorder(x, y, width, height, ModColors.AttractivePurple90);
+        context.fill(x, y, x + width, y + height, ModColors.EMINENCE_90);
+        context.drawBorder(x, y, width, height, ModColors.ATTRACTIVE_PURPLE_90);
 
         context
             .drawText(client.textRenderer, Text.literal("PLAYER STATS")
             .formatted(Formatting.DARK_PURPLE, Formatting.BOLD), x + 8, y + 8, 0xFFFFFF, true);
-        context.fill(x + 6, y + 20, x + width - 6, y + 21, ModColors.AttractivePurple90);
+        context.fill(x + 6, y + 20, x + width - 6, y + 21, ModColors.ATTRACTIVE_PURPLE_90);
 
         int currentY = y + 26;
         int lineSpacing = 12;

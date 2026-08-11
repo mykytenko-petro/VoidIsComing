@@ -1,0 +1,187 @@
+package com.voidiscoming.client.gui.screen.skill;
+
+import com.voidiscoming.common.VoidIsComing;
+
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+
+public class SkillTreeScreen extends Screen {
+    private int centerX;
+    private int centerY;
+    private int originDeltaX = 0;
+    private int originDeltaY = 0;
+
+    private final int panelWidth = 240;
+    private final int panelHeight = 60;
+
+    private ButtonWidget upgradeButton;
+    private ButtonWidget equipButton;
+
+    private final Identifier SKILL_POINT_TEXTURE = VoidIsComing.id("textures/gui/skills/skill_point.png");
+
+    private SkillNodeDisplay selectedNode = null;
+
+    public SkillTreeScreen() {
+        super(Text.translatable("gui.voidiscoming.skill_tree_title"));
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+
+        centerX = this.width / 2 - 12;
+        centerY = this.height / 2 - 12;
+        
+        int panelX = (this.width - panelWidth) / 2;
+        int panelY = this.height - panelHeight - 10;
+
+        this.upgradeButton = ButtonWidget.builder(
+            Text.translatable("gui.voidiscoming.upgrade"),
+            button -> {}
+        )
+        .dimensions(panelX + panelWidth - 80, panelY + panelHeight - 25, 75, 20)
+        .build();
+
+        this.equipButton = ButtonWidget.builder(
+            Text.translatable("gui.voidiscoming.equip"),
+            button -> {}
+        )
+        .dimensions(panelX + panelWidth - 160, panelY + panelHeight - 25, 75, 20)
+        .build();
+
+        // Register buttons with screen
+        this.addDrawableChild(this.upgradeButton);
+        this.addDrawableChild(this.equipButton);
+
+        updateButtonVisibility();
+    }
+
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
+
+        int originX = centerX + originDeltaX;
+        int originY = centerY + originDeltaY;
+
+        for (SkillNodeDisplay node : SkillNodeDisplayRegistry.skillNodes) {
+            node.render(
+                context,
+                mouseX, mouseY,
+                originX, originY
+            );
+        }
+
+        if (selectedNode != null) {
+            renderDescriptionPanel(context, selectedNode);
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0) {
+            int originX = centerX + originDeltaX;
+            int originY = centerY + originDeltaY;
+
+            for (SkillNodeDisplay node : SkillNodeDisplayRegistry.skillNodes) {
+                if (node.isMouseOver(mouseX, mouseY, originX, originY)) {                    
+                    if (node == selectedNode) {
+                        selectedNode = null;
+
+                        return true;
+                    }
+
+                    selectedNode = node;
+                    updateButtonVisibility();
+
+                    return true;
+                }
+            }
+
+            if (super.mouseClicked(mouseX, mouseY, button)) {
+                return true;
+            }
+
+            selectedNode = null;
+            updateButtonVisibility();
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        if (button == 0) {
+            this.originDeltaX += (int) deltaX;
+            this.originDeltaY += (int) deltaY;
+
+            return true;
+        }
+        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+    }
+
+    private void renderDescriptionPanel(DrawContext context, SkillNodeDisplay node) {
+        int panelX = (this.width - panelWidth) / 2;
+        int panelY = this.height - panelHeight - 10;
+
+        context.fill(panelX, panelY, panelX + panelWidth, panelY + panelHeight, 0xD0101010);
+        context.drawBorder(panelX, panelY, panelWidth, panelHeight, 0xFF4A4A4A);
+
+        Text titleText = Text.translatable("skill_name.voidiscoming." + node.translationKeyName);
+        context.drawText(
+            this.textRenderer,
+            titleText,
+            panelX + 5, panelY + 5,
+            0xFFFFAA00,
+            true
+        );
+
+        Text descText = Text.translatable("skill_description.voidiscoming." + node.translationKeyName);
+        int maxTextWidth = panelWidth - 46;
+
+        var wrappedLines = this.textRenderer.wrapLines(descText, maxTextWidth);
+        
+        int lineY = panelY + 15;
+        int maxLines = 3;
+        
+        for (int i = 0; i < Math.min(wrappedLines.size(), maxLines); i++) {
+            context.drawText(
+                this.textRenderer,
+                wrappedLines.get(i),
+                panelX + 5,
+                lineY,
+                0xFFAAAAAA,
+                true
+            );
+            lineY += this.textRenderer.fontHeight + 1;
+        }
+
+        // cost
+        Text costText = Text.literal(String.valueOf(node.getCost()));
+
+        context.drawText(
+            this.textRenderer,
+            costText,
+            panelX + panelWidth - 18 - textRenderer.getWidth(costText), panelY + 8,
+            0xFFFFAA00,
+            true
+        );
+
+        context.drawTexture(
+            SKILL_POINT_TEXTURE,
+            panelX + panelWidth - 17, panelY + 5,
+            0, 0, 
+            12, 12,
+            12, 12
+        );
+    }
+
+    private void updateButtonVisibility() {
+        boolean show = (selectedNode != null);
+        
+        this.upgradeButton.visible = show;
+        this.equipButton.visible = show;
+    }
+
+}
