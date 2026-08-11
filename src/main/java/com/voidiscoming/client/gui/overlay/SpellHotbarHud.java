@@ -1,6 +1,5 @@
 package com.voidiscoming.client.gui.overlay;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.spell.SpellComponent;
@@ -23,7 +22,7 @@ public class SpellHotbarHud implements HudRenderCallback {
         if (client.player == null || client.options.hudHidden) return;
 
         SpellComponent spellComponent = ModComponents.SPELLS.get(client.player);
-        String[] equipped = spellComponent.getEquippedSpells();
+        Identifier[] equipped = spellComponent.getEquippedSpells(); // Тепер тут Identifier[]
         long currentTime = client.player.getWorld().getTime();
 
         int slotSize = 18;
@@ -36,14 +35,13 @@ public class SpellHotbarHud implements HudRenderCallback {
         for (int i = 0; i < 4; i++) {
             int cellY = startY + i * (slotSize + spacing);
 
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
+            // Рендеримо фон комірки
             context.drawTexture(SLOT_TEXTURE, startX, cellY, 0, 0, slotSize, slotSize, slotSize, slotSize);
 
-            String spellId = equipped[i];
+            Identifier spellId = equipped[i]; // Отримуємо Identifier скілла
 
-            if (spellId != null && !spellId.isEmpty()) {
-                Spell spell = ModSpells.getById(spellId);
+            if (spellId != null) {
+                Spell spell = ModSpells.getById(spellId); // Пошук у мапі за Identifier
                 
                 if (spell != null) {
                     int iconX = startX + 1;
@@ -62,7 +60,7 @@ public class SpellHotbarHud implements HudRenderCallback {
 
                     if (spellComponent.isOnCooldown(spellId)) {
                         long cooldownEnd = spellComponent.getCooldownEnd(spellId);
-                        int totalCooldown = spellComponent.getTotalCooldownTicks(spellId);
+                        long totalCooldown = spellComponent.getTotalCooldownTicks(spellId);
 
                         if (totalCooldown > 0) {
                             long ticksLeft = cooldownEnd - currentTime;
@@ -74,8 +72,8 @@ public class SpellHotbarHud implements HudRenderCallback {
                             int overlayHeight = (int) (iconSize * progress);
 
                             context.fill(
-                                iconX,                  
-                                iconY + iconSize - overlayHeight,                  
+                                iconX,                     
+                                iconY + iconSize - overlayHeight,                      
                                 iconX + iconSize,       
                                 iconY + iconSize,  
                                 0x80FFFFFF              

@@ -22,17 +22,15 @@ public abstract class Spell {
         }
     }
 
-    private final String id;
-    private final String name;
+    private final Identifier id;
     private final Identifier icon;
     private final int cost;
     private final ResourceCostType costType;
     private final boolean isPassive;
     private final int cooldownTicks; 
 
-    public Spell(String id, String name, Identifier icon, int cost, ResourceCostType costType, int cooldownTicks) {
+    public Spell(Identifier id, Identifier icon, int cost, ResourceCostType costType, int cooldownTicks) {
         this.id = id;
-        this.name = name;
         this.icon = icon;
         this.cost = cost;
         this.costType = costType;
@@ -40,13 +38,12 @@ public abstract class Spell {
         this.cooldownTicks = cooldownTicks;
     }
  
-    public Spell(String id, String name, Identifier icon, int cost, ResourceCostType costType) {
-        this(id, name, icon, cost, costType, 0);
+    public Spell(Identifier id, Identifier icon, int cost, ResourceCostType costType) {
+        this(id, icon, cost, costType, 0);
     }
-  
-    public Spell(String id, String name, Identifier icon) {
+ 
+    public Spell(Identifier id, Identifier icon) {
         this.id = id;
-        this.name = name;
         this.icon = icon;
         this.cost = 0;
         this.costType = ResourceCostType.NONE;
@@ -54,8 +51,12 @@ public abstract class Spell {
         this.cooldownTicks = 0;
     }
 
-    public String getId() { return id; }
-    public String getName() { return name; }
+    public Identifier getId() { return id; }
+
+    public String getTranslationKey() {
+        return "spell." + id.getNamespace() + "." + id.getPath();
+    }
+
     public Identifier getIcon() { return icon; }
     public int getCost() { return cost; }
     public ResourceCostType getCostType() { return costType; }
