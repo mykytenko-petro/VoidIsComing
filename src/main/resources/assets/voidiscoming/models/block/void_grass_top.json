@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_top",
+    "textures": {
+      "top": "voidiscoming:block/void_grass_block_top"
+    }
+}

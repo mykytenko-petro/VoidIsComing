@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "voidiscoming:block/little_void_grass",
+    "particle": "voidiscoming:block/little_void_grass"
+  }
+}

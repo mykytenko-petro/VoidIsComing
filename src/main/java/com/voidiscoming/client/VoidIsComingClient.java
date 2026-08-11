@@ -8,7 +8,11 @@ import com.voidiscoming.client.renderer.ModRenderers;
 import net.fabricmc.api.ClientModInitializer;
 
 public class VoidIsComingClient implements ClientModInitializer {
+
+    @Override
     public void onInitializeClient() {
+        System.out.println("Client initialized");
+
         ModRenderers.registerRenderers();
         ModKeyBindings.registerBindings();
         ClientModEvents.registerEvents();

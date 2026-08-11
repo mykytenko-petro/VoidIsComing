@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+      "end": "voidiscoming:block/void_dirt",
+      "side": "voidiscoming:block/void_grass_block_side"
+    }
+  }

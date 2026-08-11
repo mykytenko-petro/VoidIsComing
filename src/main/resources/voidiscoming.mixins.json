@@ -8,7 +8,8 @@
        
        "common.player.PreventXpDropMixin",
        "common.food.HungerManagerMixin",
-       "common.food.FoodMixin"
+       "common.food.FoodMixin",
+       "common.entity.QuadrupedEntityModelAccessor"
     ],
     "injectors": {
        "defaultRequire": 1
