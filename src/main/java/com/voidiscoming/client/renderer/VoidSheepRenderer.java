@@ -16,9 +16,13 @@ public class VoidSheepRenderer
         extends MobEntityRenderer<VoidSheepEntity, SheepEntityModel<VoidSheepEntity>> {
 
     private static final Identifier TEXTURE =
-            new Identifier(VoidIsComing.MOD_ID, "textures/entity/sheep.png");
+            new Identifier(
+                    VoidIsComing.MOD_ID,
+                    "textures/entity/sheep.png"
+            );
 
     public VoidSheepRenderer(EntityRendererFactory.Context context) {
+
         super(
                 context,
                 new SheepEntityModel<>(
@@ -28,7 +32,10 @@ public class VoidSheepRenderer
         );
 
         this.addFeature(
-                new VoidSheepWoolFeatureRenderer(this, context.getModelLoader())
+                new VoidSheepWoolFeatureRenderer(
+                        this,
+                        context.getModelLoader()
+                )
         );
     }
 

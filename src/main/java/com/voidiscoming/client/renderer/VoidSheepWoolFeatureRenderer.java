@@ -2,7 +2,9 @@ package com.voidiscoming.client.renderer;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.entity.VoidSheepEntity;
+import com.voidiscoming.common.mixin.QuadrupedEntityModelAccessor;
 
+import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -63,14 +65,33 @@ public class VoidSheepWoolFeatureRenderer
                 tickDelta
         );
 
-        this.model.setAngles(
-                sheep,
-                limbAngle,
-                limbDistance,
-                age,
-                headYaw,
-                headPitch
-        );
+        /*
+         * НЕ УБИРАЕМ!
+         *
+         * Сохраняет нормальный размер шерсти.
+         */
+        this.getContextModel().copyStateTo(this.model);
+
+        /*
+         * Получаем головы через Accessor,
+         * потому что head находится в QuadrupedEntityModel.
+         */
+        ModelPart woolHead =
+                ((QuadrupedEntityModelAccessor) this.model).voidiscoming$getHead();
+
+        ModelPart mainHead =
+                ((QuadrupedEntityModelAccessor) this.getContextModel())
+                        .voidiscoming$getHead();
+
+        /*
+         * Синхронизируем только вращение.
+         *
+         * yaw   = влево / вправо
+         * pitch = вверх / вниз
+         */
+        woolHead.yaw = mainHead.yaw;
+        woolHead.pitch = mainHead.pitch;
+        woolHead.roll = mainHead.roll;
 
         VertexConsumer vertexConsumer =
                 vertexConsumers.getBuffer(

@@ -2,16 +2,22 @@
     "required": true,
     "package": "com.voidiscoming.common.mixin",
     "compatibilityLevel": "JAVA_17",
+
     "mixins": [
         "gui.HandledScreenAccessor",
         "player.PreventXpDropMixin"
     ],
+
     "client": [
-        "ShieldRendererMixin"
+        "ShieldRendererMixin",
+        "QuadrupedEntityModelAccessor"
+        
     ],
+
     "injectors": {
         "defaultRequire": 1
     },
+
     "overwrites": {
         "requireAnnotations": true
     }
