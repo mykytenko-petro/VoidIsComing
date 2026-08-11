@@ -1,15 +1,18 @@
 {
-	"required": true,
-	"package": "com.voidiscoming.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"client.gui.HandledScreenAccessor",
-		"common.player.PreventXpDropMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
-	}
+    "required": true,
+    "package": "com.voidiscoming.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+       "client.gui.HandledScreenAccessor",
+       "common.player.PreventXpDropMixin",
+       "food.HungerManagerMixin",
+       "food.FoodMixin",
+       "food.HideBarsMixin"
+    ],
+    "injectors": {
+       "defaultRequire": 1
+    },
+    "overwrites": {
+       "requireAnnotations": true
+    }
 }
