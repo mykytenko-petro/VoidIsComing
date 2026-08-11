@@ -8,66 +8,25 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.voidiscoming.common.component.ModComponents;
+import com.voidiscoming.common.mechanic.spell.ModSpells;
 
 public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent {
     private final PlayerEntity player;
-    private final List<Identifier> unlockedSpells = new ArrayList<>();
     
+    // Спеллбар на 4 слоти (зберігає ID екіпірованих скіллів)
     private final Identifier[] equippedSpells = new Identifier[4];
 
+    // Кулдауни
     private final Map<Identifier, Long> cooldownEnds = new HashMap<>();
     private final Map<Identifier, Integer> cooldownDurations = new HashMap<>();
 
     public PlayerSpellComponent(PlayerEntity player) {
         this.player = player;
-    }
-
-    @Override
-    public List<Identifier> getUnlockedSpells() { 
-        return this.unlockedSpells; 
-    }
-
-    @Override
-    public void unlockSpell(Identifier spellId) {
-        addSpell(spellId);
-    }
-
-    
-    
-   
-    public void addSpell(Identifier spellId) {
-        if (spellId != null && !hasSpell(spellId)) {
-            this.unlockedSpells.add(spellId);
-            sync();
-        }
-    }
-
-    
-
-     
-    public void removeSpell(Identifier spellId) {
-        if (spellId != null && hasSpell(spellId)) {
-            this.unlockedSpells.remove(spellId);
-        
-            for (int i = 0; i < equippedSpells.length; i++) {
-                if (spellId.equals(equippedSpells[i])) {
-                    equippedSpells[i] = null;
-                }
-            }
-            sync();
-        }
-    }
-
-    @Override
-    public boolean hasSpell(Identifier spellId) {
-        return spellId != null && this.unlockedSpells.contains(spellId);
     }
 
     @Override
@@ -77,7 +36,9 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
 
     @Override
     public void equipSpell(int slot, Identifier spellId) {
-        if (slot >= 0 && slot < equippedSpells.length && hasSpell(spellId)) {
+        // Перевіряємо валідність слота та чи існує взагалі такий скілл у реєстрі мода
+        if (slot >= 0 && slot < equippedSpells.length && spellId != null && ModSpells.getById(spellId) != null) {
+            // Якщо цей скілл вже стоїть в іншому слоті — спочатку зануляємо його там
             for (int i = 0; i < equippedSpells.length; i++) {
                 if (spellId.equals(equippedSpells[i])) {
                     equippedSpells[i] = null;
@@ -126,24 +87,21 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
             try {
                 ModComponents.SPELLS.sync(this.player);
             } catch (Exception e) {
+                // Ignore sync exceptions if not ready
             }
         }
     }
 
     @Override
     public void writeToNbt(NbtCompound tag) {
-        NbtList spellList = new NbtList();
-        for (Identifier spellId : unlockedSpells) {
-            if (spellId != null) spellList.add(NbtString.of(spellId.toString()));
-        }
-        tag.put("UnlockedSpells", spellList);
-
+        // Зберігаємо лише спеллбар
         NbtList hotbarList = new NbtList();
         for (Identifier spellId : equippedSpells) {
             hotbarList.add(NbtString.of(spellId != null ? spellId.toString() : ""));
         }
         tag.put("SpellHotbar", hotbarList);
 
+        // Зберігаємо кулдауни
         NbtCompound cooldownEndTag = new NbtCompound();
         for (Map.Entry<Identifier, Long> entry : cooldownEnds.entrySet()) {
             if (entry.getKey() != null && entry.getValue() != null) {
@@ -163,21 +121,11 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
 
     @Override
     public void readFromNbt(NbtCompound tag) {
-        this.unlockedSpells.clear();
         Arrays.fill(this.equippedSpells, null);
         this.cooldownEnds.clear();
         this.cooldownDurations.clear();
 
-        if (tag.contains("UnlockedSpells", NbtElement.LIST_TYPE)) {
-            NbtList spellList = tag.getList("UnlockedSpells", NbtElement.STRING_TYPE);
-            for (int i = 0; i < spellList.size(); i++) {
-                Identifier id = Identifier.tryParse(spellList.getString(i));
-                if (id != null && !this.unlockedSpells.contains(id)) {
-                    this.unlockedSpells.add(id);
-                }
-            }
-        }
-
+        // Читаємо спеллбар
         if (tag.contains("SpellHotbar", NbtElement.LIST_TYPE)) {
             NbtList hotbarList = tag.getList("SpellHotbar", NbtElement.STRING_TYPE);
             for (int i = 0; i < Math.min(hotbarList.size(), equippedSpells.length); i++) {
@@ -185,6 +133,7 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
                 this.equippedSpells[i] = (str == null || str.isEmpty()) ? null : Identifier.tryParse(str);
             }
         }
+
 
         if (tag.contains("SpellCooldownEnds", NbtElement.COMPOUND_TYPE)) {
             NbtCompound cooldownEndTag = tag.getCompound("SpellCooldownEnds");
