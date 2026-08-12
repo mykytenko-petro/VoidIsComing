@@ -20,7 +20,10 @@ public class SkillTreeScreen extends Screen {
     private ButtonWidget upgradeButton;
     private ButtonWidget equipButton;
 
-    private final Identifier SKILL_POINT_TEXTURE = VoidIsComing.id("textures/gui/skills/skill_point.png");
+    private static final Identifier BACKGROUND_TEXTURE =
+        VoidIsComing.id("textures/gui/skills/skill_background.png");
+    private static final Identifier SKILL_POINT_TEXTURE =
+        VoidIsComing.id("textures/gui/skills/skill_point.png");
 
     private SkillNodeDisplay selectedNode = null;
 
@@ -32,8 +35,8 @@ public class SkillTreeScreen extends Screen {
     protected void init() {
         super.init();
 
-        centerX = this.width / 2 - 12;
-        centerY = this.height / 2 - 12;
+        centerX = this.width / 2;
+        centerY = this.height / 2;
         
         int panelX = (this.width - panelWidth) / 2;
         int panelY = this.height - panelHeight - 10;
@@ -52,7 +55,6 @@ public class SkillTreeScreen extends Screen {
         .dimensions(panelX + panelWidth - 160, panelY + panelHeight - 25, 75, 20)
         .build();
 
-        // Register buttons with screen
         this.addDrawableChild(this.upgradeButton);
         this.addDrawableChild(this.equipButton);
 
@@ -61,10 +63,26 @@ public class SkillTreeScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+        this.renderBackground(context);
+
+        int backgroundWidth = 640;
+        int backgroundHeight = 360;
+
+        int bgLeft = centerX - backgroundWidth / 2;
+        int bgTop = centerY - backgroundHeight / 2;
+
+        context.drawTexture(
+            BACKGROUND_TEXTURE,
+            bgLeft - 8, bgTop - 4,
+            0, 0, 
+            backgroundWidth + 16, backgroundHeight + 9,
+            backgroundWidth + 16, backgroundHeight + 9
+        );
 
         int originX = centerX + originDeltaX;
         int originY = centerY + originDeltaY;
+
+        context.enableScissor(bgLeft, bgTop, bgLeft + backgroundWidth, bgTop + backgroundHeight);
 
         for (SkillNodeDisplay node : SkillNodeDisplayRegistry.skillNodes) {
             node.render(
@@ -74,9 +92,13 @@ public class SkillTreeScreen extends Screen {
             );
         }
 
+        context.disableScissor();
+
         if (selectedNode != null) {
             renderDescriptionPanel(context, selectedNode);
         }
+
+        super.render(context, mouseX, mouseY, delta);
     }
 
     @Override
@@ -85,18 +107,26 @@ public class SkillTreeScreen extends Screen {
             int originX = centerX + originDeltaX;
             int originY = centerY + originDeltaY;
 
-            for (SkillNodeDisplay node : SkillNodeDisplayRegistry.skillNodes) {
-                if (node.isMouseOver(mouseX, mouseY, originX, originY)) {                    
-                    if (node == selectedNode) {
-                        selectedNode = null;
+            int backgroundWidth = 640;
+            int backgroundHeight = 360;
+            int bgLeft = centerX - backgroundWidth / 2;
+            int bgTop = centerY - backgroundHeight / 2;
 
+            if (mouseX >= bgLeft && mouseX <= bgLeft + backgroundWidth &&
+                mouseY >= bgTop && mouseY <= bgTop + backgroundHeight) {
+
+                for (SkillNodeDisplay node : SkillNodeDisplayRegistry.skillNodes) {
+                    if (node.isMouseOver(mouseX, mouseY, originX, originY)) {                    
+                        if (node == selectedNode) {
+                            selectedNode = null;
+                            updateButtonVisibility();
+                            return true;
+                        }
+
+                        selectedNode = node;
+                        updateButtonVisibility();
                         return true;
                     }
-
-                    selectedNode = node;
-                    updateButtonVisibility();
-
-                    return true;
                 }
             }
 

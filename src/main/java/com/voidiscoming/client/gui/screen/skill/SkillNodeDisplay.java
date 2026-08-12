@@ -62,9 +62,12 @@ public class SkillNodeDisplay {
         int mouseX, int mouseY,
         int originX, int originY
     ) {
+        int renderX = this.x + originX - size / 2;
+        int renderY = this.y + originY - size / 2;
+
         context.drawTexture(
             backgroundTexture,
-            x + originX, y + originY,
+            renderX, renderY,
             0, 0, 
             size, size, 
             size, size
@@ -72,7 +75,7 @@ public class SkillNodeDisplay {
 
         context.drawTexture(
             this.iconTexture,
-            x + 4 + originX, y + 4 + originY,
+            renderX + 4, renderY + 4,
             0, 0, 
             size - 8, size - 8, 
             size - 8, size - 8
@@ -80,8 +83,8 @@ public class SkillNodeDisplay {
     }
 
     public boolean isMouseOver(double mouseX, double mouseY, int originX, int originY) {
-        double renderX = this.x + originX;
-        double renderY = this.y + originY;
+        double renderX = this.x + originX - size / 2;
+        double renderY = this.y + originY - size / 2;
 
         return mouseX >= renderX && mouseX < renderX + this.size &&
                mouseY >= renderY && mouseY < renderY + this.size;
