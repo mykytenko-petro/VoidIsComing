@@ -1,6 +1,7 @@
 package com.voidiscoming.client.gui.screen.skill;
 
 import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.skill.ModSkills;
 import com.voidiscoming.common.mechanic.skill.SkillType;
 
@@ -46,7 +47,6 @@ public class SkillTreeScreen extends Screen {
         int panelX = (this.width - panelWidth) / 2;
         int panelY = this.height - panelHeight - 10;
 
-        // Кнопка купівлі/розблокування скілла
         this.upgradeButton = ButtonWidget.builder(
             Text.translatable("gui.voidiscoming.upgrade"),
             button -> {
@@ -54,7 +54,6 @@ public class SkillTreeScreen extends Screen {
                     PacketByteBuf buf = PacketByteBufs.create();
                     buf.writeIdentifier(selectedNode.getSkillId());
 
-                    // Відправляємо пакет на сервер для розблокування вузла
                     ClientPlayNetworking.send(VoidIsComing.id("unlock_skill_packet"), buf);
                 }
             }
@@ -62,7 +61,6 @@ public class SkillTreeScreen extends Screen {
         .dimensions(panelX + panelWidth - 80, panelY + panelHeight - 25, 75, 20)
         .build();
 
-        // Кнопка екіпірування спелла (якщо вузол типу SPELL)
         this.equipButton = ButtonWidget.builder(
             Text.translatable("gui.voidiscoming.equip"),
             button -> {
@@ -126,6 +124,23 @@ public class SkillTreeScreen extends Screen {
         if (selectedNode != null) {
             renderDescriptionPanel(context, selectedNode);
         }
+
+        // skill points
+        context.drawTexture(
+            SKILL_POINT_TEXTURE,
+            bgLeft + 10, bgTop + 10,
+            0, 0, 
+            12, 12,
+            12, 12
+        );
+
+        context.drawText(
+            this.textRenderer,
+            Text.literal(String.valueOf(ModComponents.SKILLS.get(this.client.player).getSkillPoints())),
+            bgLeft + 25, bgTop + 13,
+            0xFFFFAA00,
+            true
+        );
 
         super.render(context, mouseX, mouseY, delta);
     }

@@ -49,7 +49,7 @@ public class SpellHotbarHud implements HudRenderCallback {
                 startX + 2, 
                 cellY + 2, 
                 0xFF555555, 
-                true
+                false
             );
 
             Identifier spellId = equipped[i];
