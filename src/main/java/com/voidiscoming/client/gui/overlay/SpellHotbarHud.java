@@ -1,5 +1,6 @@
 package com.voidiscoming.client.gui.overlay;
 
+import com.voidiscoming.client.keybind.ModKeyBindings;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.spell.SpellComponent;
@@ -22,7 +23,7 @@ public class SpellHotbarHud implements HudRenderCallback {
         if (client.player == null || client.options.hudHidden) return;
 
         SpellComponent spellComponent = ModComponents.SPELLS.get(client.player);
-        Identifier[] equipped = spellComponent.getEquippedSpells(); // Тепер тут Identifier[]
+        Identifier[] equipped = spellComponent.getEquippedSpells();
         long currentTime = client.player.getWorld().getTime();
 
         int slotSize = 18;
@@ -35,13 +36,26 @@ public class SpellHotbarHud implements HudRenderCallback {
         for (int i = 0; i < 4; i++) {
             int cellY = startY + i * (slotSize + spacing);
 
-            // Рендеримо фон комірки
             context.drawTexture(SLOT_TEXTURE, startX, cellY, 0, 0, slotSize, slotSize, slotSize, slotSize);
 
-            Identifier spellId = equipped[i]; // Отримуємо Identifier скілла
+            String bindText = "";
+            if (ModKeyBindings.SPELL_KEYS != null && ModKeyBindings.SPELL_KEYS[i] != null) {
+                bindText = ModKeyBindings.SPELL_KEYS[i].getBoundKeyLocalizedText().getString();
+            }
+
+            context.drawText(
+                client.textRenderer, 
+                bindText, 
+                startX + 2, 
+                cellY + 2, 
+                0xFF555555, 
+                true
+            );
+
+            Identifier spellId = equipped[i];
 
             if (spellId != null) {
-                Spell spell = ModSpells.getById(spellId); // Пошук у мапі за Identifier
+                Spell spell = ModSpells.getById(spellId);
                 
                 if (spell != null) {
                     int iconX = startX + 1;
@@ -72,8 +86,8 @@ public class SpellHotbarHud implements HudRenderCallback {
                             int overlayHeight = (int) (iconSize * progress);
 
                             context.fill(
-                                iconX,                     
-                                iconY + iconSize - overlayHeight,                      
+                                iconX,                    
+                                iconY + iconSize - overlayHeight,                     
                                 iconX + iconSize,       
                                 iconY + iconSize,  
                                 0x80FFFFFF              

@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.voidiscoming.common.VoidIsComing;
-
+import com.voidiscoming.common.component.ModComponents;
+import com.voidiscoming.common.mechanic.level.PlayerLevelUpCallback;
 import net.minecraft.util.Identifier;
 
 public class ModSkills {
@@ -36,5 +37,16 @@ public class ModSkills {
 
     public static Collection<SkillNode> getAll() {
         return SKILLS.values();
+    }
+
+    public static void registerEvents() {
+        PlayerLevelUpCallback.EVENT.register((player, oldLevel, newLevel) -> {
+            int levelsGained = newLevel - oldLevel;
+            
+            ModComponents.SKILLS.maybeGet(player).ifPresent(skills -> {
+                skills.addSkillPoints(levelsGained);
+            });
+        });
+
     }
 }

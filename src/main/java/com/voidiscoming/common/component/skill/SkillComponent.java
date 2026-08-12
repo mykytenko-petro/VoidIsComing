@@ -1,9 +1,7 @@
 package com.voidiscoming.common.component.skill;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-
 import net.minecraft.util.Identifier;
-
 import java.util.Set;
 
 public interface SkillComponent extends AutoSyncedComponent {
@@ -13,6 +11,7 @@ public interface SkillComponent extends AutoSyncedComponent {
 
     Set<Identifier> getUnlockedSkills();
     boolean hasUnlocked(Identifier skillId);
+    boolean hasUnlockedSpell(Identifier spellId); // Перевірка спелла через скілли
     boolean canUnlock(Identifier skillId);
     boolean unlockSkill(Identifier skillId);
 }

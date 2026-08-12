@@ -93,4 +93,8 @@ public class SkillNodeDisplay {
     public int getCost() {
         return skill.cost();
     }
+
+    public Identifier getSkillId() {
+        return this.skillId;
+    }
 }

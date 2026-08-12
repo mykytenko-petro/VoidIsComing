@@ -20,5 +20,7 @@ public class LevelMechanic {
                 ArmorLevelRestriction.enforceArmorRestrictions(player);
             }
         });
+
+        PlayerLevelManager.registerEvents();
     }
 }

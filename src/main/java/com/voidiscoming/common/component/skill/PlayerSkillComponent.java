@@ -2,15 +2,14 @@ package com.voidiscoming.common.component.skill;
 
 import com.voidiscoming.common.mechanic.skill.ModSkills;
 import com.voidiscoming.common.component.ModComponents;
-import com.voidiscoming.common.mechanic.skill.SkillEffectApplier;
 import com.voidiscoming.common.mechanic.skill.SkillNode;
+import com.voidiscoming.common.mechanic.skill.SkillType;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 import java.util.HashSet;
@@ -43,10 +42,26 @@ public class PlayerSkillComponent implements SkillComponent {
     @Override public boolean hasUnlocked(Identifier skillId) { return unlockedSkills.contains(skillId); }
 
     @Override
+    public boolean hasUnlockedSpell(Identifier spellId) {
+        if (spellId == null) return false;
+        
+        for (Identifier skillId : unlockedSkills) {
+            SkillNode node = ModSkills.get(skillId);
+            if (node != null && node.type() == SkillType.SPELL) {
+                if (node.spellId().isPresent() && node.spellId().get().equals(spellId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean canUnlock(Identifier skillId) {
         if (hasUnlocked(skillId)) return false;
 
         SkillNode node = ModSkills.get(skillId);
+        if (node == null) return false;
 
         if (skillPoints < node.cost()) return false;
         if (node.isRoot()) return true;
@@ -63,11 +78,6 @@ public class PlayerSkillComponent implements SkillComponent {
         this.unlockedSkills.add(skillId);
 
         ModComponents.SKILLS.sync(player);
-
-        if (player instanceof ServerPlayerEntity serverPlayer) {
-            SkillEffectApplier.applyEffects(serverPlayer);
-        }
-
         return true;
     }
 

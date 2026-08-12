@@ -11,6 +11,7 @@ public class ModMechanics {
         LevelMechanic.registerEvents();
         ModSpells.registerEvents();
         ModSpells.registerSpells();
+        ModSkills.registerEvents();
         ModSkills.registerSkills();
     }
 }
