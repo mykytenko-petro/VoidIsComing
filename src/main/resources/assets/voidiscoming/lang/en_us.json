@@ -16,6 +16,12 @@
   "gui.voidiscoming.upgrade": "upgarde",
 
   "skill_name.voidiscoming.heal_spell": "Heal spell",
+  "skill_name.voidiscoming.warrior_class": "Warrior path",
+  "skill_name.voidiscoming.archer_class": "Archer mastery",
+  "skill_name.voidiscoming.mage_class": "Mage knowlege",
 
-  "skill_description.voidiscoming.heal_spell": "(Spell) just classic heal"
+  "skill_description.voidiscoming.heal_spell": "just classic heal",
+  "skill_description.voidiscoming.warrior_class": "TODO",
+  "skill_description.voidiscoming.archer_class": "TODO",
+  "skill_description.voidiscoming.mage_class": "TODO"
 }
