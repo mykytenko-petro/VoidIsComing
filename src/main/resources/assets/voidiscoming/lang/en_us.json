@@ -10,12 +10,21 @@
   "stat.voidiscoming.speed": "Speed",
   "stat.voidiscoming.armor": "Armor",
 
-  "block.voidiscoming.void_grass": "Void Grass",
+  "block.voidiscoming.void_grass": "Void Dirt",
+  "block.voidiscoming.little_void_grass": "Void Grass",
 
   "gui.voidiscoming.equip": "equip",
   "gui.voidiscoming.upgrade": "upgarde",
 
   "skill_name.voidiscoming.heal_spell": "Heal spell",
+  "skill_name.voidiscoming.warrior_class": "Warrior path",
+  "skill_name.voidiscoming.archer_class": "Archer mastery",
+  "skill_name.voidiscoming.mage_class": "Mage knowlege",
 
-  "skill_description.voidiscoming.heal_spell": "(Spell) just classic heal"
+  "skill_description.voidiscoming.heal_spell": "just classic heal",
+  "skill_description.voidiscoming.warrior_class": "TODO",
+  "skill_description.voidiscoming.archer_class": "TODO",
+  "skill_description.voidiscoming.mage_class": "TODO",
+
+  "itemGroup.voidiscoming.void_is_coming": "Void Is Coming"
 }

@@ -12,8 +12,10 @@ public class ModKeyBindings {
     public static KeyBinding spell2Key;
     public static KeyBinding spell3Key;
     public static KeyBinding spell4Key;
-
     public static KeyBinding skillKey;
+
+    // Додаємо зручний масив для доступу за індексом (0-3)
+    public static KeyBinding[] SPELL_KEYS;
 
     public static void registerBindings() {
         spell1Key = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -50,5 +52,8 @@ public class ModKeyBindings {
             GLFW.GLFW_KEY_K,
             KEY_CATEGORY
         ));
+
+        // Ініціалізуємо масив одразу після реєстрації
+        SPELL_KEYS = new KeyBinding[] { spell1Key, spell2Key, spell3Key, spell4Key };
     }
 }
