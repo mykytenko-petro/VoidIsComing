@@ -55,7 +55,7 @@ public class SpellHotbarHud implements HudRenderCallback {
             Identifier spellId = equipped[i];
 
             if (spellId != null) {
-                Spell spell = ModSpells.getById(spellId);
+                Spell spell = ModSpells.get(spellId);
                 
                 if (spell != null) {
                     int iconX = startX + 1;

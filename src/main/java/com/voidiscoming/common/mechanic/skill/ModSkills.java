@@ -1,6 +1,5 @@
 package com.voidiscoming.common.mechanic.skill;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -33,10 +32,6 @@ public class ModSkills {
 
     public static SkillNode get(Identifier id) {
         return SKILLS.get(id);
-    }
-
-    public static Collection<SkillNode> getAll() {
-        return SKILLS.values();
     }
 
     public static void registerEvents() {

@@ -4,6 +4,7 @@ import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.mana.ManaComponent;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.spell.PlayerSpellComponent;
+import com.voidiscoming.common.mechanic.spell.ModSpells;
 import com.voidiscoming.common.mechanic.spell.Spell;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -11,7 +12,6 @@ public class HealSpell extends Spell {
 
     public HealSpell() {
         super(
-            VoidIsComing.id("heal"), // Identifier замість рядка
             VoidIsComing.id("textures/gui/spells/heal.png"), 
             4, 
             ResourceCostType.MANA,
@@ -25,7 +25,7 @@ public class HealSpell extends Spell {
 
         ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
             if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
-                if (playerSpellComp.isOnCooldown(getId())) {
+                if (playerSpellComp.isOnCooldown(ModSpells.HEAL)) {
                     return;
                 }
             }
@@ -36,7 +36,7 @@ public class HealSpell extends Spell {
                 mana.removeMana(getCost());
 
                 if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
-                    playerSpellComp.setCooldown(getId(), getCooldownTicks());
+                    playerSpellComp.setCooldown(ModSpells.HEAL , getCooldownTicks());
                 }
                 player.heal(2.0F);
             }

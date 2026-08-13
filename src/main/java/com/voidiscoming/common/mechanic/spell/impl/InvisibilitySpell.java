@@ -8,12 +8,11 @@ import com.voidiscoming.common.mechanic.spell.Spell;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-
+import com.voidiscoming.common.mechanic.spell.ModSpells;
 public class InvisibilitySpell extends Spell {
 
     public InvisibilitySpell() {
         super(
-            VoidIsComing.id("invisibility"), // Identifier замість рядка
             VoidIsComing.id("textures/gui/spells/invisibility.png"), 
             15, 
             ResourceCostType.MANA,
@@ -26,9 +25,9 @@ public class InvisibilitySpell extends Spell {
         if (player.getWorld().isClient()) return;
 
         ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
-            // spellComp уже є PlayerSpellComponent, тому зайвий instanceof прибрано
+
             if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
-                if (playerSpellComp.isOnCooldown(getId())) {
+                if (playerSpellComp.isOnCooldown(ModSpells.INVISIBILITY)) {
                     return;
                 }
 
@@ -37,7 +36,7 @@ public class InvisibilitySpell extends Spell {
                 if (mana.getMana() >= getCost()) {
                     mana.removeMana(getCost());
 
-                    playerSpellComp.setCooldown(getId(), getCooldownTicks());
+                    playerSpellComp.setCooldown(ModSpells.INVISIBILITY, getCooldownTicks());
 
                     // Невидимість на 1 хвилину
                     player.addStatusEffect(new StatusEffectInstance(
