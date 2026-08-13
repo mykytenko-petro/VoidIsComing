@@ -8,8 +8,8 @@ public interface SpellComponent extends Component {
     void equipSpell(int slot, Identifier spellId);
     void unequipSpell(int slot);
     
-    boolean isOnCooldown(Identifier spellId);
-    long getCooldownEnd(Identifier spellId);
-    int getTotalCooldownTicks(Identifier spellId);
-    void setCooldown(Identifier spellId, int ticks);
+    boolean isOnCooldown(Identifier identifier);
+    long getCooldownEnd(Identifier identifier);
+    int getTotalCooldownTicks(Identifier identifier);
+    void setCooldown(Identifier identifier, int ticks);
 }

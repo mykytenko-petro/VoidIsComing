@@ -38,10 +38,7 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
     @Override
     public void equipSpell(int slot, Identifier spellId) {
         // Перевіряємо валідність слота та чи існує взагалі такий скілл у реєстрі мода
-        if (slot >= 0 && slot < equippedSpells.length && spellId != null && ModSpells.getById(spellId) != null) {
-            
-            // Тимчасово прибрано перевірку скілл-трі для тестів через /spelltest
-            
+        if (slot >= 0 && slot < equippedSpells.length && spellId != null && ModSpells.get(spellId) != null) {
             // Якщо цей скілл вже стоїть в іншому слоті — спочатку зануляємо його там
             for (int i = 0; i < equippedSpells.length; i++) {
                 if (spellId.equals(equippedSpells[i])) {

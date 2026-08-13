@@ -11,20 +11,18 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 public class TeleportSpell extends Spell {
-
     public TeleportSpell() {
         super(
-            VoidIsComing.id("teleport_spell"), 
-            VoidIsComing.id("textures/spell/teleport_spell.png"), 
+            VoidIsComing.id("textures/gui/spells/teleportation_spell.png"), 
             10, 
             ResourceCostType.MANA, 
-            40
+            400
         );
     }
 
     @Override
-    public void cast(PlayerEntity player) {
-        if (!(player instanceof ServerPlayerEntity serverPlayer)) return;
+    public void castBehaviour(PlayerEntity player){
+        var serverPlayer = (ServerPlayerEntity)player;
 
         double maxDistance = 30.0;
         Vec3d startPos = serverPlayer.getEyePos();
@@ -35,8 +33,7 @@ public class TeleportSpell extends Spell {
             rotationVec.z * maxDistance
         );
 
-        // Безпечно приводимо світ до ServerWorld
-        ServerWorld serverWorld = (ServerWorld) serverPlayer.getWorld();
+        var serverWorld = (ServerWorld) serverPlayer.getWorld();
 
         BlockHitResult hitResult = serverWorld.raycast(new RaycastContext(
             startPos, endPos,

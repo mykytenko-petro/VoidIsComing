@@ -44,7 +44,7 @@ public class SpellDebugCommand {
             Identifier spellId = IdentifierArgumentType.getIdentifier(context, "spellId");
 
             // Перевіряємо, чи існує такий скілл у загальному реєстрі мода
-            if (ModSpells.getById(spellId) == null) {
+            if (ModSpells.get(spellId) == null) {
                 context.getSource().sendFeedback(() -> Text.literal("§cПомилка: Скілл з таким ID не знайдено в реєстрах мода!"), false);
                 return 0;
             }
