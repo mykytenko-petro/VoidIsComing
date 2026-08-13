@@ -14,6 +14,7 @@ public class VoidIsComingClient implements ClientModInitializer {
         System.out.println("Client initialized");
 
         ModRenderers.registerRenderers();
+        ModBlockColors.register();
         ModKeyBindings.registerBindings();
         ClientModEvents.registerEvents();
         ModGUI.init();

@@ -10,7 +10,8 @@
   "stat.voidiscoming.speed": "Speed",
   "stat.voidiscoming.armor": "Armor",
 
-  "block.voidiscoming.void_grass": "Void Grass",
+  "block.voidiscoming.void_grass": "Void Dirt",
+  "block.voidiscoming.little_void_grass": "Void Grass",
 
   "gui.voidiscoming.equip": "equip",
   "gui.voidiscoming.upgrade": "upgarde",
@@ -23,5 +24,7 @@
   "skill_description.voidiscoming.heal_spell": "just classic heal",
   "skill_description.voidiscoming.warrior_class": "TODO",
   "skill_description.voidiscoming.archer_class": "TODO",
-  "skill_description.voidiscoming.mage_class": "TODO"
+  "skill_description.voidiscoming.mage_class": "TODO",
+
+  "itemGroup.voidiscoming.void_is_coming": "Void Is Coming"
 }
