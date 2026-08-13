@@ -10,12 +10,15 @@
   "stat.voidiscoming.speed": "Speed",
   "stat.voidiscoming.armor": "Armor",
 
-  "block.voidiscoming.void_grass": "Void Grass",
+  "block.voidiscoming.void_grass": "Void Dirt",
+  "block.voidiscoming.little_void_grass": "Void Grass",
 
   "gui.voidiscoming.equip": "equip",
   "gui.voidiscoming.upgrade": "upgarde",
 
   "skill_name.voidiscoming.heal_spell": "Heal spell",
 
-  "skill_description.voidiscoming.heal_spell": "(Spell) just classic heal"
+  "skill_description.voidiscoming.heal_spell": "(Spell) just classic heal",
+
+  "itemGroup.voidiscoming.void_is_coming": "Void Is Coming"
 }
