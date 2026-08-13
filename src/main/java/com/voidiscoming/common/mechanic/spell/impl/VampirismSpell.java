@@ -9,7 +9,6 @@ public class VampirismSpell extends Spell {
 
     public VampirismSpell() {
         super(
-            VoidIsComing.id("vampirism"), 
             VoidIsComing.id("textures/gui/spells/vampire.png")
         );
     }

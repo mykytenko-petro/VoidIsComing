@@ -28,18 +28,13 @@ public class CastSpellReceiver {
             ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
                 Identifier[] equipped = spellComp.getEquippedSpells();
                 
-                // Перевіряємо валідність індексу слота (від 0 до 3) та чи є там скілл
                 if (equipped != null && slotIndex >= 0 && slotIndex < equipped.length) {
                     Identifier spellId = equipped[slotIndex];
                     
                     if (spellId != null) {
-                        Spell spell = ModSpells.getById(spellId);
+                        Spell spell = ModSpells.get(spellId);
                         
-                        // Перевіряємо, чи існує скілл і чи він активний (не пасивний)
-                        if (spell != null && !spell.isPassive()) {
-                            // Опціонально: можна додати перевірку кулдауну перед кастом:
-                            // if (!spellComp.isOnCooldown(spellId)) { spell.cast(player); ... }
-                            
+                        if (spell != null && !spell.isPassive()) {                            
                             spell.cast(player);
                         }
                     }
