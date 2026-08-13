@@ -1,8 +1,9 @@
-package com.voidiscoming.client.gui.screen.skill;
+package com.voidiscoming.client.gui.screen.skill.widget;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.mechanic.skill.ModSkills;
 import com.voidiscoming.common.mechanic.skill.SkillNode;
+import com.voidiscoming.common.mechanic.skill.SkillType;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
@@ -95,6 +96,10 @@ public class SkillNodeDisplay {
     }
 
     public Identifier getSkillId() {
-        return this.skillId;
+        return skillId;
+    }
+
+    public SkillType getSkillType() {
+        return skill.type();
     }
 }

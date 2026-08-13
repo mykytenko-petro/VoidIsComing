@@ -3,6 +3,7 @@ package com.voidiscoming.client.gui.screen.skill;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.voidiscoming.client.gui.screen.skill.widget.SkillNodeDisplay;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.mechanic.skill.ModSkills;
 
