@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "voidiscoming:block/little_void_grass"
+    }
+}

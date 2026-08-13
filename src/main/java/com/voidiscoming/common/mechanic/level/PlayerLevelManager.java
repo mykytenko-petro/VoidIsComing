@@ -10,7 +10,7 @@ import java.util.UUID;
 public class PlayerLevelManager {
     private static final Map<UUID, Integer> lastLevels = new HashMap<>();
 
-    public static void init() {
+    public static void registerEvents() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                 UUID uuid = player.getUuid();

@@ -2,9 +2,11 @@ package com.voidiscoming.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.voidiscoming.common.block.ModBlocks;
 import com.voidiscoming.common.entity.ModEntities;
+import com.voidiscoming.common.item.ModItemGroups;
 import com.voidiscoming.common.mechanic.ModMechanics;
-import com.voidiscoming.common.mechanic.spell.ModSpells;
 import com.voidiscoming.common.network.ModNetworking;
 import com.voidiscoming.server.command.ModCommands;
 
@@ -20,7 +22,8 @@ public class VoidIsComing implements ModInitializer {
         ModMechanics.registerMechanics();
         ModCommands.registerCommands();
         ModEntities.registerModEntities();
-        ModSpells.registerSpells();
+        ModBlocks.initialize();
+        ModItemGroups.initialize();
         ModNetworking.registerPackets();
     }
 

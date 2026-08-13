@@ -32,7 +32,16 @@ public class ModEntities {
                     .dimensions(EntityDimensions.fixed(2.5F, 4.5F))
     );
 
-    private static <T extends Entity> EntityType<T> registerMob(String name, FabricEntityTypeBuilder<T> builder) {
+    public static final EntityType<VoidSheepEntity> VOID_SHEEP = registerMob(
+        "void_sheep",
+        FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidSheepEntity::new)
+            .dimensions(EntityDimensions.fixed(0.9F, 1.3F))
+    );
+
+    private static <T extends Entity> EntityType<T> registerMob(
+            String name,
+            FabricEntityTypeBuilder<T> builder
+    ) {
         return Registry.register(
                 Registries.ENTITY_TYPE,
                 VoidIsComing.id(name),
@@ -43,6 +52,7 @@ public class ModEntities {
     public static void registerModEntities() {
         FabricDefaultAttributeRegistry.register(VOID_PIG, VoidPigEntity.createVoidPigAttributes());
         FabricDefaultAttributeRegistry.register(VOID_COW, VoidCowEntity.createVoidCowAttributes());
+        FabricDefaultAttributeRegistry.register(VOID_SHEEP, VoidSheepEntity.createVoidSheepAttributes());
         FabricDefaultAttributeRegistry.register(STONE_GOLEM, StoneGolemEntity.createStoneGolemAttributes());
     }
 }
