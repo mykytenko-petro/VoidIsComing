@@ -2,10 +2,12 @@ package com.voidiscoming.client;
 
 import com.voidiscoming.client.event.ClientModEvents;
 import com.voidiscoming.client.gui.ModGUI;
+import com.voidiscoming.client.gui.overlay.BarsOverlay;
 import com.voidiscoming.client.keybind.ModKeyBindings;
 import com.voidiscoming.client.renderer.ModRenderers;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
 public class VoidIsComingClient implements ClientModInitializer {
     public void onInitializeClient() {
