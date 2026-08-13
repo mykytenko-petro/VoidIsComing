@@ -8,6 +8,7 @@ import java.util.Map;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.spell.impl.HealSpell;
 import com.voidiscoming.common.mechanic.spell.impl.InvisibilitySpell;
+import com.voidiscoming.common.mechanic.spell.impl.TeleportSpell;
 import com.voidiscoming.common.mechanic.spell.impl.VampirismSpell;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -20,11 +21,13 @@ public class ModSpells {
     public static final HealSpell HEAL = new HealSpell();
     public static final VampirismSpell VAMPIRISM = new VampirismSpell();
     public static final InvisibilitySpell INVISIBILITY = new InvisibilitySpell(); 
+    public static final TeleportSpell TELEPORT = new TeleportSpell(); 
 
     public static void registerSpells() {
         register(HEAL);
         register(VAMPIRISM);
         register(INVISIBILITY); 
+        register(TELEPORT); 
     }
 
     private static void register(Spell spell) {
@@ -42,7 +45,6 @@ public class ModSpells {
     public static void registerEvents() {
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
             if (damageSource.getAttacker() instanceof ServerPlayerEntity player) {
-                // Використовуємо .ifPresent напряму з SpellComponent
                 ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
                     for (Identifier spellId : spellComp.getEquippedSpells()) {
                         if (spellId != null) {

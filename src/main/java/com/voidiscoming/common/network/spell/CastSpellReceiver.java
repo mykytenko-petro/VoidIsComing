@@ -37,9 +37,6 @@ public class CastSpellReceiver {
                         
                         // Перевіряємо, чи існує скілл і чи він активний (не пасивний)
                         if (spell != null && !spell.isPassive()) {
-                            // Опціонально: можна додати перевірку кулдауну перед кастом:
-                            // if (!spellComp.isOnCooldown(spellId)) { spell.cast(player); ... }
-                            
                             spell.cast(player);
                         }
                     }

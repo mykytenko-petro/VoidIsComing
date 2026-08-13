@@ -2,6 +2,7 @@ package com.voidiscoming.common.component.spell;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -39,13 +40,8 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
         // Перевіряємо валідність слота та чи існує взагалі такий скілл у реєстрі мода
         if (slot >= 0 && slot < equippedSpells.length && spellId != null && ModSpells.getById(spellId) != null) {
             
-            // Перевіряємо через компонент скіллів, чи вивчено цей спелл у дереві навичок
-            boolean isUnlocked = ModComponents.SKILLS.maybeGet(player)
-                .map(skills -> skills.hasUnlockedSpell(spellId))
-                .orElse(false);
-
-            if (!isUnlocked) return; // Якщо не розблоковано в скіллтрі — скасовуємо екіпірування
-
+            // Тимчасово прибрано перевірку скілл-трі для тестів через /spelltest
+            
             // Якщо цей скілл вже стоїть в іншому слоті — спочатку зануляємо його там
             for (int i = 0; i < equippedSpells.length; i++) {
                 if (spellId.equals(equippedSpells[i])) {
