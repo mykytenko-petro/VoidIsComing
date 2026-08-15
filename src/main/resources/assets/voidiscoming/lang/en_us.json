@@ -12,6 +12,9 @@
 
   "block.voidiscoming.void_grass": "Void Dirt",
   "block.voidiscoming.little_void_grass": "Void Grass",
+  "block.voidiscoming.void_log": "Void Log",
+  "block.voidiscoming.void_sapling": "Void Sapling",
+  "block.voidiscoming.void_leaves": "Void Leaves",
 
   "gui.voidiscoming.equip": "equip",
   "gui.voidiscoming.upgrade": "upgarde",

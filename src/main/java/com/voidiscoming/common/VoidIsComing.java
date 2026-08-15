@@ -8,6 +8,7 @@ import com.voidiscoming.common.entity.ModEntities;
 import com.voidiscoming.common.item.ModItemGroups;
 import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.common.network.ModNetworking;
+import com.voidiscoming.common.world.biome.ModBiomes;
 import com.voidiscoming.server.command.ModCommands;
 
 import net.fabricmc.api.ModInitializer;
@@ -17,6 +18,10 @@ public class VoidIsComing implements ModInitializer {
     public static final String MOD_ID = "voidiscoming";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+    public static Identifier id(String path) {
+        return Identifier.of(MOD_ID, path);
+    }
+
     @Override
     public void onInitialize() {
         ModMechanics.registerMechanics();
@@ -25,9 +30,8 @@ public class VoidIsComing implements ModInitializer {
         ModBlocks.initialize();
         ModItemGroups.initialize();
         ModNetworking.registerPackets();
-    }
+        ModBiomes.register();
 
-    public static Identifier id(String path) {
-        return Identifier.of(MOD_ID, path);
+        LOGGER.info("Void Is Coming initialized");
     }
 }
