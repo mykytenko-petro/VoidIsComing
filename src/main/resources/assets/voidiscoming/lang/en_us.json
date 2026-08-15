@@ -15,6 +15,7 @@
 
   "gui.voidiscoming.equip": "equip",
   "gui.voidiscoming.upgrade": "upgarde",
+  "gui.voidiscoming.reset": "reset",
 
   "skill_name.voidiscoming.heal_spell": "Heal spell",
   "skill_name.voidiscoming.warrior_class": "Warrior path",

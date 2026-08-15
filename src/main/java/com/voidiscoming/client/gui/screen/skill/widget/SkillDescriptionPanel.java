@@ -1,19 +1,24 @@
 package com.voidiscoming.client.gui.screen.skill.widget;
 
 import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.skill.SkillType;
 
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+
+import java.util.function.Consumer;
 
 public class SkillDescriptionPanel {
     private final int width = 240;
     private final int height = 60;
 
+    private final ClientPlayerEntity player;
     private SkillNodeDisplay selectedNode = null;
 
     private ButtonWidget upgradeButton;
@@ -22,7 +27,9 @@ public class SkillDescriptionPanel {
     private static final Identifier SKILL_POINT_TEXTURE =
         VoidIsComing.id("textures/gui/skills/skill_point.png");
 
-    public SkillDescriptionPanel() {
+    public SkillDescriptionPanel(ClientPlayerEntity player) {
+        this.player = player;
+
         this.upgradeButton = ButtonWidget.builder(
             Text.translatable("gui.voidiscoming.upgrade"),
             button -> onUpgradePressed()
@@ -34,7 +41,7 @@ public class SkillDescriptionPanel {
         ).dimensions(0, 0, 75, 20).build();
     }
 
-    public void init(Screen screen, java.util.function.Consumer<ButtonWidget> addWidgetConsumer) {
+    public void init(Screen screen, Consumer<ButtonWidget> addWidgetConsumer) {
         int panelX = (screen.width - width) / 2;
         int panelY = screen.height - height - 10;
 
@@ -47,37 +54,50 @@ public class SkillDescriptionPanel {
         addWidgetConsumer.accept(this.upgradeButton);
         addWidgetConsumer.accept(this.equipButton);
 
-        updateButtonVisibility();
+        updateButtons();
     }
 
-    private void updateButtonVisibility() {
-        boolean show = (selectedNode != null);
-        this.upgradeButton.visible = show;
-        
-        if (show) {
-            this.equipButton.visible = (selectedNode.getSkillType() == SkillType.SPELL);
-        } else {
+    public void setSelectedNode(SkillNodeDisplay node) {
+        this.selectedNode = node;
+        updateButtons();
+    }
+
+    public void updateButtons() {
+        if (this.selectedNode == null) {
+            this.upgradeButton.visible = false;
             this.equipButton.visible = false;
+            return;
+        }
+
+        this.upgradeButton.visible = true;
+
+        if (this.player != null) {
+            var skillData = ModComponents.SKILLS.get(this.player);
+            boolean alreadyUnlocked = skillData.hasUnlocked(this.selectedNode.skillId());
+            boolean canAfford = skillData.getSkillPoints() >= this.selectedNode.getCost();
+
+            this.upgradeButton.active = !alreadyUnlocked && canAfford;
+
+            boolean isSpell = (this.selectedNode.getSkillType() == SkillType.SPELL);
+            this.equipButton.visible = isSpell;
+            this.equipButton.active = isSpell && alreadyUnlocked;
         }
     }
 
     private void onUpgradePressed() {
-        if (selectedNode != null) {
-
+        if (selectedNode != null && player != null) {
+            ModComponents.SKILLS.get(player).unlockSkill(selectedNode.skillId());
         }
     }
 
     private void onEquipPressed() {
-        if (selectedNode != null) {
-
+        if (selectedNode != null && player != null) {
+            // TODO: Send C2S Packet to equip selectedNode spell
         }
     }
 
-    public void render(DrawContext context, TextRenderer textRenderer, int screenWidth, int screenHeight, SkillNodeDisplay selectedNode) {
-        this.selectedNode = selectedNode;
-        updateButtonVisibility();
-
-        if (selectedNode == null) return;
+    public void render(DrawContext context, TextRenderer textRenderer, int screenWidth, int screenHeight) {
+        if (this.selectedNode == null) return;
 
         int panelX = (screenWidth - width) / 2;
         int panelY = screenHeight - height - 10;
@@ -87,11 +107,11 @@ public class SkillDescriptionPanel {
         context.drawBorder(panelX, panelY, width, height, 0xFF4A4A4A);
 
         // Name
-        Text titleText = Text.translatable("skill_name.voidiscoming." + selectedNode.translationKeyName);
+        Text titleText = Text.translatable("skill_name.voidiscoming." + selectedNode.translationKeyName());
         context.drawText(textRenderer, titleText, panelX + 5, panelY + 5, 0xFFFFAA00, true);
 
         // Description lines
-        Text descText = Text.translatable("skill_description.voidiscoming." + selectedNode.translationKeyName);
+        Text descText = Text.translatable("skill_description.voidiscoming." + selectedNode.translationKeyName());
         var wrappedLines = textRenderer.wrapLines(descText, width - 46);
         
         int lineY = panelY + 15;
