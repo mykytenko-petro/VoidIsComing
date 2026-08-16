@@ -1,5 +1,7 @@
 package com.voidiscoming.client.gui.screen.skill.widget;
 
+import com.voidiscoming.client.network.SkillUpgradeSender;
+import com.voidiscoming.client.network.SpellEquipUpdateSender;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.skill.SkillType;
@@ -12,6 +14,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 public class SkillDescriptionPanel {
@@ -62,6 +65,13 @@ public class SkillDescriptionPanel {
         updateButtons();
     }
 
+    private boolean isSpellEquipped(Identifier spellId) {
+        if (player == null || spellId == null) return false;
+        
+        Identifier[] equipped = ModComponents.SPELLS.get(player).getEquippedSpells();
+        return Arrays.stream(equipped).anyMatch(id -> spellId.equals(id));
+    }
+
     public void updateButtons() {
         if (this.selectedNode == null) {
             this.upgradeButton.visible = false;
@@ -71,34 +81,50 @@ public class SkillDescriptionPanel {
 
         this.upgradeButton.visible = true;
 
-        if (this.player != null) {
-            var skillData = ModComponents.SKILLS.get(this.player);
-            boolean alreadyUnlocked = skillData.hasUnlocked(this.selectedNode.skillId());
-            boolean canAfford = skillData.getSkillPoints() >= this.selectedNode.getCost();
+        var skillData = ModComponents.SKILLS.get(this.player);
+        boolean alreadyUnlocked = skillData.hasUnlocked(this.selectedNode.skillId());
+        boolean canAfford = skillData.getSkillPoints() >= this.selectedNode.getCost();
 
-            this.upgradeButton.active = !alreadyUnlocked && canAfford;
+        this.upgradeButton.active = !alreadyUnlocked && canAfford;
 
-            boolean isSpell = (this.selectedNode.getSkillType() == SkillType.SPELL);
-            this.equipButton.visible = isSpell;
-            this.equipButton.active = isSpell && alreadyUnlocked;
+        boolean isSpell = (this.selectedNode.getSkillType() == SkillType.SPELL);
+        this.equipButton.visible = isSpell;
+
+        if (isSpell && this.selectedNode.getSkill().spellId().isPresent()) {
+            Identifier spellId = this.selectedNode.getSkill().spellId().get();
+            boolean equipped = isSpellEquipped(spellId);
+
+            this.equipButton.setMessage(Text.translatable(
+                equipped ? "gui.voidiscoming.unequip" : "gui.voidiscoming.equip"
+            ));
+
+            boolean hasSpace = Arrays.stream(ModComponents.SPELLS.get(player).getEquippedSpells()).anyMatch(s -> s == null);
+            this.equipButton.active = alreadyUnlocked && (equipped || hasSpace);
+        } else {
+            this.equipButton.active = false;  
         }
     }
 
     private void onUpgradePressed() {
         if (selectedNode != null && player != null) {
-            ModComponents.SKILLS.get(player).unlockSkill(selectedNode.skillId());
-            updateButtons(); // Immediate refresh post-action
+            SkillUpgradeSender.send(selectedNode.skillId());
+
+            updateButtons();
         }
     }
 
     private void onEquipPressed() {
-        if (selectedNode != null && player != null) {
-            // TODO: Send C2S Packet to equip selectedNode spell
+        if (selectedNode != null && player != null && selectedNode.getSkill().spellId().isPresent()) {
+            Identifier spellId = selectedNode.getSkill().spellId().get();
+            var spellComponent = ModComponents.SPELLS.get(player);
+
+            SpellEquipUpdateSender.send(spellId);
+
+            updateButtons();
         }
     }
 
     public void render(DrawContext context, TextRenderer textRenderer, int screenWidth, int screenHeight) {
-        // Continuous per-render state sync
         updateButtons();
 
         if (this.selectedNode == null) return;
@@ -106,15 +132,12 @@ public class SkillDescriptionPanel {
         int panelX = (screenWidth - width) / 2;
         int panelY = screenHeight - height - 10;
 
-        // Background & Border
         context.fill(panelX, panelY, panelX + width, panelY + height, 0xD0101010);
         context.drawBorder(panelX, panelY, width, height, 0xFF4A4A4A);
 
-        // Name
         Text titleText = Text.translatable("skill_name.voidiscoming." + selectedNode.translationKeyName());
         context.drawText(textRenderer, titleText, panelX + 5, panelY + 5, 0xFFFFAA00, true);
 
-        // Description lines
         Text descText = Text.translatable("skill_description.voidiscoming." + selectedNode.translationKeyName());
         var wrappedLines = textRenderer.wrapLines(descText, width - 46);
         
@@ -124,7 +147,6 @@ public class SkillDescriptionPanel {
             lineY += textRenderer.fontHeight + 1;
         }
 
-        // Cost & Icon
         Text costText = Text.literal(String.valueOf(selectedNode.getCost()));
         context.drawText(textRenderer, costText, panelX + width - 18 - textRenderer.getWidth(costText), panelY + 8, 0xFFFFAA00, true);
         context.drawTexture(SKILL_POINT_TEXTURE, panelX + width - 17, panelY + 5, 0, 0, 12, 12, 12, 12);

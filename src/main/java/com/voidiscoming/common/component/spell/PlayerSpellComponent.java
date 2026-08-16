@@ -12,16 +12,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.spell.ModSpells;
 
 public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent {
     private final PlayerEntity player;
     
-    // Спеллбар на 4 слоти (зберігає ID екіпірованих скіллів)
     private final Identifier[] equippedSpells = new Identifier[4];
 
-    // Кулдауни
     private final Map<Identifier, Long> cooldownEnds = new HashMap<>();
     private final Map<Identifier, Integer> cooldownDurations = new HashMap<>();
 
@@ -34,26 +33,26 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
         return this.equippedSpells;
     }
 
-    @Override
-    public void equipSpell(int slot, Identifier spellId) {
-        // Перевіряємо валідність слота та чи існує взагалі такий скілл у реєстрі мода
-        if (slot >= 0 && slot < equippedSpells.length && spellId != null && ModSpells.get(spellId) != null) {
-            // Якщо цей скілл вже стоїть в іншому слоті — спочатку зануляємо його там
-            for (int i = 0; i < equippedSpells.length; i++) {
-                if (spellId.equals(equippedSpells[i])) {
-                    equippedSpells[i] = null;
-                }
-            }
-            equippedSpells[slot] = spellId;
-            sync();
+ @Override
+    public void toggleSpell(Identifier spellId) {
+        if (spellId == null || ModSpells.get(spellId) == null) {
+            return;
         }
-    }
 
-    @Override
-    public void unequipSpell(int slot) {
-        if (slot >= 0 && slot < equippedSpells.length) {
-            equippedSpells[slot] = null;
-            sync();
+        for (int i = 0; i < equippedSpells.length; i++) {
+            if (spellId.equals(equippedSpells[i])) {
+                equippedSpells[i] = null;
+                ModComponents.SPELLS.sync(this.player);
+                return;
+            }
+        }
+
+        for (int i = 0; i < equippedSpells.length; i++) {
+            if (equippedSpells[i] == null) {
+                equippedSpells[i] = spellId;
+                ModComponents.SPELLS.sync(this.player);
+                return;
+            }
         }
     }
 
@@ -79,29 +78,17 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
         long endTime = player.getWorld().getTime() + ticks;
         cooldownEnds.put(spellId, endTime);
         cooldownDurations.put(spellId, ticks);
-        sync();
-    }
-
-    private void sync() {
-        if (this.player != null && this.player.getWorld() != null && !this.player.getWorld().isClient()) {
-            try {
-                ModComponents.SPELLS.sync(this.player);
-            } catch (Exception e) {
-                // Ignore sync exceptions if not ready
-            }
-        }
+        ModComponents.SPELLS.sync(this.player);
     }
 
     @Override
     public void writeToNbt(NbtCompound tag) {
-        // Зберігаємо лише спеллбар
         NbtList hotbarList = new NbtList();
         for (Identifier spellId : equippedSpells) {
             hotbarList.add(NbtString.of(spellId != null ? spellId.toString() : ""));
         }
         tag.put("SpellHotbar", hotbarList);
 
-        // Зберігаємо кулдауни
         NbtCompound cooldownEndTag = new NbtCompound();
         for (Map.Entry<Identifier, Long> entry : cooldownEnds.entrySet()) {
             if (entry.getKey() != null && entry.getValue() != null) {
@@ -125,7 +112,6 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
         this.cooldownEnds.clear();
         this.cooldownDurations.clear();
 
-        // Читаємо спеллбар
         if (tag.contains("SpellHotbar", NbtElement.LIST_TYPE)) {
             NbtList hotbarList = tag.getList("SpellHotbar", NbtElement.STRING_TYPE);
             for (int i = 0; i < Math.min(hotbarList.size(), equippedSpells.length); i++) {

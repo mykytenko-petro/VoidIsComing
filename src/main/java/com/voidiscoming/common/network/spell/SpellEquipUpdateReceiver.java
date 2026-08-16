@@ -1,15 +1,14 @@
-package com.voidiscoming.common.network.skill;
+package com.voidiscoming.common.network.spell;
 
-import com.voidiscoming.common.component.ModComponents;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import com.voidiscoming.common.component.ModComponents;
 import net.minecraft.util.Identifier;
 
-public class UnlockSkillReceiver {
-
+public class SpellEquipUpdateReceiver {
     public static void receive(
         MinecraftServer server,
         ServerPlayerEntity player,
@@ -22,8 +21,8 @@ public class UnlockSkillReceiver {
         server.execute(() -> {
             if (player == null || player.isRemoved()) return;
 
-            ModComponents.SKILLS.maybeGet(player).ifPresent(skillComp -> {
-                skillComp.unlockSkill(skillId);
+            ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
+                spellComp.toggleSpell(skillId);
             });
         });
     }

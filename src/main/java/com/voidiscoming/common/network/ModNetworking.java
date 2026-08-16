@@ -3,21 +3,18 @@ package com.voidiscoming.common.network;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.network.skill.UnlockSkillReceiver;
 import com.voidiscoming.common.network.spell.CastSpellReceiver;
-
+import com.voidiscoming.common.network.spell.SpellEquipUpdateReceiver;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 
 public class ModNetworking {
     public static final Identifier USE_SPELL_PACKET = VoidIsComing.id("use_spell");
-    public static final Identifier TELEPORT_SPELL_PACKET = VoidIsComing.id("teleport_spell");
-    // Додаємо ідентифікатор мережевого каналу для розблокування скіллів
     public static final Identifier UNLOCK_SKILL_PACKET = VoidIsComing.id("unlock_skill_packet");
-
+    public static final Identifier SPELL_EQUIP_UPDATE_PACKET = VoidIsComing.id("spell_equip_update");
+    
     public static void registerPackets() {
-        // Реєструємо існуючий пакет касту спеллів
         ServerPlayNetworking.registerGlobalReceiver(USE_SPELL_PACKET, CastSpellReceiver::receive);
-        
-        // Реєструємо новий пакет розблокування скіллів у дереві навичок
         ServerPlayNetworking.registerGlobalReceiver(UNLOCK_SKILL_PACKET, UnlockSkillReceiver::receive);
+        ServerPlayNetworking.registerGlobalReceiver(SPELL_EQUIP_UPDATE_PACKET,SpellEquipUpdateReceiver::receive);
     }
 }

@@ -8,7 +8,7 @@ public class ModCommands {
             (dispatcher, registryAccess, environment) -> {
             
                 TestCommand.register(dispatcher);
-                SpellDebugCommand.register(dispatcher, registryAccess, environment);
+                // SpellDebugCommand.register(dispatcher, registryAccess, environment);
                 SkillPointsCommand.register(dispatcher);
             }
         );
