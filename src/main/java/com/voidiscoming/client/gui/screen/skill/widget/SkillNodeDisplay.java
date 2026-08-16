@@ -15,7 +15,7 @@ public record SkillNodeDisplay(
     String translationKeyName,
     Identifier iconTexture
 ) {
-    public static final int SIZE = 24;
+    private static final int SIZE = 24;
 
     private static final Identifier REGULAR_BACKGROUND = 
         VoidIsComing.id("textures/gui/skills/skill_cell.png");

@@ -2,11 +2,12 @@ package com.voidiscoming.common.mechanic.skill;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.level.PlayerLevelUpCallback;
+import com.voidiscoming.common.mechanic.spell.ModSpells;
+
 import net.minecraft.util.Identifier;
 
 public class ModSkills {
@@ -19,11 +20,11 @@ public class ModSkills {
     public static final Identifier MAGE_CLASS = VoidIsComing.id("mage_class_skill");
 
     public static void registerSkills() {
-        registerSkill(new SkillNode(HEAL_SPELL, Optional.empty(), 1, SkillType.SPELL));
+        registerSkill(new SkillNode(HEAL_SPELL, 1, ModSpells.HEAL));
 
-        registerSkill(new SkillNode(WARRIOR_CLASS, Optional.of(HEAL_SPELL), 4, SkillType.CLASS));
-        registerSkill(new SkillNode(ARCHER_CLASS, Optional.of(HEAL_SPELL), 4, SkillType.CLASS));
-        registerSkill(new SkillNode(MAGE_CLASS, Optional.of(HEAL_SPELL), 4, SkillType.CLASS));
+        registerSkill(new SkillNode(WARRIOR_CLASS, HEAL_SPELL, 4, SkillType.CLASS));
+        registerSkill(new SkillNode(ARCHER_CLASS, HEAL_SPELL, 4, SkillType.CLASS));
+        registerSkill(new SkillNode(MAGE_CLASS, HEAL_SPELL, 4, SkillType.CLASS));
     }
 
     private static void registerSkill(SkillNode node) {

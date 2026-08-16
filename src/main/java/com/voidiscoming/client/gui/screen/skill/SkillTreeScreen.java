@@ -86,7 +86,10 @@ public class SkillTreeScreen extends Screen {
         int originY = centerY + originDeltaY;
 
         context.enableScissor(bgLeft, bgTop, bgLeft + backgroundWidth, bgTop + backgroundHeight);
-        for (SkillNodeDisplay node : SkillNodeDisplayRegistry.skillNodes) {
+
+        SkillNodeConnectionRenderer.renderConnections(context, originX, originY);
+
+        for (SkillNodeDisplay node : SkillNodeDisplayRegistry.getAll()) {
             node.render(context, mouseX, mouseY, originX, originY);
         }
         context.disableScissor();
@@ -131,7 +134,7 @@ public class SkillTreeScreen extends Screen {
             if (mouseX >= bgLeft && mouseX <= bgLeft + backgroundWidth &&
                 mouseY >= bgTop && mouseY <= bgTop + backgroundHeight) {
 
-                for (SkillNodeDisplay node : SkillNodeDisplayRegistry.skillNodes) {
+                for (SkillNodeDisplay node : SkillNodeDisplayRegistry.getAll()) {
                     if (node.isMouseOver(mouseX, mouseY, originX, originY)) {
                         if (node == this.selectedNode) {
                             setSelectedNode(null);
