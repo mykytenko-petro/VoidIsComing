@@ -87,6 +87,7 @@ public class SkillDescriptionPanel {
     private void onUpgradePressed() {
         if (selectedNode != null && player != null) {
             ModComponents.SKILLS.get(player).unlockSkill(selectedNode.skillId());
+            updateButtons(); // Immediate refresh post-action
         }
     }
 
@@ -97,6 +98,9 @@ public class SkillDescriptionPanel {
     }
 
     public void render(DrawContext context, TextRenderer textRenderer, int screenWidth, int screenHeight) {
+        // Continuous per-render state sync
+        updateButtons();
+
         if (this.selectedNode == null) return;
 
         int panelX = (screenWidth - width) / 2;

@@ -46,7 +46,14 @@ public class SkillTreeScreen extends Screen {
 
         resetButton = ButtonWidget.builder(
             Text.translatable("gui.voidiscoming.reset"),
-            button -> ModComponents.SKILLS.get(this.client.player).resetSkills()
+            button -> {
+                if (this.client != null && this.client.player != null) {
+                    ModComponents.SKILLS.get(this.client.player).resetSkills();
+                    if (this.skillDescriptionPanel != null) {
+                        this.skillDescriptionPanel.updateButtons();
+                    }
+                }
+            }
         ).dimensions(
             bgLeft + backgroundWidth - 80, bgTop + 8, 
             75, 20
