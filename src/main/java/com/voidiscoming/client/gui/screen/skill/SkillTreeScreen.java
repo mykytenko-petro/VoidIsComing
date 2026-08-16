@@ -2,6 +2,7 @@ package com.voidiscoming.client.gui.screen.skill;
 
 import com.voidiscoming.client.gui.screen.skill.widget.SkillDescriptionPanel;
 import com.voidiscoming.client.gui.screen.skill.widget.SkillNodeDisplay;
+import com.voidiscoming.client.network.skill.SkillResetSender;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 
@@ -48,7 +49,8 @@ public class SkillTreeScreen extends Screen {
             Text.translatable("gui.voidiscoming.reset"),
             button -> {
                 if (this.client != null && this.client.player != null) {
-                    ModComponents.SKILLS.get(this.client.player).resetSkills();
+                    SkillResetSender.send();
+
                     if (this.skillDescriptionPanel != null) {
                         this.skillDescriptionPanel.updateButtons();
                     }

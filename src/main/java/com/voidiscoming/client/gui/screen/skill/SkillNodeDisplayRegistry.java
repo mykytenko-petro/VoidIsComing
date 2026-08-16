@@ -19,6 +19,8 @@ public class SkillNodeDisplayRegistry {
         register(new SkillNodeDisplay(ModSkills.WARRIOR_CLASS, 0, -50, "warrior_class", VoidIsComing.id("textures/gui/skills/warrior_class.png")));
         register(new SkillNodeDisplay(ModSkills.ARCHER_CLASS, 37, 42, "archer_class", VoidIsComing.id("textures/gui/skills/archer_class.png")));
         register(new SkillNodeDisplay(ModSkills.MAGE_CLASS, -37, 42, "mage_class", VoidIsComing.id("textures/gui/skills/mage_class.png")));
+
+        register(new SkillNodeDisplay(ModSkills.FROST_AURA_SPELL, -70, 30, "mage_class", VoidIsComing.id("textures/gui/skills/frost_aura.png")));
     }
 
     private static void register(SkillNodeDisplay display) {

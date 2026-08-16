@@ -1,7 +1,7 @@
 package com.voidiscoming.client.gui.screen.skill.widget;
 
-import com.voidiscoming.client.network.SkillUpgradeSender;
-import com.voidiscoming.client.network.SpellEquipUpdateSender;
+import com.voidiscoming.client.network.skill.SkillUpgradeSender;
+import com.voidiscoming.client.network.spell.SpellEquipUpdateSender;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.skill.SkillType;
@@ -116,7 +116,6 @@ public class SkillDescriptionPanel {
     private void onEquipPressed() {
         if (selectedNode != null && player != null && selectedNode.getSkill().spellId().isPresent()) {
             Identifier spellId = selectedNode.getSkill().spellId().get();
-            var spellComponent = ModComponents.SPELLS.get(player);
 
             SpellEquipUpdateSender.send(spellId);
 

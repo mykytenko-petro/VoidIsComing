@@ -19,12 +19,16 @@ public class ModSkills {
     public static final Identifier ARCHER_CLASS = VoidIsComing.id("archer_class_skill");
     public static final Identifier MAGE_CLASS = VoidIsComing.id("mage_class_skill");
 
+    public static final Identifier FROST_AURA_SPELL = VoidIsComing.id("frost_aura_spell_skill");
+
     public static void registerSkills() {
         registerSkill(new SkillNode(HEAL_SPELL, 1, ModSpells.HEAL));
 
         registerSkill(new SkillNode(WARRIOR_CLASS, HEAL_SPELL, 4, SkillType.CLASS));
         registerSkill(new SkillNode(ARCHER_CLASS, HEAL_SPELL, 4, SkillType.CLASS));
         registerSkill(new SkillNode(MAGE_CLASS, HEAL_SPELL, 4, SkillType.CLASS));
+
+        registerSkill(new SkillNode(FROST_AURA_SPELL, MAGE_CLASS, 3, ModSpells.FROST_AURA));
     }
 
     private static void registerSkill(SkillNode node) {
