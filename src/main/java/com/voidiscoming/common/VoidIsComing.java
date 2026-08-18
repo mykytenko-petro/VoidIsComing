@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.voidiscoming.common.block.ModBlocks;
+import com.voidiscoming.common.effects.ModEffects;
 import com.voidiscoming.common.entity.ModEntities;
 import com.voidiscoming.common.item.ModItemGroups;
 import com.voidiscoming.common.mechanic.ModMechanics;
@@ -25,6 +26,7 @@ public class VoidIsComing implements ModInitializer {
         ModBlocks.initialize();
         ModItemGroups.initialize();
         ModNetworking.registerPackets();
+        ModEffects.registerEffects();
     }
 
     public static Identifier id(String path) {

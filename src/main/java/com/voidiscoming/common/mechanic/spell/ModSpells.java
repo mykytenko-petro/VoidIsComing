@@ -9,6 +9,7 @@ import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.spell.impl.FrostAuraSpell;
 import com.voidiscoming.common.mechanic.spell.impl.HealSpell;
+import com.voidiscoming.common.mechanic.spell.impl.HunterSenseSpell;
 import com.voidiscoming.common.mechanic.spell.impl.InvisibilitySpell;
 import com.voidiscoming.common.mechanic.spell.impl.RageSpell;
 import com.voidiscoming.common.mechanic.spell.impl.TeleportSpell;
@@ -27,6 +28,7 @@ public class ModSpells {
     public static final Identifier TELEPORT = VoidIsComing.id("teleport_spell");
     public static final Identifier FROST_AURA = VoidIsComing.id("frost_aura_spell");
     public static final Identifier RAGE = VoidIsComing.id("rage_spell");
+    public static final Identifier HUNTER_SENSE = VoidIsComing.id("hunter_sense_spell");
 
     public static void registerSpells(){
         register(HEAL, new HealSpell());
@@ -35,6 +37,7 @@ public class ModSpells {
         register(TELEPORT, new TeleportSpell());
         register(FROST_AURA, new FrostAuraSpell());
         register(RAGE, new RageSpell());
+        register(HUNTER_SENSE, new HunterSenseSpell());
     }
 
     private static void register(Identifier id, Spell spell) {
