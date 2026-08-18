@@ -23,6 +23,9 @@ public class ModItemGroups {
                     .entries((context, entries) -> {
                         entries.add(ModBlocks.VOID_GRASS);
                         entries.add(ModBlocks.LITTLE_VOID_GRASS);
+                        entries.add(ModBlocks.VOID_LOG);
+                        entries.add(ModBlocks.VOID_LEAVES);
+                        entries.add(ModBlocks.VOID_SAPLING);
                     })
                     .build()
     );

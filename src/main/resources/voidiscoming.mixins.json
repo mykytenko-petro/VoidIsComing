@@ -5,11 +5,14 @@
     "mixins": [
         "client.gui.HandledScreenAccessor",
         "client.gui.HideBarsMixin",
+        
         "common.player.PreventXpDropMixin",
         "common.food.HungerManagerMixin",
         "common.food.FoodMixin",
         "common.entity.QuadrupedEntityModelAccessor",
-        "common.entity.LivingEntityDamageMixin"
+        "common.entity.LivingEntityDamageMixin",
+        "common.world.MultiNoiseBiomeSourceMixin",
+        "common.world.NoiseChunkGeneratorMixin"
     ],
     "injectors": {
         "defaultRequire": 1

@@ -2,7 +2,6 @@ package com.voidiscoming.common.block;
 
 import com.voidiscoming.common.VoidIsComing;
 
-
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 import net.minecraft.block.Block;
@@ -16,22 +15,15 @@ import net.minecraft.util.Identifier;
 
 public class ModBlocks {
 
-    public static final Block LITTLE_VOID_GRASS = register(
-            "little_void_grass",
-            new LittleVoidGrass(
-                    FabricBlockSettings.create()
-                            .noCollision()
-                            .breakInstantly()
-                            .sounds(BlockSoundGroup.GRASS)
-            )
-    );
+    public static final Block LITTLE_VOID_GRASS = register("little_void_grass", new LittleVoidGrass(FabricBlockSettings.create().noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS)));
 
-    public static final Block VOID_GRASS = register(
-            "void_grass",
-            new VoidGrass(
-                    FabricBlockSettings.copyOf(Blocks.GRASS_BLOCK)
-            )
-    );
+    public static final Block VOID_GRASS = register("void_grass", new VoidGrass(FabricBlockSettings.copyOf(Blocks.GRASS_BLOCK)));
+
+    public static final Block VOID_LOG = register("void_log", new VoidLog());
+
+    public static final Block VOID_LEAVES = register("void_leaves", new VoidLeaves());
+
+    public static final Block VOID_SAPLING = register("void_sapling", new VoidSapling(new VoidSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING).noCollision().nonOpaque()));
 
     private static Block register(String name, Block block) {
         Registry.register(Registries.BLOCK, Identifier.of(VoidIsComing.MOD_ID, name), block);
