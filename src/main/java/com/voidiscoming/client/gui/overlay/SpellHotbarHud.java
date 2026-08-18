@@ -39,18 +39,9 @@ public class SpellHotbarHud implements HudRenderCallback {
             context.drawTexture(SLOT_TEXTURE, startX, cellY, 0, 0, slotSize, slotSize, slotSize, slotSize);
 
             String bindText = "";
-            if (ModKeyBindings.SPELL_KEYS != null && ModKeyBindings.SPELL_KEYS[i] != null) {
+            if (ModKeyBindings.SPELL_KEYS[i] != null) {
                 bindText = ModKeyBindings.SPELL_KEYS[i].getBoundKeyLocalizedText().getString();
             }
-
-            context.drawText(
-                client.textRenderer, 
-                bindText, 
-                startX + 2, 
-                cellY + 2, 
-                0xFF555555, 
-                false
-            );
 
             Identifier spellId = equipped[i];
 
@@ -113,6 +104,15 @@ public class SpellHotbarHud implements HudRenderCallback {
                     }
                 }
             }
+        
+            context.drawText(
+                client.textRenderer, 
+                bindText, 
+                startX + 2, 
+                cellY + 2, 
+                0xFF555555, 
+                false
+            );
         }
     }
 }

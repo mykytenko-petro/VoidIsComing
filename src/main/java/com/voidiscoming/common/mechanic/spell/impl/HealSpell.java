@@ -1,10 +1,6 @@
 package com.voidiscoming.common.mechanic.spell.impl;
 
 import com.voidiscoming.common.VoidIsComing;
-import com.voidiscoming.common.component.mana.ManaComponent;
-import com.voidiscoming.common.component.ModComponents;
-import com.voidiscoming.common.component.spell.PlayerSpellComponent;
-import com.voidiscoming.common.mechanic.spell.ModSpells;
 import com.voidiscoming.common.mechanic.spell.Spell;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -20,26 +16,7 @@ public class HealSpell extends Spell {
     }
 
     @Override
-    public void cast(PlayerEntity player) {
-        if (player.getWorld().isClient()) return;
-
-        ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
-            if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
-                if (playerSpellComp.isOnCooldown(ModSpells.HEAL)) {
-                    return;
-                }
-            }
-
-            ManaComponent mana = ModComponents.MANA.get(player);
-
-            if (mana.getMana() >= getCost()) {
-                mana.removeMana(getCost());
-
-                if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
-                    playerSpellComp.setCooldown(ModSpells.HEAL , getCooldownTicks());
-                }
-                player.heal(2.0F);
-            }
-        });
+    public void castBehaviour(PlayerEntity player) {
+        player.heal(2.0F);
     }
 }

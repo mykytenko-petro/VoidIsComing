@@ -1,0 +1,10 @@
+{
+    "variants": {
+      "persistent=false": {
+        "model": "voidiscoming:block/void_leaves"
+      },
+      "persistent=true": {
+        "model": "voidiscoming:block/void_leaves"
+      }
+    }
+}

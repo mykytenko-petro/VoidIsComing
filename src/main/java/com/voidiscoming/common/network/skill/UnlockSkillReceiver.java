@@ -23,10 +23,7 @@ public class UnlockSkillReceiver {
             if (player == null || player.isRemoved()) return;
 
             ModComponents.SKILLS.maybeGet(player).ifPresent(skillComp -> {
-                boolean success = skillComp.unlockSkill(skillId);
-                
-                if (success) {
-                }
+                skillComp.unlockSkill(skillId);
             });
         });
     }

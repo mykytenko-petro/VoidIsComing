@@ -3,18 +3,21 @@
     "package": "com.voidiscoming.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
-       "client.gui.HandledScreenAccessor",
-       "client.gui.HideBarsMixin",
-       
-       "common.player.PreventXpDropMixin",
-       "common.food.HungerManagerMixin",
-       "common.food.FoodMixin",
-       "common.entity.QuadrupedEntityModelAccessor"
+        "client.gui.HandledScreenAccessor",
+        "client.gui.HideBarsMixin",
+        
+        "common.player.PreventXpDropMixin",
+        "common.food.HungerManagerMixin",
+        "common.food.FoodMixin",
+        "common.entity.QuadrupedEntityModelAccessor",
+        "common.entity.LivingEntityDamageMixin",
+        "common.world.MultiNoiseBiomeSourceMixin",
+        "common.world.NoiseChunkGeneratorMixin"
     ],
     "injectors": {
-       "defaultRequire": 1
+        "defaultRequire": 1
     },
     "overwrites": {
-       "requireAnnotations": true
+        "requireAnnotations": true
     }
 }

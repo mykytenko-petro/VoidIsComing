@@ -12,9 +12,14 @@
 
   "block.voidiscoming.void_grass": "Void Dirt",
   "block.voidiscoming.little_void_grass": "Void Grass",
+  "block.voidiscoming.void_log": "Void Log",
+  "block.voidiscoming.void_sapling": "Void Sapling",
+  "block.voidiscoming.void_leaves": "Void Leaves",
 
   "gui.voidiscoming.equip": "equip",
+  "gui.voidiscoming.unequip": "unequip",
   "gui.voidiscoming.upgrade": "upgarde",
+  "gui.voidiscoming.reset": "reset",
 
   "skill_name.voidiscoming.heal_spell": "Heal spell",
   "skill_name.voidiscoming.warrior_class": "Warrior path",

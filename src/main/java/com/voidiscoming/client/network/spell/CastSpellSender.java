@@ -1,4 +1,4 @@
-package com.voidiscoming.client.network;
+package com.voidiscoming.client.network.spell;
 
 import com.voidiscoming.common.network.ModNetworking;
 

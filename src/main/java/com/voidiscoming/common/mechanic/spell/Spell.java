@@ -1,5 +1,10 @@
 package com.voidiscoming.common.mechanic.spell;
 
+import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.component.ModComponents;
+import com.voidiscoming.common.component.mana.ManaComponent;
+import com.voidiscoming.common.component.spell.PlayerSpellComponent;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -54,6 +59,31 @@ public abstract class Spell {
     public boolean isPassive() { return isPassive; }
     public int getCooldownTicks() { return cooldownTicks; } 
 
-    public void cast(PlayerEntity player) {}
+    public void cast(PlayerEntity player, Identifier spellId) {
+        // if (player.getWorld().isClient()) return;
+
+        ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
+            VoidIsComing.LOGGER.info(spellComp.toString());
+
+            if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
+                if (playerSpellComp.isOnCooldown(spellId)) {
+                    return;
+                }
+            }
+
+            ManaComponent mana = ModComponents.MANA.get(player);
+
+            if (mana.getMana() >= getCost()) {
+                mana.removeMana(getCost());
+
+                if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
+                    playerSpellComp.setCooldown(spellId, getCooldownTicks());
+                }
+                
+                castBehaviour(player);
+            }
+        });
+    }
+    public void castBehaviour(PlayerEntity player) {}
     public void onKill(PlayerEntity attacker, LivingEntity target) {}
 }

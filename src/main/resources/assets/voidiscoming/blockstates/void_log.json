@@ -1,0 +1,16 @@
+{
+    "variants": {
+      "axis=y": {
+        "model": "voidiscoming:block/void_log"
+      },
+      "axis=x": {
+        "model": "voidiscoming:block/void_log",
+        "x": 90,
+        "y": 90
+      },
+      "axis=z": {
+        "model": "voidiscoming:block/void_log",
+        "x": 90
+      }
+    }
+  }

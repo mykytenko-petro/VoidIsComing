@@ -1,7 +1,7 @@
 package com.voidiscoming.client.event;
 
 import com.voidiscoming.client.keybind.ModKeyBindings;
-import com.voidiscoming.client.network.CastSpellSender;
+import com.voidiscoming.client.network.spell.CastSpellSender;
 
 public class SpellHandler {
     public static void handle() {
