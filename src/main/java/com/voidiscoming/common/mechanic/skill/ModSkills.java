@@ -18,10 +18,12 @@ public class ModSkills {
     
     // warrior
     public static final Identifier WARRIOR_CLASS = VoidIsComing.id("warrior_class_skill");
-    
+    public static final Identifier RAGE_SPELL = VoidIsComing.id("rage_spell_skill");
+    public static final Identifier VAMPIRISM_SPELL = VoidIsComing.id("vampirism_spell_skill");
     // archer
     public static final Identifier ARCHER_CLASS = VoidIsComing.id("archer_class_skill");
-    
+    public static final Identifier HUNTER_SENSE_SPELL = VoidIsComing.id("hunter_sense_spell_skill");
+    public static final Identifier INVISIBILITY_SPELL = VoidIsComing.id("invisibility_spell_skill");
     // mage
     public static final Identifier MAGE_CLASS = VoidIsComing.id("mage_class_skill");
     public static final Identifier FROST_AURA_SPELL = VoidIsComing.id("frost_aura_spell_skill");
@@ -31,9 +33,13 @@ public class ModSkills {
         registerSkill(new SkillNode(HEAL_SPELL, 1, ModSpells.HEAL));
 
         registerSkill(new SkillNode(WARRIOR_CLASS, HEAL_SPELL, 4, new Identifier[] {ARCHER_CLASS, MAGE_CLASS}));
+        registerSkill(new SkillNode(RAGE_SPELL,WARRIOR_CLASS,3, ModSpells.RAGE));
+        registerSkill(new SkillNode(VAMPIRISM_SPELL,WARRIOR_CLASS,3, ModSpells.VAMPIRISM));
 
         registerSkill(new SkillNode(ARCHER_CLASS, HEAL_SPELL, 4, new Identifier[] {WARRIOR_CLASS, MAGE_CLASS}));
-        
+        registerSkill(new SkillNode(HUNTER_SENSE_SPELL,ARCHER_CLASS,3, ModSpells.HUNTER_SENSE));
+        registerSkill(new SkillNode(INVISIBILITY_SPELL,ARCHER_CLASS,3, ModSpells.INVISIBILITY));
+
         registerSkill(new SkillNode(MAGE_CLASS, HEAL_SPELL, 4, new Identifier[] {ARCHER_CLASS, WARRIOR_CLASS}));
         registerSkill(new SkillNode(FROST_AURA_SPELL, MAGE_CLASS, 3, ModSpells.FROST_AURA));
         registerSkill(new SkillNode(TELEPORTATION_SPELL, MAGE_CLASS, 3, ModSpells.TELEPORT));

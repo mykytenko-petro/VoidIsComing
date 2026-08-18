@@ -17,9 +17,13 @@ public class SkillNodeDisplayRegistry {
         register(new SkillNodeDisplay(ModSkills.HEAL_SPELL, 0, 0, "heal_spell", VoidIsComing.id("textures/gui/skills/heal.png")));
 
         register(new SkillNodeDisplay(ModSkills.WARRIOR_CLASS, 0, -50, "warrior_class", VoidIsComing.id("textures/gui/skills/warrior_class.png")));
-        
+        register(new SkillNodeDisplay(ModSkills.RAGE_SPELL, 50, -50, "rage_spell", VoidIsComing.id("textures/gui/skills/rage.png")));
+        register(new SkillNodeDisplay(ModSkills.VAMPIRISM_SPELL, 0, -100, "vampirism_spell", VoidIsComing.id("textures/gui/skills/vampirism.png")));
+
         register(new SkillNodeDisplay(ModSkills.ARCHER_CLASS, 37, 42, "archer_class", VoidIsComing.id("textures/gui/skills/archer_class.png")));
-        
+        register(new SkillNodeDisplay(ModSkills.INVISIBILITY_SPELL, 80, 38, "invisibility_spell", VoidIsComing.id("textures/gui/skills/invisibility.png")));
+        register(new SkillNodeDisplay(ModSkills.HUNTER_SENSE_SPELL, 77, 77, "hunter_sense_spell", VoidIsComing.id("textures/gui/skills/hunter_sense.png")));
+
         register(new SkillNodeDisplay(ModSkills.MAGE_CLASS, -37, 42, "mage_class", VoidIsComing.id("textures/gui/skills/mage_class.png")));
         register(new SkillNodeDisplay(ModSkills.FROST_AURA_SPELL, -70, 25, "frost_aura_spell", VoidIsComing.id("textures/gui/skills/frost_aura.png")));
         register(new SkillNodeDisplay(ModSkills.TELEPORTATION_SPELL, -30, 80, "teleportation_spell", VoidIsComing.id("textures/gui/skills/teleportation.png")));
