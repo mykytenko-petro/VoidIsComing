@@ -1,4 +1,4 @@
-package com.voidiscoming.client;
+package com.voidiscoming.client.blockcolor;
 
 import com.voidiscoming.common.block.ModBlocks;
 import net.fabricmc.api.EnvType;
