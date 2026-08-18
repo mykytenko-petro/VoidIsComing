@@ -2,9 +2,9 @@ package com.voidiscoming.common.item;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.block.ModBlocks;
+import com.voidiscoming.common.item.consumables.manaBottel.ModItems;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -16,17 +16,29 @@ public class ModItemGroups {
 
     public static final ItemGroup VOID_IS_COMING = Registry.register(
             Registries.ITEM_GROUP,
-            Identifier.of(VoidIsComing.MOD_ID, "void_is_coming"),
+            new Identifier(VoidIsComing.MOD_ID, "void_is_coming"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("itemGroup.voidiscoming.void_is_coming"))
                     .icon(() -> new ItemStack(ModBlocks.VOID_GRASS))
                     .entries((context, entries) -> {
+                        // Блоки
                         entries.add(ModBlocks.VOID_GRASS);
                         entries.add(ModBlocks.LITTLE_VOID_GRASS);
+
+                        // Бутылочки маны
+                        entries.add(ModItems.SMALL_MANA_BOTTLE);
+                        entries.add(ModItems.MEDIUM_MANA_BOTTLE);
+                        entries.add(ModItems.LARGE_MANA_BOTTLE);
+                        entries.add(ModItems.VOID_COW_HORN);
+                        entries.add(ModItems.BIG_EMPTY_BOTTLE);
+                        entries.add(ModItems.EMPTY_SMALL_BOTTLE);
+                        entries.add(ModItems.VOID_ESSENCE);
+                        entries.add(ModItems.VOID_PIG_TAIL);
                     })
                     .build()
     );
 
     public static void initialize() {
+        // Метод для вызова из главного класса
     }
 }

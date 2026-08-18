@@ -13,6 +13,11 @@
   "block.voidiscoming.void_grass": "Void Dirt",
   "block.voidiscoming.little_void_grass": "Void Grass",
 
+  "item.voidiscoming.big_empty_bottle": "Big Empty Bottle",
+  "item.voidiscoming.big_mana_bottle": "Big Mana Bottle",
+  "item.voidiscoming.empty_small_bottle": "Small Empty Bottle",
+  "item.voidiscoming.small_mana_bottle": "Small Mana Bottle",
+
   "gui.voidiscoming.equip": "equip",
   "gui.voidiscoming.upgrade": "upgarde",
 

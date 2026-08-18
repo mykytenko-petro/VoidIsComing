@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.voidiscoming.common.block.ModBlocks;
 import com.voidiscoming.common.entity.ModEntities;
 import com.voidiscoming.common.item.ModItemGroups;
+import com.voidiscoming.common.item.consumables.manaBottel.ModItems;
+import com.voidiscoming.common.item.consumables.manaBottel.ModBrewingRecipes;
 import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.common.network.ModNetworking;
 import com.voidiscoming.server.command.ModCommands;
@@ -19,15 +21,21 @@ public class VoidIsComing implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
+        ModBlocks.initialize();
+        ModItems.initialize();
+
+        ModEntities.registerModEntities();
         ModMechanics.registerMechanics();
         ModCommands.registerCommands();
-        ModEntities.registerModEntities();
-        ModBlocks.initialize();
-        ModItemGroups.initialize();
         ModNetworking.registerPackets();
+
+        ModBrewingRecipes.registerRecipes();
+
+        ModItemGroups.initialize();
     }
 
     public static Identifier id(String path) {
-        return Identifier.of(MOD_ID, path);
+        return new Identifier(MOD_ID, path);
     }
 }

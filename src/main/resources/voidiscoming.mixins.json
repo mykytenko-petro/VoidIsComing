@@ -1,20 +1,24 @@
 {
-    "required": true,
-    "package": "com.voidiscoming.mixin",
-    "compatibilityLevel": "JAVA_17",
-    "mixins": [
-       "client.gui.HandledScreenAccessor",
-       "client.gui.HideBarsMixin",
-       
-       "common.player.PreventXpDropMixin",
-       "common.food.HungerManagerMixin",
-       "common.food.FoodMixin",
-       "common.entity.QuadrupedEntityModelAccessor"
-    ],
-    "injectors": {
-       "defaultRequire": 1
-    },
-    "overwrites": {
-       "requireAnnotations": true
-    }
+  "required": true,
+  "package": "com.voidiscoming.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "client.gui.HandledScreenAccessor",
+    "client.gui.HideBarsMixin",
+
+    "common.player.PreventXpDropMixin",
+    "common.food.HungerManagerMixin",
+    "common.food.FoodMixin",
+    "common.entity.QuadrupedEntityModelAccessor",
+
+    "common.brewingStand.BrewingStandBlockFuelMixin",
+    "common.brewingStand.BrewingStandBlockEntityAccessor",
+    "common.brewingStand.BrewingStandFuelSlotMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
 }
