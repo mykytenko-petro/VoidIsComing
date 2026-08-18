@@ -9,7 +9,8 @@
     "common.food.HungerManagerMixin",
     "common.food.FoodMixin",
     "common.entity.QuadrupedEntityModelAccessor",
-    "common.world.MultiNoiseBiomeSourceMixin"
+    "common.world.MultiNoiseBiomeSourceMixin",
+    "common.world.NoiseChunkGeneratorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

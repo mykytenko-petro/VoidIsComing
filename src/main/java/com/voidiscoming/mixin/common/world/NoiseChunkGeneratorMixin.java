@@ -1,11 +1,12 @@
 package com.voidiscoming.mixin.common.world;
 
 import com.voidiscoming.common.block.ModBlocks;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
+import com.voidiscoming.common.world.biome.ModBiomes;
+import net.minecraft.block.Blocks;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkRegion;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.StructureAccessor;
@@ -19,23 +20,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(NoiseChunkGenerator.class)
 public abstract class NoiseChunkGeneratorMixin {
 
-    private static final RegistryKey<Biome> VOID_PLAINS = RegistryKey.of(RegistryKeys.BIOME, Identifier.of("voidiscoming", "void_plains"));
+    @Inject(method = "buildSurface", at = @At("TAIL"))
+    private void voidIsComing$replaceVoidPlainsSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk, CallbackInfo ci) {
+        int startX = chunk.getPos().getStartX();
+        int startZ = chunk.getPos().getStartZ();
 
-    @Inject(method = "generateFeatures", at = @At("TAIL"))
-    private void voidIsComing$replacePlainsSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk, CallbackInfo ci) {
-        for (int x = chunk.getPos().getStartX(); x < chunk.getPos().getEndX(); x++) {
-            for (int z = chunk.getPos().getStartZ(); z < chunk.getPos().getEndZ(); z++) {
-                int topY = chunk.getHeightmap(net.minecraft.world.Heightmap.Type.WORLD_SURFACE_WG).get(x & 15, z & 15);
-
-                if (!region.getBiome(new BlockPos(x, topY, z)).matchesKey(VOID_PLAINS)) {
-                    continue;
-                }
+        for (int x = startX; x < startX + 16; x++) {
+            for (int z = startZ; z < startZ + 16; z++) {
+                int topY = chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG).get(x & 15, z & 15);
 
                 if (topY <= region.getBottomY()) {
                     continue;
                 }
 
-                chunk.setBlockState(new BlockPos(x, topY - 1, z), ModBlocks.VOID_GRASS.getDefaultState(), false);
+                BlockPos biomePos = new BlockPos(x, topY - 1, z);
+                RegistryEntry<Biome> biome = region.getBiome(biomePos);
+
+                if (!biome.matchesKey(ModBiomes.VOID_PLAINS_KEY)) {
+                    continue;
+                }
+
+                BlockPos surfacePos = new BlockPos(x, topY - 1, z);
+
+                if (chunk.getBlockState(surfacePos).isOf(Blocks.GRASS_BLOCK)) {
+                    chunk.setBlockState(surfacePos, ModBlocks.VOID_GRASS.getDefaultState(), false);
+                }
             }
         }
     }

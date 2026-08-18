@@ -5,9 +5,12 @@ import org.slf4j.LoggerFactory;
 
 import com.voidiscoming.common.block.ModBlocks;
 import com.voidiscoming.common.entity.ModEntities;
+import com.voidiscoming.common.entity.ModEntitySpawns;
 import com.voidiscoming.common.item.ModItemGroups;
 import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.common.network.ModNetworking;
+
+import com.voidiscoming.common.world.VoidWorldSpawn;
 import com.voidiscoming.common.world.biome.ModBiomes;
 import com.voidiscoming.server.command.ModCommands;
 
@@ -27,10 +30,12 @@ public class VoidIsComing implements ModInitializer {
         ModMechanics.registerMechanics();
         ModCommands.registerCommands();
         ModEntities.registerModEntities();
+        ModEntitySpawns.register();
         ModBlocks.initialize();
         ModItemGroups.initialize();
         ModNetworking.registerPackets();
         ModBiomes.register();
+        VoidWorldSpawn.register();
 
         LOGGER.info("Void Is Coming initialized");
     }

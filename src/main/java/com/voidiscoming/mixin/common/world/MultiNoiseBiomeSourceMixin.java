@@ -17,6 +17,9 @@ public class MultiNoiseBiomeSourceMixin {
     private void voidiscoming$replacePlains(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise, CallbackInfoReturnable<RegistryEntry<Biome>> cir) {
         RegistryEntry<Biome> original = cir.getReturnValue();
         RegistryEntry<Biome> replaced = VoidPlainsBiomeReplacer.replace(original, x, z);
-        if (replaced != original) cir.setReturnValue(replaced);
+
+        if (replaced != original) {
+            cir.setReturnValue(replaced);
+        }
     }
 }
