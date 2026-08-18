@@ -33,7 +33,7 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
         return this.equippedSpells;
     }
 
- @Override
+    @Override
     public void toggleSpell(Identifier spellId) {
         if (spellId == null || ModSpells.get(spellId) == null) {
             return;
@@ -54,6 +54,12 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
                 return;
             }
         }
+    }
+
+    @Override
+    public void unequipAll() {
+        Arrays.fill(equippedSpells, null);
+        ModComponents.SPELLS.sync(this.player);
     }
 
     @Override

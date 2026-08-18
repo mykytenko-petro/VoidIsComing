@@ -82,10 +82,8 @@ public class SkillDescriptionPanel {
         this.upgradeButton.visible = true;
 
         var skillData = ModComponents.SKILLS.get(this.player);
-        boolean alreadyUnlocked = skillData.hasUnlocked(this.selectedNode.skillId());
-        boolean canAfford = skillData.getSkillPoints() >= this.selectedNode.getCost();
 
-        this.upgradeButton.active = !alreadyUnlocked && canAfford;
+        this.upgradeButton.active = skillData.canUnlock(selectedNode.skillId());
 
         boolean isSpell = (this.selectedNode.getSkillType() == SkillType.SPELL);
         this.equipButton.visible = isSpell;
@@ -99,7 +97,7 @@ public class SkillDescriptionPanel {
             ));
 
             boolean hasSpace = Arrays.stream(ModComponents.SPELLS.get(player).getEquippedSpells()).anyMatch(s -> s == null);
-            this.equipButton.active = alreadyUnlocked && (equipped || hasSpace);
+            this.equipButton.active = skillData.hasUnlocked(selectedNode.skillId()) && (equipped || hasSpace);
         } else {
             this.equipButton.active = false;  
         }

@@ -54,6 +54,10 @@ public class PlayerSkillComponent implements SkillComponent {
         SkillNode node = ModSkills.get(skillId);
         if (node == null) return false;
 
+        for (var mutuallyExclusiveNode : node.mutuallyExclusiveNodes()) {
+            if (hasUnlocked(mutuallyExclusiveNode)) return false;
+        }
+
         if (skillPoints < node.cost()) return false;
         if (node.isRoot()) return true;
 
@@ -86,6 +90,8 @@ public class PlayerSkillComponent implements SkillComponent {
         }
 
         this.unlockedSkills.clear();
+
+        ModComponents.SPELLS.get(player).unequipAll();
 
         ModComponents.SKILLS.sync(player);
     }
