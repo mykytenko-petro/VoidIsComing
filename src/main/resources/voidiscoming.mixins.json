@@ -12,7 +12,12 @@
         "common.entity.QuadrupedEntityModelAccessor",
         "common.entity.LivingEntityDamageMixin",
         "common.world.MultiNoiseBiomeSourceMixin",
-        "common.world.NoiseChunkGeneratorMixin"
+        "common.world.NoiseChunkGeneratorMixin",
+        
+        "common.brewingstand.BrewingAccess",
+        "common.brewingstand.BrewingFuelLogic",
+        "common.brewingstand.BrewingFuelSlot",
+        "common.brewingstand.BrewingFuelSlotMixin"
     ],
     "injectors": {
         "defaultRequire": 1
