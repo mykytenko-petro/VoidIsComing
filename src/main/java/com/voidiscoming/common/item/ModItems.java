@@ -12,13 +12,13 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
 
-    public static final Item SMALL_MANA_BOTTLE = register("small_mana_bottle",
+    public static final Item SMALL_MANA_BOTTLE = register("small_mana_potion",
             new ManaPotionItem(new Item.Settings().maxCount(1), 4.0));
 
-    public static final Item MEDIUM_MANA_BOTTLE = register("mana_bottle",
+    public static final Item MEDIUM_MANA_BOTTLE = register("mana_potion",
             new ManaPotionItem(new Item.Settings().maxCount(1), 8.0));
 
-    public static final Item LARGE_MANA_BOTTLE = register("big_mana_bottle",
+    public static final Item LARGE_MANA_BOTTLE = register("big_mana_potion",
             new ManaPotionItem(new Item.Settings().maxCount(1), 12.0));
 
     public static final Item VOID_ESSENCE = register("void_essence",
@@ -37,7 +37,7 @@ public class ModItems {
     public static final Item VOID_PIG_TAIL = register("void_pig_tail", new Item(new Item.Settings()));
     public static final Item VOID_COW_HORN = register("void_cow_horn", new Item(new Item.Settings()));
 
-    public static final Item HEAL_BOTTLE = register("heal_bottle",
+    public static final Item HEAL_BOTTLE = register("heal_potion",
             new HealBottleItem(new FabricItemSettings().maxCount(16)));
 
     public static void initialize() {
