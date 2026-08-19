@@ -11,9 +11,9 @@
     "common.food.FoodMixin",
     "common.entity.QuadrupedEntityModelAccessor",
 
-    "common.brewingStand.BrewingStandBlockFuelMixin",
-    "common.brewingStand.BrewingStandBlockEntityAccessor",
-    "common.brewingStand.BrewingStandFuelSlotMixin"
+    "common.brewingstand.BrewingAccess",
+    "common.brewingstand.BrewingFuelLogic",
+    "common.brewingstand.BrewingFuelSlotMixin"
   ],
   "injectors": {
     "defaultRequire": 1

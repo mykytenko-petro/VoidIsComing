@@ -1,4 +1,4 @@
-package com.voidiscoming.mixin.common.brewingStand;
+package com.voidiscoming.mixin.common.brewingstand;
 
 import net.minecraft.block.entity.BrewingStandBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;

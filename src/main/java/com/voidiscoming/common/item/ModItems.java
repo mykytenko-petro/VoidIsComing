@@ -1,9 +1,11 @@
-package com.voidiscoming.common.item.consumables.manaBottel;
+package com.voidiscoming.common.item;
 
 import com.voidiscoming.common.VoidIsComing;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import com.voidiscoming.common.item.consumables.healbottle.HealBottleItem;
+import com.voidiscoming.common.item.manabottle.ManaBottleItem;
+
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -34,6 +36,9 @@ public class ModItems {
 
     public static final Item VOID_PIG_TAIL = register("void_pig_tail", new Item(new Item.Settings()));
     public static final Item VOID_COW_HORN = register("void_cow_horn", new Item(new Item.Settings()));
+
+    public static final Item HEAL_BOTTLE = register("heal_bottle",
+            new HealBottleItem(new FabricItemSettings().maxCount(16)));
 
     public static void initialize() {
     }

@@ -2,7 +2,6 @@ package com.voidiscoming.common.item;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.block.ModBlocks;
-import com.voidiscoming.common.item.consumables.manaBottel.ModItems;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
@@ -21,11 +20,9 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemGroup.voidiscoming.void_is_coming"))
                     .icon(() -> new ItemStack(ModBlocks.VOID_GRASS))
                     .entries((context, entries) -> {
-                        // Блоки
                         entries.add(ModBlocks.VOID_GRASS);
                         entries.add(ModBlocks.LITTLE_VOID_GRASS);
 
-                        // Бутылочки маны
                         entries.add(ModItems.SMALL_MANA_BOTTLE);
                         entries.add(ModItems.MEDIUM_MANA_BOTTLE);
                         entries.add(ModItems.LARGE_MANA_BOTTLE);
@@ -34,6 +31,7 @@ public class ModItemGroups {
                         entries.add(ModItems.EMPTY_SMALL_BOTTLE);
                         entries.add(ModItems.VOID_ESSENCE);
                         entries.add(ModItems.VOID_PIG_TAIL);
+                        entries.add(ModItems.HEAL_BOTTLE);
                     })
                     .build()
     );

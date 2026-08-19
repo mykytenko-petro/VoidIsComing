@@ -1,7 +1,8 @@
 package com.voidiscoming.mixin.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.voidiscoming.common.item.consumables.manaBottel.ModItems;
+import com.voidiscoming.common.item.ModItems;
+
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.BrewingStandScreen;
 import net.minecraft.item.ItemStack;

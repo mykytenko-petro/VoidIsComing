@@ -1,12 +1,13 @@
-package com.voidiscoming.mixin.common.brewingStand;
+package com.voidiscoming.mixin.common.brewingstand;
 
-import com.voidiscoming.common.item.consumables.manaBottel.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.BrewingStandScreenHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+
+import com.voidiscoming.common.item.ModItems;
 
 @Mixin(BrewingStandScreenHandler.class)
 public class BrewingContainer {

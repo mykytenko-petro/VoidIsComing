@@ -1,6 +1,5 @@
-package com.voidiscoming.mixin.common.brewingStand;
+package com.voidiscoming.mixin.common.brewingstand;
 
-import com.voidiscoming.common.item.consumables.manaBottel.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BrewingStandBlockEntity;
 import net.minecraft.item.ItemStack;
@@ -10,6 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.voidiscoming.common.item.ModItems;
 
 @Mixin(BrewingStandBlockEntity.class)
 public class BrewingFuelLogic {

@@ -1,4 +1,4 @@
-package com.voidiscoming.common.item.consumables.manaBottel;
+package com.voidiscoming.common.item.manabottle;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;

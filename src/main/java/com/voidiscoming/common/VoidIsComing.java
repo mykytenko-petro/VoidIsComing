@@ -1,13 +1,15 @@
 package com.voidiscoming.common;
 
+import com.voidiscoming.common.item.consumables.healbottle.HealBottleRecipes;
+import com.voidiscoming.common.item.manabottle.ModBrewingRecipes;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.voidiscoming.common.block.ModBlocks;
 import com.voidiscoming.common.entity.ModEntities;
 import com.voidiscoming.common.item.ModItemGroups;
-import com.voidiscoming.common.item.consumables.manaBottel.ModItems;
-import com.voidiscoming.common.item.consumables.manaBottel.ModBrewingRecipes;
+import com.voidiscoming.common.item.ModItems;
 import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.common.network.ModNetworking;
 import com.voidiscoming.server.command.ModCommands;
@@ -31,6 +33,7 @@ public class VoidIsComing implements ModInitializer {
         ModNetworking.registerPackets();
 
         ModBrewingRecipes.registerRecipes();
+        HealBottleRecipes.registerRecipes();
 
         ModItemGroups.initialize();
     }

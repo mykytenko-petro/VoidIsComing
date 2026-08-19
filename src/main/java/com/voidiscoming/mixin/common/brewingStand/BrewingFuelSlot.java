@@ -1,11 +1,12 @@
-package com.voidiscoming.mixin.common.brewingStand;
+package com.voidiscoming.mixin.common.brewingstand;
 
-import com.voidiscoming.common.item.consumables.manaBottel.ModItems;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.voidiscoming.common.item.ModItems;
 
 // Обрати внимание: мы целимся во внутренний класс FuelSlot через знак доллара ($)
 @Mixin(targets = "net.minecraft.screen.BrewingStandScreenHandler$FuelSlot")
