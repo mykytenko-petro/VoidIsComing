@@ -4,6 +4,8 @@
     "compatibilityLevel": "JAVA_17",
     "mixins": [
         "common.player.PreventXpDropMixin",
+        "common.player.FlatArmorDamageCalculationMixin",
+        "common.player.ClampedEntityAttributeAccessor",
 
         "common.food.HungerManagerMixin",
         "common.food.FoodMixin",

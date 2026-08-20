@@ -2,11 +2,14 @@ package com.voidiscoming.common.mechanic.stat;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.UUID;
+
+import com.voidiscoming.mixin.common.player.ClampedEntityAttributeAccessor;
 
 public class PlayerStatApplier {
 
@@ -42,6 +45,12 @@ public class PlayerStatApplier {
         syncPlayerStats(player);
 
         player.setHealth(player.getMaxHealth());
+    }
+
+    public static void init() {
+        if (EntityAttributes.GENERIC_ARMOR instanceof ClampedEntityAttribute clamped) {
+            ((ClampedEntityAttributeAccessor) clamped).setMaxValue(2048.0);
+        }
     }
 
     public static void registerEvents() {
