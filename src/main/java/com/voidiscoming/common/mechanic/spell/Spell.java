@@ -1,5 +1,6 @@
 package com.voidiscoming.common.mechanic.spell;
 
+import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.mana.ManaComponent;
 import com.voidiscoming.common.component.spell.PlayerSpellComponent;
@@ -59,9 +60,11 @@ public abstract class Spell {
     public int getCooldownTicks() { return cooldownTicks; } 
 
     public void cast(PlayerEntity player, Identifier spellId) {
-        if (player.getWorld().isClient()) return;
+        // if (player.getWorld().isClient()) return;
 
         ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
+            VoidIsComing.LOGGER.info(spellComp.toString());
+
             if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
                 if (playerSpellComp.isOnCooldown(spellId)) {
                     return;

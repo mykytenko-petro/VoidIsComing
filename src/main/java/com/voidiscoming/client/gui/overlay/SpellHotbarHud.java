@@ -30,27 +30,18 @@ public class SpellHotbarHud implements HudRenderCallback {
         int spacing = 2;
         int startX = 5;
         
-        int totalHeight = (4 * slotSize) + (3 * spacing);
+        int totalHeight = (3 * slotSize) + (2 * spacing);
         int startY = (client.getWindow().getScaledHeight() - totalHeight) / 2;
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             int cellY = startY + i * (slotSize + spacing);
 
             context.drawTexture(SLOT_TEXTURE, startX, cellY, 0, 0, slotSize, slotSize, slotSize, slotSize);
 
             String bindText = "";
-            if (ModKeyBindings.SPELL_KEYS != null && ModKeyBindings.SPELL_KEYS[i] != null) {
+            if (ModKeyBindings.SPELL_KEYS[i] != null) {
                 bindText = ModKeyBindings.SPELL_KEYS[i].getBoundKeyLocalizedText().getString();
             }
-
-            context.drawText(
-                client.textRenderer, 
-                bindText, 
-                startX + 2, 
-                cellY + 2, 
-                0xFF555555, 
-                false
-            );
 
             Identifier spellId = equipped[i];
 
@@ -87,7 +78,7 @@ public class SpellHotbarHud implements HudRenderCallback {
 
                             context.fill(
                                 iconX,                    
-                                iconY + iconSize - overlayHeight,                     
+                                iconY + iconSize - overlayHeight,                    
                                 iconX + iconSize,       
                                 iconY + iconSize,  
                                 0x80FFFFFF              
@@ -113,6 +104,15 @@ public class SpellHotbarHud implements HudRenderCallback {
                     }
                 }
             }
+        
+            context.drawText(
+                client.textRenderer, 
+                bindText, 
+                startX + 2, 
+                cellY + 2, 
+                0xFF555555, 
+                false
+            );
         }
     }
 }

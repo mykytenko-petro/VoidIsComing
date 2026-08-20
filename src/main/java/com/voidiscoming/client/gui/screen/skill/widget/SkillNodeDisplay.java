@@ -8,23 +8,15 @@ import com.voidiscoming.common.mechanic.skill.SkillType;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
-public class SkillNodeDisplay {
+public record SkillNodeDisplay(
+    Identifier skillId,
+    int x,
+    int y,
+    String translationKeyName,
+    Identifier iconTexture
+) {
+    private static final int SIZE = 24;
 
-    // dimension
-    private final int x;
-    private final int y;
-    private final int size = 24;
-
-    // description info
-    public final String translationKeyName;
-
-    // skill
-    private final Identifier skillId;
-    private final SkillNode skill;
-
-    // visual
-    private final Identifier iconTexture;
-    private final Identifier backgroundTexture;
     private static final Identifier REGULAR_BACKGROUND = 
         VoidIsComing.id("textures/gui/skills/skill_cell.png");
     private static final Identifier SPELL_BACKGROUND = 
@@ -32,74 +24,63 @@ public class SkillNodeDisplay {
     private static final Identifier CLASS_BACKGROUND = 
         VoidIsComing.id("textures/gui/skills/class_skill_cell.png");
 
-    // click
-    private long lastClickTime = 0L;
-    private static final long DOUBLE_CLICK_WINDOW_MS = 300L;
-
-    public SkillNodeDisplay(
-        Identifier skillId,
-        int x, int y,
-        String translationKeyName,
-        Identifier iconTexture
-    ) {
-        this.x = x;
-        this.y = y;
-        
-        this.translationKeyName = translationKeyName;
-
-        this.skillId = skillId;
-        skill = ModSkills.get(skillId);
-
-        this.iconTexture = iconTexture;
-        backgroundTexture = switch (skill.type()) {
-            case REGULAR -> REGULAR_BACKGROUND;
-            case SPELL -> SPELL_BACKGROUND;
-            case CLASS -> CLASS_BACKGROUND;
-        };
-    }
-
     public void render(
         DrawContext context,
         int mouseX, int mouseY,
         int originX, int originY
     ) {
-        int renderX = this.x + originX - size / 2;
-        int renderY = this.y + originY - size / 2;
+        int renderX = this.x + originX - SIZE / 2;
+        int renderY = this.y + originY - SIZE / 2;
+
+        Identifier backgroundTexture = getBackgroundTexture();
 
         context.drawTexture(
             backgroundTexture,
             renderX, renderY,
             0, 0, 
-            size, size, 
-            size, size
+            SIZE, SIZE, 
+            SIZE, SIZE
         );
 
         context.drawTexture(
             this.iconTexture,
             renderX + 4, renderY + 4,
             0, 0, 
-            size - 8, size - 8, 
-            size - 8, size - 8
+            SIZE - 8, SIZE - 8, 
+            SIZE - 8, SIZE - 8
         );
     }
 
     public boolean isMouseOver(double mouseX, double mouseY, int originX, int originY) {
-        double renderX = this.x + originX - size / 2;
-        double renderY = this.y + originY - size / 2;
+        double renderX = this.x + originX - SIZE / 2;
+        double renderY = this.y + originY - SIZE / 2;
 
-        return mouseX >= renderX && mouseX < renderX + this.size &&
-               mouseY >= renderY && mouseY < renderY + this.size;
+        return mouseX >= renderX && mouseX < renderX + SIZE &&
+               mouseY >= renderY && mouseY < renderY + SIZE;
+    }
+
+    private Identifier getBackgroundTexture() {
+        SkillNode skill = getSkill();
+        if (skill == null) return REGULAR_BACKGROUND;
+
+        return switch (skill.type()) {
+            case REGULAR -> REGULAR_BACKGROUND;
+            case SPELL -> SPELL_BACKGROUND;
+            case CLASS -> CLASS_BACKGROUND;
+        };
+    }
+
+    public SkillNode getSkill() {
+        return ModSkills.get(this.skillId);
     }
 
     public int getCost() {
-        return skill.cost();
-    }
-
-    public Identifier getSkillId() {
-        return skillId;
+        SkillNode skill = getSkill();
+        return skill != null ? skill.cost() : 0;
     }
 
     public SkillType getSkillType() {
-        return skill.type();
+        SkillNode skill = getSkill();
+        return skill != null ? skill.type() : SkillType.REGULAR;
     }
 }

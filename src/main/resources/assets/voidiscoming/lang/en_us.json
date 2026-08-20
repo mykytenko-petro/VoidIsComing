@@ -12,9 +12,26 @@
 
   "block.voidiscoming.void_grass": "Void Dirt",
   "block.voidiscoming.little_void_grass": "Void Grass",
+  "block.voidiscoming.void_log": "Void Log",
+  "block.voidiscoming.void_sapling": "Void Sapling",
+  "block.voidiscoming.void_leaves": "Void Leaves",
+
+  "item.voidiscoming.mana_potion.effect.water": "Mana potion",
+  "item.voidiscoming.big_empty_bottle": "Big Empty Bottle",
+  "item.voidiscoming.big_mana_potion.effect.empty": "Big Mana potion",
+  "item.voidiscoming.empty_small_bottle": "Small Empty Bottle",
+  "item.voidiscoming.small_mana_potion.effect.empty": "Small Mana potion",
+  "item.voidiscoming.mana_potion.effect.empty": "Mana potion",
+  "item.voidiscoming.void_pig_tail": "Void Pig Taill",
+  "item.voidiscoming.void_cow_horn": "Void Cow Horn",
+  "item.voidiscoming.void_essence": "Void Essence",
+  "item.voidiscoming.heal_potion.effect.water": "Heal potion",
+  "item.voidiscoming.heal_potion.effect.empty": "Heal potion",
 
   "gui.voidiscoming.equip": "equip",
+  "gui.voidiscoming.unequip": "unequip",
   "gui.voidiscoming.upgrade": "upgarde",
+  "gui.voidiscoming.reset": "reset",
 
   "skill_name.voidiscoming.heal_spell": "Heal spell",
   "skill_name.voidiscoming.warrior_class": "Warrior path",

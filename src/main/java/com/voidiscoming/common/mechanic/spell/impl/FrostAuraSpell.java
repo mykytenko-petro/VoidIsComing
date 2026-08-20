@@ -17,7 +17,7 @@ public class FrostAuraSpell extends Spell {
 
     public FrostAuraSpell() {
         super(
-            VoidIsComing.id("textures/gui/spells/ice_storm.png"),
+            VoidIsComing.id("textures/gui/spells/frost_aura.png"),
             15,                                     
             ResourceCostType.MANA, 
             300                                     

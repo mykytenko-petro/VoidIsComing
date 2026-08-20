@@ -6,9 +6,14 @@ import org.slf4j.LoggerFactory;
 import com.voidiscoming.common.block.ModBlocks;
 import com.voidiscoming.common.effects.ModEffects;
 import com.voidiscoming.common.entity.ModEntities;
+import com.voidiscoming.common.entity.ModEntitySpawns;
 import com.voidiscoming.common.item.ModItemGroups;
+import com.voidiscoming.common.item.ModItems;
 import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.common.network.ModNetworking;
+import com.voidiscoming.common.recipe.brewing.ModBrewingRecipes;
+import com.voidiscoming.common.world.VoidWorldSpawn;
+import com.voidiscoming.common.world.biome.ModBiomes;
 import com.voidiscoming.server.command.ModCommands;
 
 import net.fabricmc.api.ModInitializer;
@@ -20,16 +25,21 @@ public class VoidIsComing implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ModItems.initialize();
+        ModEntities.registerModEntities();
         ModMechanics.registerMechanics();
         ModCommands.registerCommands();
-        ModEntities.registerModEntities();
+        ModEntitySpawns.register();
         ModBlocks.initialize();
         ModItemGroups.initialize();
         ModNetworking.registerPackets();
         ModEffects.registerEffects();
+        ModBiomes.register();
+        VoidWorldSpawn.register();
+        ModBrewingRecipes.registerRecipes();
     }
 
     public static Identifier id(String path) {
-        return Identifier.of(MOD_ID, path);
+        return new Identifier(MOD_ID, path);
     }
 }

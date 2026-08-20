@@ -5,12 +5,20 @@
     "mixins": [
         "client.gui.HandledScreenAccessor",
         "client.gui.HideBarsMixin",
+        
         "common.player.PreventXpDropMixin",
         "common.food.HungerManagerMixin",
         "common.food.FoodMixin",
         "common.entity.QuadrupedEntityModelAccessor",
         "common.entity.LivingEntityDamageMixin",
-        "common.food.MilkBucketMixin"
+        "common.food.MilkBucketMixin",
+        "common.world.MultiNoiseBiomeSourceMixin",
+        "common.world.NoiseChunkGeneratorMixin",
+        
+        "common.brewingstand.BrewingAccess",
+        "common.brewingstand.BrewingFuelLogic",
+        "common.brewingstand.BrewingFuelSlot",
+        "common.brewingstand.BrewingFuelSlotMixin"
     ],
     "injectors": {
         "defaultRequire": 1

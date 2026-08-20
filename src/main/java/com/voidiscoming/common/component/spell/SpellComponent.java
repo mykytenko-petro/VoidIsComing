@@ -5,8 +5,8 @@ import net.minecraft.util.Identifier;
 
 public interface SpellComponent extends Component {
     Identifier[] getEquippedSpells();
-    void equipSpell(int slot, Identifier spellId);
-    void unequipSpell(int slot);
+    void toggleSpell(Identifier spellId);
+    void unequipAll();
     
     boolean isOnCooldown(Identifier identifier);
     long getCooldownEnd(Identifier identifier);

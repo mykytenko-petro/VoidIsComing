@@ -25,12 +25,6 @@ public class PlayerSkillComponent implements SkillComponent {
     }
 
     @Override public int getSkillPoints() { return skillPoints; }
-    
-    @Override 
-    public void setSkillPoints(int points) { 
-        this.skillPoints = points; 
-        ModComponents.SKILLS.sync(player); 
-    }
 
     @Override 
     public void addSkillPoints(int points) { 
@@ -38,13 +32,10 @@ public class PlayerSkillComponent implements SkillComponent {
         ModComponents.SKILLS.sync(player); 
     }
 
-    @Override public Set<Identifier> getUnlockedSkills() { return unlockedSkills; }
     @Override public boolean hasUnlocked(Identifier skillId) { return unlockedSkills.contains(skillId); }
 
     @Override
     public boolean hasUnlockedSpell(Identifier spellId) {
-        if (spellId == null) return false;
-        
         for (Identifier skillId : unlockedSkills) {
             SkillNode node = ModSkills.get(skillId);
             if (node != null && node.type() == SkillType.SPELL) {
@@ -63,6 +54,10 @@ public class PlayerSkillComponent implements SkillComponent {
         SkillNode node = ModSkills.get(skillId);
         if (node == null) return false;
 
+        for (var mutuallyExclusiveNode : node.mutuallyExclusiveNodes()) {
+            if (hasUnlocked(mutuallyExclusiveNode)) return false;
+        }
+
         if (skillPoints < node.cost()) return false;
         if (node.isRoot()) return true;
 
@@ -79,6 +74,26 @@ public class PlayerSkillComponent implements SkillComponent {
 
         ModComponents.SKILLS.sync(player);
         return true;
+    }
+
+    @Override
+    public void resetSkills() {
+        if (this.unlockedSkills.isEmpty()) {
+            return;
+        }
+
+        for (Identifier skillId : this.unlockedSkills) {
+            SkillNode node = ModSkills.get(skillId);
+            if (node != null) {
+                this.skillPoints += node.cost();
+            }
+        }
+
+        this.unlockedSkills.clear();
+
+        ModComponents.SPELLS.get(player).unequipAll();
+
+        ModComponents.SKILLS.sync(player);
     }
 
     @Override

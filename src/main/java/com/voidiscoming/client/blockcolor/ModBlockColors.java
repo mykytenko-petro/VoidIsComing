@@ -1,4 +1,4 @@
-package com.voidiscoming.client;
+package com.voidiscoming.client.blockcolor;
 
 import com.voidiscoming.common.block.ModBlocks;
 import net.fabricmc.api.EnvType;
@@ -21,6 +21,18 @@ public class ModBlockColors {
         ColorProviderRegistry.ITEM.register(
                 (stack, tintIndex) -> GrassColors.getColor(0.5D, 1.0D),
                 ModBlocks.VOID_GRASS
+        );
+
+        ColorProviderRegistry.BLOCK.register(
+                (state, world, pos, tintIndex) -> world != null && pos != null
+                        ? BiomeColors.getGrassColor(world, pos)
+                        : GrassColors.getColor(0.5D, 1.0D),
+                ModBlocks.VOID_LEAVES
+        );
+
+        ColorProviderRegistry.ITEM.register(
+                (stack, tintIndex) -> GrassColors.getColor(0.5D, 1.0D),
+                ModBlocks.VOID_LEAVES
         );
     }
 }
