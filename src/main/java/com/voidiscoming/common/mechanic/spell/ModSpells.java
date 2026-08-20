@@ -11,11 +11,14 @@ import com.voidiscoming.common.mechanic.spell.impl.FrostAuraSpell;
 import com.voidiscoming.common.mechanic.spell.impl.HealSpell;
 import com.voidiscoming.common.mechanic.spell.impl.HunterSenseSpell;
 import com.voidiscoming.common.mechanic.spell.impl.InvisibilitySpell;
+import com.voidiscoming.common.mechanic.spell.impl.LastStandSpell;
+import com.voidiscoming.common.mechanic.spell.impl.ManaBoostSpell;
 import com.voidiscoming.common.mechanic.spell.impl.RageSpell;
 import com.voidiscoming.common.mechanic.spell.impl.TeleportSpell;
 import com.voidiscoming.common.mechanic.spell.impl.VampirismSpell;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
@@ -29,6 +32,8 @@ public class ModSpells {
     public static final Identifier FROST_AURA = VoidIsComing.id("frost_aura_spell");
     public static final Identifier RAGE = VoidIsComing.id("rage_spell");
     public static final Identifier HUNTER_SENSE = VoidIsComing.id("hunter_sense_spell");
+    public static final Identifier LAST_STAND = VoidIsComing.id("last_stand_spell");
+    public static final Identifier MANA_BOOST = VoidIsComing.id("mana_boost_spell");
 
     public static void registerSpells(){
         register(HEAL, new HealSpell());
@@ -38,6 +43,8 @@ public class ModSpells {
         register(FROST_AURA, new FrostAuraSpell());
         register(RAGE, new RageSpell());
         register(HUNTER_SENSE, new HunterSenseSpell());
+        register(LAST_STAND, new LastStandSpell());
+        register(MANA_BOOST, new ManaBoostSpell());
     }
 
     private static void register(Identifier id, Spell spell) {
@@ -61,6 +68,21 @@ public class ModSpells {
                             Spell spell = ModSpells.get(spellId);
                             if (spell != null) {
                                 spell.onKill(player, entity); 
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        ServerTickEvents.START_SERVER_TICK.register(server -> {
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
+                    for (Identifier spellId : spellComp.getEquippedSpells()) {
+                        if (spellId != null) {
+                            Spell spell = ModSpells.get(spellId);
+                            if (spell != null && spell.isPassive()) {
+                                spell.onTick(player);
                             }
                         }
                     }

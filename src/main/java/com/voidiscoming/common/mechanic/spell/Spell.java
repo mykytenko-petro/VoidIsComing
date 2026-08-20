@@ -83,4 +83,5 @@ public abstract class Spell {
     }
     public void castBehaviour(PlayerEntity player) {}
     public void onKill(PlayerEntity attacker, LivingEntity target) {}
+    public void onTick(PlayerEntity player) {}
 }
