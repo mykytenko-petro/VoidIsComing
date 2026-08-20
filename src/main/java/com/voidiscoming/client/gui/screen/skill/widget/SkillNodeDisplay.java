@@ -1,11 +1,13 @@
 package com.voidiscoming.client.gui.screen.skill.widget;
 
 import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.skill.ModSkills;
 import com.voidiscoming.common.mechanic.skill.SkillNode;
 import com.voidiscoming.common.mechanic.skill.SkillType;
 
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 public record SkillNodeDisplay(
@@ -24,15 +26,23 @@ public record SkillNodeDisplay(
     private static final Identifier CLASS_BACKGROUND = 
         VoidIsComing.id("textures/gui/skills/class_skill_cell.png");
 
+    private static final Identifier REGULAR_UPGRADED_BACKGROUND = 
+        VoidIsComing.id("textures/gui/skills/skill_cell_upgraded.png");
+    private static final Identifier SPELL_UPGRADED_BACKGROUND = 
+        VoidIsComing.id("textures/gui/skills/spell_skill_cell_upgraded.png");
+    private static final Identifier CLASS_UPGRADED_BACKGROUND = 
+        VoidIsComing.id("textures/gui/skills/class_skill_cell_upgraded.png");
+
     public void render(
         DrawContext context,
+        PlayerEntity player,
         int mouseX, int mouseY,
         int originX, int originY
     ) {
         int renderX = this.x + originX - SIZE / 2;
         int renderY = this.y + originY - SIZE / 2;
 
-        Identifier backgroundTexture = getBackgroundTexture();
+        Identifier backgroundTexture = getBackgroundTexture(player);
 
         context.drawTexture(
             backgroundTexture,
@@ -59,14 +69,16 @@ public record SkillNodeDisplay(
                mouseY >= renderY && mouseY < renderY + SIZE;
     }
 
-    private Identifier getBackgroundTexture() {
+    private Identifier getBackgroundTexture(PlayerEntity player) {
         SkillNode skill = getSkill();
         if (skill == null) return REGULAR_BACKGROUND;
 
+        boolean isUpgraded = player != null && ModComponents.SKILLS.get(player).hasUnlocked(this.skillId);
+
         return switch (skill.type()) {
-            case REGULAR -> REGULAR_BACKGROUND;
-            case SPELL -> SPELL_BACKGROUND;
-            case CLASS -> CLASS_BACKGROUND;
+            case REGULAR -> isUpgraded ? REGULAR_UPGRADED_BACKGROUND : REGULAR_BACKGROUND;
+            case SPELL   -> isUpgraded ? SPELL_UPGRADED_BACKGROUND   : SPELL_BACKGROUND;
+            case CLASS   -> isUpgraded ? CLASS_UPGRADED_BACKGROUND   : CLASS_BACKGROUND;
         };
     }
 
