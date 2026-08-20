@@ -37,9 +37,7 @@ public class FoodMixin {
         if (user instanceof PlayerEntity player && stack.getItem().isFood()) {
             var foodComponent = stack.getItem().getFoodComponent();
             if (foodComponent != null) {
-                int nutrition = foodComponent.getHunger();
-                
-                player.heal(nutrition);
+                player.heal(1);
 
                 if (!world.isClient) {
                     stack.decrement(1);
