@@ -9,7 +9,8 @@
         "common.food.HungerManagerMixin",
         "common.food.FoodMixin",
         "common.entity.QuadrupedEntityModelAccessor",
-        "common.entity.LivingEntityDamageMixin"
+        "common.entity.LivingEntityDamageMixin",
+        "common.food.MilkBucketMixin"
     ],
     "injectors": {
         "defaultRequire": 1

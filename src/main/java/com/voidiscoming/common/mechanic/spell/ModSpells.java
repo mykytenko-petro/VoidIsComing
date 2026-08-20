@@ -13,6 +13,7 @@ import com.voidiscoming.common.mechanic.spell.impl.HunterSenseSpell;
 import com.voidiscoming.common.mechanic.spell.impl.InvisibilitySpell;
 import com.voidiscoming.common.mechanic.spell.impl.LastStandSpell;
 import com.voidiscoming.common.mechanic.spell.impl.ManaBoostSpell;
+import com.voidiscoming.common.mechanic.spell.impl.PurificationSpell;
 import com.voidiscoming.common.mechanic.spell.impl.RageSpell;
 import com.voidiscoming.common.mechanic.spell.impl.TeleportSpell;
 import com.voidiscoming.common.mechanic.spell.impl.VampirismSpell;
@@ -34,6 +35,7 @@ public class ModSpells {
     public static final Identifier HUNTER_SENSE = VoidIsComing.id("hunter_sense_spell");
     public static final Identifier LAST_STAND = VoidIsComing.id("last_stand_spell");
     public static final Identifier MANA_BOOST = VoidIsComing.id("mana_boost_spell");
+    public static final Identifier PURIFICATION = VoidIsComing.id("purification_spell");
 
     public static void registerSpells(){
         register(HEAL, new HealSpell());
@@ -45,6 +47,7 @@ public class ModSpells {
         register(HUNTER_SENSE, new HunterSenseSpell());
         register(LAST_STAND, new LastStandSpell());
         register(MANA_BOOST, new ManaBoostSpell());
+        register(PURIFICATION, new PurificationSpell());
     }
 
     private static void register(Identifier id, Spell spell) {
