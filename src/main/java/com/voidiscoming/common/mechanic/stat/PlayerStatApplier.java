@@ -10,6 +10,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import java.util.UUID;
 
 import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.component.ModComponents;
 
 public class PlayerStatApplier {
 
@@ -19,6 +20,7 @@ public class PlayerStatApplier {
     public static void syncPlayerStats(ServerPlayerEntity player) {
         applyHealthBonus(player);
         applyArmorBonus(player);
+        updateMana(player);
     }
 
     private static void applyHealthBonus(ServerPlayerEntity player) {
@@ -32,6 +34,10 @@ public class PlayerStatApplier {
         double baseHealth = healthInstance.getBaseValue();
         double bonusValue = targetMaxHealth - baseHealth;
 
+        if (player.getHealth() > (float) (baseHealth + bonusValue)) {
+            player.setHealth((float) (baseHealth + bonusValue));
+        }
+
         if (bonusValue > 0) {
             EntityAttributeModifier modifier = new EntityAttributeModifier(
                 HEALTH_BONUS_UUID,
@@ -40,6 +46,14 @@ public class PlayerStatApplier {
                 EntityAttributeModifier.Operation.ADDITION
             );
             healthInstance.addPersistentModifier(modifier);
+        }
+    }
+
+    private static void updateMana(ServerPlayerEntity player) {
+        var component = ModComponents.MANA.get(player);
+
+        if (component.getMana() > PlayerStats.MAX_MANA.getValue(player)) {
+            component.setMana((float) PlayerStats.MAX_MANA.getValue(player));
         }
     }
 
