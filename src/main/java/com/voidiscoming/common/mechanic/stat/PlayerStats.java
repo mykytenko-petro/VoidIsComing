@@ -6,9 +6,18 @@ import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.function.ToDoubleFunction;
 
+import com.voidiscoming.common.component.ModComponents;
+import com.voidiscoming.common.mechanic.skill.ModSkills;
+
 public enum PlayerStats {
     MAX_HEALTH("stat.voidiscoming.max_health", player -> {
         double base = 20;
+        
+        double perLevelBonus = 
+            ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.ARCHER_CLASS)
+            ? (player.experienceLevel / 10) * 2.0
+            : 0;
+
         double bonus = (player.experienceLevel / 10) * 2.0;
 
         return base + bonus;
@@ -16,13 +25,17 @@ public enum PlayerStats {
     
     MAX_MANA("stat.voidiscoming.max_mana", player -> {
         double base = 20.0;
-        double bonus = (player.experienceLevel / 10) * 2.0;
+
+        double perLevelBonus = 
+            ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.MAGE_CLASS)
+            ? (player.experienceLevel / 10) * 2.0
+            : 0;
+
+        double bonus = perLevelBonus;
 
         return base + bonus;
     }),
-    MANA_REGEN("stat.voidiscoming.mana_regen", player -> 1.0),
     
-    // Vanilla Stat Wrappers
     ATTACK_DAMAGE("stat.voidiscoming.attack_damage", player -> getAttribute(player, EntityAttributes.GENERIC_ATTACK_DAMAGE)),
     MOVEMENT_SPEED("stat.voidiscoming.speed", player -> getAttribute(player, EntityAttributes.GENERIC_MOVEMENT_SPEED)),
     ARMOR("stat.voidiscoming.armor", player -> getAttribute(player, EntityAttributes.GENERIC_ARMOR));

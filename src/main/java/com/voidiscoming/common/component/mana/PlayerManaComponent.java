@@ -40,11 +40,6 @@ public class PlayerManaComponent implements ManaComponent {
     }
 
     @Override
-    public double getManaRegen() { 
-        return PlayerStats.MANA_REGEN.getValue(this.player); 
-    }
-
-    @Override
     public void readFromNbt(NbtCompound tag) {
         if (tag.contains("Mana")) {
             this.mana = tag.getFloat("Mana");

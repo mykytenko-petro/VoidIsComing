@@ -1,6 +1,7 @@
 package com.voidiscoming.common.mechanic.stat;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -8,8 +9,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.UUID;
-
-import com.voidiscoming.mixin.common.player.ClampedEntityAttributeAccessor;
 
 public class PlayerStatApplier {
 
@@ -47,15 +46,13 @@ public class PlayerStatApplier {
         player.setHealth(player.getMaxHealth());
     }
 
-    public static void init() {
-        if (EntityAttributes.GENERIC_ARMOR instanceof ClampedEntityAttribute clamped) {
-            ((ClampedEntityAttributeAccessor) clamped).setMaxValue(2048.0);
-        }
-    }
-
     public static void registerEvents() {
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            syncPlayerStats(handler.getPlayer());
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                if ((player.getId() + player.getWorld().getTime()) % 10 != 0) continue;
+
+                syncPlayerStats(player);
+            }
         });
 
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {

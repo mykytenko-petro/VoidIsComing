@@ -5,7 +5,7 @@
     "mixins": [
         "common.player.PreventXpDropMixin",
         "common.player.FlatArmorDamageCalculationMixin",
-        "common.player.ClampedEntityAttributeAccessor",
+        "common.player.ClampedEntityAttributeMixin",
 
         "common.food.HungerManagerMixin",
         "common.food.FoodMixin",
