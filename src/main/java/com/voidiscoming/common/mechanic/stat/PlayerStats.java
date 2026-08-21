@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.function.ToDoubleFunction;
 
+import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.skill.ModSkills;
 
@@ -15,30 +16,46 @@ public enum PlayerStats {
         
         double perLevelBonus = 
             ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.ARCHER_CLASS)
-            ? (player.experienceLevel / 10) * 2.0
-            : 0;
-
-        double bonus = (player.experienceLevel / 10) * 2.0;
-
-        return base + bonus;
-    }),
-    
-    MAX_MANA("stat.voidiscoming.max_mana", player -> {
-        double base = 20.0;
-
-        double perLevelBonus = 
-            ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.MAGE_CLASS)
-            ? (player.experienceLevel / 10) * 2.0
+            ? (player.experienceLevel / 3)
             : 0;
 
         double bonus = perLevelBonus;
 
         return base + bonus;
     }),
+
+    MAX_MANA("stat.voidiscoming.max_mana", player -> {
+        double base = 20.0;
+
+        double perLevelBonus = 
+            ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.MAGE_CLASS)
+            ? (player.experienceLevel / 3)
+            : 0;
+
+        double bonus = perLevelBonus;
+
+        return base + bonus;
+    }),
+
+    ARMOR("stat.voidiscoming.armor", player -> {
+        return getAttribute(player, EntityAttributes.GENERIC_ARMOR);
+    }),
     
     ATTACK_DAMAGE("stat.voidiscoming.attack_damage", player -> getAttribute(player, EntityAttributes.GENERIC_ATTACK_DAMAGE)),
-    MOVEMENT_SPEED("stat.voidiscoming.speed", player -> getAttribute(player, EntityAttributes.GENERIC_MOVEMENT_SPEED)),
-    ARMOR("stat.voidiscoming.armor", player -> getAttribute(player, EntityAttributes.GENERIC_ARMOR));
+    MOVEMENT_SPEED("stat.voidiscoming.speed", player -> getAttribute(player, EntityAttributes.GENERIC_MOVEMENT_SPEED));
+
+    public static double getArmorBonus(PlayerEntity player) {
+        if (player == null) return 0.0;
+
+        double perLevelBonus = 
+            ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.WARRIOR_CLASS)
+            ? (player.experienceLevel / 3)
+            : 0.0;
+
+        double bonus = perLevelBonus;
+
+        return bonus;
+    }
 
     private final String translationKey;
     private final ToDoubleFunction<PlayerEntity> valueGetter;
@@ -61,6 +78,4 @@ public enum PlayerStats {
         var instance = player.getAttributeInstance(attribute);
         return instance != null ? instance.getValue() : 0.0;
     }
-
-
 }

@@ -3,19 +3,22 @@ package com.voidiscoming.common.mechanic.stat;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.UUID;
 
+import com.voidiscoming.common.VoidIsComing;
+
 public class PlayerStatApplier {
 
     private static final UUID HEALTH_BONUS_UUID = UUID.fromString("f482d8a0-2b1c-4f81-a7b2-9388bf379b32");
+    private static final UUID ARMOR_BONUS_UUID = UUID.fromString("e721a9c1-5d3e-4f1a-b892-123456789abc");
 
     public static void syncPlayerStats(ServerPlayerEntity player) {
         applyHealthBonus(player);
+        applyArmorBonus(player);
     }
 
     private static void applyHealthBonus(ServerPlayerEntity player) {
@@ -37,6 +40,28 @@ public class PlayerStatApplier {
                 EntityAttributeModifier.Operation.ADDITION
             );
             healthInstance.addPersistentModifier(modifier);
+        }
+    }
+
+    private static void applyArmorBonus(ServerPlayerEntity player) {
+        var armorInstance = player.getAttributeInstance(EntityAttributes.GENERIC_ARMOR);
+        if (armorInstance == null) return;
+
+        armorInstance.removeModifier(ARMOR_BONUS_UUID);
+        
+        double currentTotalWithoutModifier = armorInstance.getValue();
+        double bonusValue = currentTotalWithoutModifier + PlayerStats.getArmorBonus(player);
+
+        VoidIsComing.LOGGER.info("base: {} bonus: {}", currentTotalWithoutModifier, PlayerStats.getArmorBonus(player));
+
+        if (bonusValue > 0) {
+            EntityAttributeModifier modifier = new EntityAttributeModifier(
+                ARMOR_BONUS_UUID,
+                "VoidIsComing Armor Bonus",
+                bonusValue,
+                EntityAttributeModifier.Operation.ADDITION
+            );
+            armorInstance.addPersistentModifier(modifier);
         }
     }
 

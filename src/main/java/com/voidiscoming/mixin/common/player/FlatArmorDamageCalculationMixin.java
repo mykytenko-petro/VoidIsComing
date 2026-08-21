@@ -20,6 +20,6 @@ public abstract class FlatArmorDamageCalculationMixin {
 
         double totalArmor = entity.getAttributeValue(EntityAttributes.GENERIC_ARMOR);
 
-        return (float) Math.max(amount - totalArmor, amount * 0.1);
+        return (float) Math.max(Math.max(amount - totalArmor, amount * 0.1), 1);
     }
 }
