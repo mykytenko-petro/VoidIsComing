@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.voidiscoming.common.item.ModItems;
 
 @Mixin(BrewingStandBlockEntity.class)
-public class BrewingFuelLogic {
+public class BrewingStandBlockEntityMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private static void addCustomFuel(World world, BlockPos pos, BlockState state, BrewingStandBlockEntity blockEntity, CallbackInfo ci) {
-        BrewingAccess accessor = (BrewingAccess) blockEntity;
+    private static void injectVoidEssenceFuel(World world, BlockPos pos, BlockState state, BrewingStandBlockEntity blockEntity, CallbackInfo ci) {
+        var accessor = (BrewingStandBlockEntityAccessor) blockEntity;
 
         if (accessor.getFuel() <= 0) {
             ItemStack fuelStack = blockEntity.getStack(4);

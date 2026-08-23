@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.voidiscoming.common.item.ModItems;
 
 @Mixin(Slot.class)
-public class BrewingFuelSlotMixin {
+public class BrewingStandSlotMixin {
 
     @Inject(method = "canInsert", at = @At("HEAD"), cancellable = true)
-    private void allowVoidEssenceAsFuel(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    private void allowVoidEssenceInsertion(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         Slot slot = (Slot) (Object) this;
 
         if (slot.inventory instanceof BrewingStandBlockEntity && slot.getIndex() == 4) {
