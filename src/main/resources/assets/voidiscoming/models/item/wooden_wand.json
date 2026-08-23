@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "   ",
+        "XVX",
+        " # "
+    ],
+    "key": {
+        "X": {
+            "item": "minecraft:oak_planks"
+        },
+        "V": {
+            "item": "voidiscoming:void_essence"
+        },
+        "#": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "voidiscoming:wooden_wand",
+        "count": 1
+    }
+}

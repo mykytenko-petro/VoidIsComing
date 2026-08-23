@@ -1,6 +1,7 @@
 package com.voidiscoming.common.entity;
 
 import com.voidiscoming.common.VoidIsComing;
+import com.voidiscoming.common.entity.projectile.WandProjectileEntity;
 import com.voidiscoming.common.entity.stonegolem.StoneGolemEntity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -14,22 +15,33 @@ import net.minecraft.registry.Registry;
 
 public class ModEntities {
 
+    // Снаряд палочки регистрируется здесь (атрибуты ему не нужны)
+    public static final EntityType<WandProjectileEntity> WAND_PROJECTILE = Registry.register(
+        Registries.ENTITY_TYPE,
+        VoidIsComing.id("wand_projectile"),
+        FabricEntityTypeBuilder.<WandProjectileEntity>create(SpawnGroup.MISC, WandProjectileEntity::new)
+            .dimensions(EntityDimensions.fixed(0.25F, 0.25F))
+            .trackRangeBlocks(4)
+            .trackRangeChunks(4)
+            .build()
+    );
+
     public static final EntityType<VoidPigEntity> VOID_PIG = registerMob(
-            "void_pig",
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidPigEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
+        "void_pig",
+        FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidPigEntity::new)
+            .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
     );
 
     public static final EntityType<VoidCowEntity> VOID_COW = registerMob(
-            "void_cow",
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidCowEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
+        "void_cow",
+        FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VoidCowEntity::new)
+            .dimensions(EntityDimensions.fixed(0.9F, 0.9F))
     );
 
     public static final EntityType<StoneGolemEntity> STONE_GOLEM = registerMob(
-            "stone_golem",
-            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, StoneGolemEntity::new)
-                    .dimensions(EntityDimensions.fixed(2.5F, 4.5F))
+        "stone_golem",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, StoneGolemEntity::new)
+            .dimensions(EntityDimensions.fixed(2.5F, 4.5F))
     );
 
     public static final EntityType<VoidSheepEntity> VOID_SHEEP = registerMob(
@@ -39,13 +51,13 @@ public class ModEntities {
     );
 
     private static <T extends Entity> EntityType<T> registerMob(
-            String name,
-            FabricEntityTypeBuilder<T> builder
+        String name,
+        FabricEntityTypeBuilder<T> builder
     ) {
         return Registry.register(
-                Registries.ENTITY_TYPE,
-                VoidIsComing.id(name),
-                builder.build()
+            Registries.ENTITY_TYPE,
+            VoidIsComing.id(name),
+            builder.build()
         );
     }
 
