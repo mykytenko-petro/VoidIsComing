@@ -18,14 +18,22 @@ public class ModSkills {
     
     // warrior
     public static final Identifier WARRIOR_CLASS = VoidIsComing.id("warrior_class_skill");
+    public static final Identifier ARMOR_BONUS = VoidIsComing.id("armor_bonus_skill");
+    public static final Identifier SWORD_POWER = VoidIsComing.id("sword_power_skill");
     public static final Identifier RAGE_SPELL = VoidIsComing.id("rage_spell_skill");
     public static final Identifier VAMPIRISM_SPELL = VoidIsComing.id("vampirism_spell_skill");
+
     // archer
     public static final Identifier ARCHER_CLASS = VoidIsComing.id("archer_class_skill");
+    public static final Identifier HEALTH_BONUS = VoidIsComing.id("health_bonus_skill");
+    public static final Identifier BOW_POWER = VoidIsComing.id("bow_power_skill");
     public static final Identifier HUNTER_SENSE_SPELL = VoidIsComing.id("hunter_sense_spell_skill");
     public static final Identifier INVISIBILITY_SPELL = VoidIsComing.id("invisibility_spell_skill");
+
     // mage
     public static final Identifier MAGE_CLASS = VoidIsComing.id("mage_class_skill");
+    public static final Identifier MANA_BONUS = VoidIsComing.id("mana_bonus_skill");
+    public static final Identifier WAND_POWER = VoidIsComing.id("wand_power_skill");
     public static final Identifier FROST_AURA_SPELL = VoidIsComing.id("frost_aura_spell_skill");
     public static final Identifier TELEPORTATION_SPELL = VoidIsComing.id("teleportation_spell_skill");
 
