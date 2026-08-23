@@ -4,6 +4,7 @@ import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.item.consumables.HealBottleItem;
 import com.voidiscoming.common.item.consumables.ManaPotionItem;
 
+import com.voidiscoming.common.item.consumables.WandItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -39,6 +40,18 @@ public class ModItems {
 
     public static final Item HEAL_BOTTLE = register("heal_potion",
             new HealBottleItem(new FabricItemSettings().maxCount(16)));
+
+    public static final Item WOODEN_STAFF = register("wooden_wand",
+        new WandItem(new FabricItemSettings().maxDamage(60), 6.0F));
+
+    public static final Item IRON_STAFF = register("iron_wand",
+        new WandItem(new FabricItemSettings().maxDamage(150), 8.0F));
+
+    public static final Item DIAMOND_STAFF = register("diamond_wand",
+        new WandItem(new FabricItemSettings().maxDamage(400), 10.0F));
+
+    public static final Item NETHERITE_STAFF = register("netherite_wand",
+        new WandItem(new FabricItemSettings().maxDamage(750), 12.0F));
 
     public static void initialize() {
     }

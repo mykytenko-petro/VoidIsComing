@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.EmptyEntityRenderer;
 
 @Environment(EnvType.CLIENT)
 public class ModRenderers {
@@ -23,6 +24,7 @@ public class ModRenderers {
         EntityRendererRegistry.register(ModEntities.VOID_COW, VoidCowRenderer::new);
         EntityRendererRegistry.register(ModEntities.STONE_GOLEM, StoneGolemRenderer::new);
         EntityRendererRegistry.register(ModEntities.VOID_SHEEP, VoidSheepRenderer::new);
+        EntityRendererRegistry.register(ModEntities.WAND_PROJECTILE, EmptyEntityRenderer::new);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.LITTLE_VOID_GRASS, RenderLayer.getCutout());
     }
