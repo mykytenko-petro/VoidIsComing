@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "   ",
+        "XVX",
+        " # "
+    ],
+    "key": {
+        "X": {
+            "item": "minecraft:diamond"
+        },
+        "V": {
+            "item": "voidiscoming:void_essence"
+        },
+        "#": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "voidiscoming:diamond_staff",
+        "count": 1
+    }
+}

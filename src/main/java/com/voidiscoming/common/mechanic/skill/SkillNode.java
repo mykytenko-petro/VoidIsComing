@@ -11,12 +11,12 @@ public record SkillNode(
     Optional<Identifier> spellId,
     Identifier[] mutuallyExclusiveNodes
 ) {
-    public SkillNode(Identifier id, Identifier parentId, int cost, SkillType type) {
-        this(id, Optional.of(parentId), cost, type, Optional.empty(), new Identifier[0]);
+    public SkillNode(Identifier id, int cost) {
+        this(id, Optional.empty(), cost, SkillType.REGULAR, Optional.empty(), new Identifier[0]);
     }
 
-    public SkillNode(Identifier id, int cost, SkillType type) {
-        this(id, Optional.empty(), cost, type, Optional.empty(), new Identifier[0]);
+    public SkillNode(Identifier id, Identifier parentId, int cost) {
+        this(id, Optional.of(parentId), cost, SkillType.REGULAR, Optional.empty(), new Identifier[0]);
     }
 
     public SkillNode(Identifier id, int cost, Identifier spellId) {
