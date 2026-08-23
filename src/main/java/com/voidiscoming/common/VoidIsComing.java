@@ -9,7 +9,7 @@ import com.voidiscoming.common.entity.ModEntitySpawns;
 import com.voidiscoming.common.item.ModItemGroups;
 import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.common.network.ModNetworking;
-
+import com.voidiscoming.common.world.VoidGolemSpawn;
 import com.voidiscoming.common.world.VoidWorldSpawn;
 import com.voidiscoming.common.world.biome.ModBiomes;
 import com.voidiscoming.server.command.ModCommands;
