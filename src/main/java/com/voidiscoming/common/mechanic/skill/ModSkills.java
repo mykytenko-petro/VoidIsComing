@@ -53,28 +53,28 @@ public class ModSkills {
         registerSkill(new SkillNode(ARMOR_BONUS, WARRIOR_CLASS, 1));
         registerSkill(new SkillNode(ARMOR_BONUS_2, ARMOR_BONUS, 1));
         registerSkill(new SkillNode(STONE_BASTION, ARMOR_BONUS_2, 1));
-        registerSkill(new SkillNode(RESILIENCE, STONE_BASTION, 1));
-        registerSkill(new SkillNode(SWORD_POWER, WARRIOR_CLASS, 1));
+        registerSkill(new SkillNode(RESILIENCE, ARMOR_BONUS, 1));
+        registerSkill(new SkillNode(SWORD_POWER, ARMOR_BONUS_2, 1));
         registerSkill(new SkillNode(RAGE_SPELL, WARRIOR_CLASS, 3, ModSpells.RAGE));
-        registerSkill(new SkillNode(VAMPIRISM_SPELL, WARRIOR_CLASS, 3, ModSpells.VAMPIRISM));
+        registerSkill(new SkillNode(VAMPIRISM_SPELL, SWORD_POWER, 3, ModSpells.VAMPIRISM));
 
         registerSkill(new SkillNode(ARCHER_CLASS, HEAL_SPELL, 4, new Identifier[] {WARRIOR_CLASS, MAGE_CLASS}));
         registerSkill(new SkillNode(HEALTH_BONUS, ARCHER_CLASS, 1));
         registerSkill(new SkillNode(HEALTH_BONUS_2, HEALTH_BONUS, 1));
         registerSkill(new SkillNode(WILD_BLOOM, HEALTH_BONUS_2, 1));
-        registerSkill(new SkillNode(SWIFTSTEP, WILD_BLOOM, 1));
-        registerSkill(new SkillNode(BOW_POWER, ARCHER_CLASS, 1));
+        registerSkill(new SkillNode(SWIFTSTEP, HEALTH_BONUS, 1));
+        registerSkill(new SkillNode(BOW_POWER, HEALTH_BONUS_2, 1));
         registerSkill(new SkillNode(HUNTER_SENSE_SPELL, ARCHER_CLASS, 3, ModSpells.HUNTER_SENSE));
-        registerSkill(new SkillNode(INVISIBILITY_SPELL, ARCHER_CLASS, 3, ModSpells.INVISIBILITY));
+        registerSkill(new SkillNode(INVISIBILITY_SPELL, BOW_POWER, 3, ModSpells.INVISIBILITY));
 
         registerSkill(new SkillNode(MAGE_CLASS, HEAL_SPELL, 4, new Identifier[] {ARCHER_CLASS, WARRIOR_CLASS}));
         registerSkill(new SkillNode(MANA_BONUS, MAGE_CLASS, 1));
         registerSkill(new SkillNode(MANA_BONUS_2, MANA_BONUS, 1));
         registerSkill(new SkillNode(ABYSSAL_RESERVOIR, MANA_BONUS_2, 1));
-        registerSkill(new SkillNode(AFFINITY, ABYSSAL_RESERVOIR, 1));
-        registerSkill(new SkillNode(WAND_POWER, MAGE_CLASS, 1));
+        registerSkill(new SkillNode(AFFINITY, MANA_BONUS, 1));
+        registerSkill(new SkillNode(WAND_POWER, MANA_BONUS_2, 1));
         registerSkill(new SkillNode(FROST_AURA_SPELL, MAGE_CLASS, 3, ModSpells.FROST_AURA));
-        registerSkill(new SkillNode(TELEPORTATION_SPELL, MAGE_CLASS, 3, ModSpells.TELEPORT));
+        registerSkill(new SkillNode(TELEPORTATION_SPELL, WAND_POWER, 3, ModSpells.TELEPORT));
     }
 
     private static void registerSkill(SkillNode node) {
