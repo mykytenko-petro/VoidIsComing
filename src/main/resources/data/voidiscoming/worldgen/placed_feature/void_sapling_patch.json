@@ -1,9 +1,9 @@
 {
-  "feature": "voidiscoming:void_tree",
+  "feature": "voidiscoming:void_sapling_patch",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 3
+      "type": "minecraft:count",
+      "count": 1
     },
     {
       "type": "minecraft:in_square"

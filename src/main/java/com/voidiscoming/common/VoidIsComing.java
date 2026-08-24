@@ -12,6 +12,8 @@ import com.voidiscoming.common.item.ModItems;
 import com.voidiscoming.common.mechanic.ModMechanics;
 import com.voidiscoming.common.network.ModNetworking;
 import com.voidiscoming.common.recipe.brewing.ModBrewingRecipes;
+import com.voidiscoming.common.world.VoidTreeGeneration;
+import com.voidiscoming.common.world.VoidTreeSpawn;
 import com.voidiscoming.common.world.VoidWorldSpawn;
 import com.voidiscoming.common.world.biome.ModBiomes;
 import com.voidiscoming.server.command.ModCommands;
@@ -36,7 +38,10 @@ public class VoidIsComing implements ModInitializer {
         ModEffects.registerEffects();
         ModBiomes.register();
         VoidWorldSpawn.register();
+        VoidTreeGeneration.register();
+        VoidTreeSpawn.register();
         ModBrewingRecipes.registerRecipes();
+        
     }
 
     public static Identifier id(String path) {
