@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
+import com.voidiscoming.common.mechanic.spell.impl.ConcentrationSpell;
 import com.voidiscoming.common.mechanic.spell.impl.FrostAuraSpell;
 import com.voidiscoming.common.mechanic.spell.impl.HealSpell;
 import com.voidiscoming.common.mechanic.spell.impl.HunterSenseSpell;
@@ -36,6 +37,7 @@ public class ModSpells {
     public static final Identifier LAST_STAND = VoidIsComing.id("last_stand_spell");
     public static final Identifier MANA_BOOST = VoidIsComing.id("mana_boost_spell");
     public static final Identifier PURIFICATION = VoidIsComing.id("purification_spell");
+    public static final Identifier CONCENTRATION = VoidIsComing.id("concentration_spell");
 
     public static void registerSpells(){
         register(HEAL, new HealSpell());
@@ -48,6 +50,7 @@ public class ModSpells {
         register(LAST_STAND, new LastStandSpell());
         register(MANA_BOOST, new ManaBoostSpell());
         register(PURIFICATION, new PurificationSpell());
+        register(CONCENTRATION, new ConcentrationSpell());
     }
 
     private static void register(Identifier id, Spell spell) {

@@ -24,26 +24,28 @@ public class SpellHotbarHud implements HudRenderCallback {
 
         SpellComponent spellComponent = ModComponents.SPELLS.get(client.player);
         Identifier[] equipped = spellComponent.getEquippedSpells();
+        int slotCount = equipped != null ? equipped.length : 2;
+        if (slotCount <= 0) slotCount = 2; 
+
         long currentTime = client.player.getWorld().getTime();
 
         int slotSize = 18;
         int spacing = 2;
         int startX = 5;
         
-        int totalHeight = (3 * slotSize) + (2 * spacing);
+        int totalHeight = (slotCount * slotSize) + ((slotCount - 1) * spacing);
         int startY = (client.getWindow().getScaledHeight() - totalHeight) / 2;
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < slotCount; i++) {
             int cellY = startY + i * (slotSize + spacing);
 
             context.drawTexture(SLOT_TEXTURE, startX, cellY, 0, 0, slotSize, slotSize, slotSize, slotSize);
 
             String bindText = "";
-            if (ModKeyBindings.SPELL_KEYS[i] != null) {
+            if (i < ModKeyBindings.SPELL_KEYS.length && ModKeyBindings.SPELL_KEYS[i] != null) {
                 bindText = ModKeyBindings.SPELL_KEYS[i].getBoundKeyLocalizedText().getString();
             }
-
-            Identifier spellId = equipped[i];
+            Identifier spellId = (i < equipped.length) ? equipped[i] : null;
 
             if (spellId != null) {
                 Spell spell = ModSpells.get(spellId);

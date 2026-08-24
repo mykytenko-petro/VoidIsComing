@@ -58,6 +58,9 @@ public abstract class Spell {
     public ResourceCostType getCostType() { return costType; }
     public boolean isPassive() { return isPassive; }
     public int getCooldownTicks() { return cooldownTicks; } 
+    public boolean providesCooldownReduction() {
+        return false;
+    }
 
     public void cast(PlayerEntity player, Identifier spellId) {
         // if (player.getWorld().isClient()) return;
@@ -84,6 +87,7 @@ public abstract class Spell {
             }
         });
     }
+
     public void castBehaviour(PlayerEntity player) {}
     public void onKill(PlayerEntity attacker, LivingEntity target) {}
     public void onTick(PlayerEntity player) {}

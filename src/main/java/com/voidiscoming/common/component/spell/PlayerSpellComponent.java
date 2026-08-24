@@ -8,17 +8,20 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.spell.ModSpells;
+import com.voidiscoming.common.mechanic.spell.Spell; 
 
 public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent {
     private final PlayerEntity player;
     
+    private int unlockedSlots = 2;
     private final Identifier[] equippedSpells = new Identifier[4];
 
     private final Map<Identifier, Long> cooldownEnds = new HashMap<>();
@@ -30,7 +33,25 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
 
     @Override
     public Identifier[] getEquippedSpells() {
-        return this.equippedSpells;
+        List<Identifier> activeSpells = new ArrayList<>();
+        for (int i = 0; i < unlockedSlots; i++) {
+            if (equippedSpells[i] != null) {
+                activeSpells.add(equippedSpells[i]);
+            }
+        }
+        return activeSpells.toArray(new Identifier[0]);
+    }
+
+    @Override
+    public int getUnlockedSlots() {
+        return this.unlockedSlots;
+    }
+
+    public void unlockSlot() {
+        if (this.unlockedSlots < 4) {
+            this.unlockedSlots++;
+            ModComponents.SPELLS.sync(this.player);
+        }
     }
 
     @Override
@@ -39,7 +60,7 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
             return;
         }
 
-        for (int i = 0; i < equippedSpells.length; i++) {
+        for (int i = 0; i < unlockedSlots; i++) {
             if (spellId.equals(equippedSpells[i])) {
                 equippedSpells[i] = null;
                 ModComponents.SPELLS.sync(this.player);
@@ -47,7 +68,7 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
             }
         }
 
-        for (int i = 0; i < equippedSpells.length; i++) {
+        for (int i = 0; i < unlockedSlots; i++) {
             if (equippedSpells[i] == null) {
                 equippedSpells[i] = spellId;
                 ModComponents.SPELLS.sync(this.player);
@@ -81,6 +102,22 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
 
     @Override
     public void setCooldown(Identifier spellId, int ticks) {
+        boolean hasCooldownReduction = false;
+        for (int i = 0; i < unlockedSlots; i++) {
+            Identifier equippedId = equippedSpells[i];
+            if (equippedId != null) {
+                Spell spell = ModSpells.get(equippedId);
+                if (spell != null && spell.providesCooldownReduction()) {
+                    hasCooldownReduction = true;
+                    break;
+                }
+            }
+        }
+
+        if (hasCooldownReduction) {
+            ticks = (int) (ticks * 0.90); 
+        }
+
         long endTime = player.getWorld().getTime() + ticks;
         cooldownEnds.put(spellId, endTime);
         cooldownDurations.put(spellId, ticks);
@@ -89,8 +126,11 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
 
     @Override
     public void writeToNbt(NbtCompound tag) {
+        tag.putInt("UnlockedSlots", this.unlockedSlots);
+
         NbtList hotbarList = new NbtList();
-        for (Identifier spellId : equippedSpells) {
+        for (int i = 0; i < unlockedSlots; i++) {
+            Identifier spellId = equippedSpells[i];
             hotbarList.add(NbtString.of(spellId != null ? spellId.toString() : ""));
         }
         tag.put("SpellHotbar", hotbarList);
@@ -118,9 +158,15 @@ public class PlayerSpellComponent implements SpellComponent, AutoSyncedComponent
         this.cooldownEnds.clear();
         this.cooldownDurations.clear();
 
+        if (tag.contains("UnlockedSlots", NbtElement.NUMBER_TYPE)) {
+            this.unlockedSlots = Math.min(4, Math.max(2, tag.getInt("UnlockedSlots")));
+        } else {
+            this.unlockedSlots = 2;
+        }
+
         if (tag.contains("SpellHotbar", NbtElement.LIST_TYPE)) {
             NbtList hotbarList = tag.getList("SpellHotbar", NbtElement.STRING_TYPE);
-            for (int i = 0; i < Math.min(hotbarList.size(), equippedSpells.length); i++) {
+            for (int i = 0; i < Math.min(hotbarList.size(), this.unlockedSlots); i++) {
                 String str = hotbarList.getString(i);
                 this.equippedSpells[i] = (str == null || str.isEmpty()) ? null : Identifier.tryParse(str);
             }
