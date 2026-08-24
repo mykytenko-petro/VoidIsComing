@@ -1,23 +1,6 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "   ",
-        "XVX",
-        " # "
-    ],
-    "key": {
-        "X": {
-            "item": "minecraft:netherite_ingot"
-        },
-        "V": {
-            "item": "voidiscoming:void_essence"
-        },
-        "#": {
-            "item": "minecraft:stick"
-        }
-    },
-    "result": {
-        "item": "voidiscoming:netherite_staff",
-        "count": 1
-    }
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "voidiscoming:item/wand/netherite_wand"
+  }
 }
