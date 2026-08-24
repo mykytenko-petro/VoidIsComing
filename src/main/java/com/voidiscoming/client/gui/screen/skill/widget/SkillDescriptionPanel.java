@@ -95,8 +95,17 @@ public class SkillDescriptionPanel {
             this.equipButton.setMessage(Text.translatable(
                 equipped ? "gui.voidiscoming.unequip" : "gui.voidiscoming.equip"
             ));
-
+            
             boolean hasSpace = Arrays.stream(ModComponents.SPELLS.get(player).getEquippedSpells()).anyMatch(s -> s == null);
+            // VoidIsComing.LOGGER.info(String.valueOf(hasSpace));
+            for (var spell : ModComponents.SPELLS.get(player).getEquippedSpells()) {
+                if (spell != null) {
+                    VoidIsComing.LOGGER.info(spell.toString());
+                } else {
+                    VoidIsComing.LOGGER.info("null");
+                }
+            }
+
             this.equipButton.active = skillData.hasUnlocked(selectedNode.skillId()) && (equipped || hasSpace);
         } else {
             this.equipButton.active = false;  
