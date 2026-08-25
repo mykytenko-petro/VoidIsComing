@@ -24,7 +24,6 @@ public class VoidWorldSpawn {
 
     private static final int SEARCH_STEP = 128;
     private static final int SEARCH_RADIUS = 16;
-    private static final int TELEPORT_DELAY_TICKS = 10;
 
     private static final Set<UUID> PENDING_PLAYERS = new HashSet<>();
     private static final Set<UUID> PROCESSING_PLAYERS = new HashSet<>();
@@ -77,22 +76,13 @@ public class VoidWorldSpawn {
                 return;
             }
 
-            world.getChunk(spawnPos.getX() >> 4, spawnPos.getZ() >> 4);
-
-            BlockPos finalSpawnPos = findSafeSpawnPosition(world, spawnPos);
-
-            if (finalSpawnPos == null) {
-                System.out.println("[VoidIsComing] Could not find safe Void Plains surface.");
-                return;
-            }
-
-            world.setSpawnPos(finalSpawnPos, 0.0F);
+            world.setSpawnPos(spawnPos, 0.0F);
 
             player.teleport(
                     world,
-                    finalSpawnPos.getX() + 0.5,
-                    finalSpawnPos.getY(),
-                    finalSpawnPos.getZ() + 0.5,
+                    spawnPos.getX() + 0.5,
+                    spawnPos.getY(),
+                    spawnPos.getZ() + 0.5,
                     player.getYaw(),
                     player.getPitch()
             );
@@ -100,9 +90,8 @@ public class VoidWorldSpawn {
             state.initialized = true;
             state.markDirty();
 
-            System.out.println("[VoidIsComing] Player teleported to Void Plains at " + finalSpawnPos);
-
-            VoidGolemSpawn.spawnNearPlayer(world, finalSpawnPos);
+            System.out.println("[VoidIsComing] Player teleported to Void Plains at " + spawnPos);
+            System.out.println("[VoidIsComing] World spawn set at " + spawnPos);
         } finally {
             PROCESSING_PLAYERS.remove(player.getUuid());
         }
