@@ -9,10 +9,11 @@
 
         "common.food.HungerManagerMixin",
         "common.food.FoodMixin",
+        "common.food.MilkBucketMixin",
 
         "common.entity.QuadrupedEntityModelAccessor",
         "common.entity.LivingEntityDamageMixin",
-
+        
         "common.world.MultiNoiseBiomeSourceMixin",
         "common.world.NoiseChunkGeneratorMixin",
 

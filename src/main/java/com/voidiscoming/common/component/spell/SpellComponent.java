@@ -5,6 +5,7 @@ import net.minecraft.util.Identifier;
 
 public interface SpellComponent extends Component {
     Identifier[] getEquippedSpells();
+    int getUnlockedSlots(); 
     void toggleSpell(Identifier spellId);
     void unequipAll();
     
