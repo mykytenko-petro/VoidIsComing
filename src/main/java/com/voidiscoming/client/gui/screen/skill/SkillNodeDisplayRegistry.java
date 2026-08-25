@@ -15,6 +15,7 @@ public class SkillNodeDisplayRegistry {
 
     public static void registerNodes() {
         register(new SkillNodeDisplay(ModSkills.HEAL_SPELL, 0, 0, "heal_spell", VoidIsComing.id("textures/gui/skills/heal.png")));
+        register(new SkillNodeDisplay(ModSkills.CONCENTRATION_SPELL, 20, 20, "concentration_spell", VoidIsComing.id("textures/gui/skills/concentration.png")));
 
         register(new SkillNodeDisplay(ModSkills.WARRIOR_CLASS, 0, -50, "warrior_class", VoidIsComing.id("textures/gui/skills/warrior_class.png")));
         register(new SkillNodeDisplay(ModSkills.ARMOR_BONUS, 5, -100, "armor_bonus", VoidIsComing.id("textures/gui/skills/armor.png")));
@@ -24,6 +25,7 @@ public class SkillNodeDisplayRegistry {
         register(new SkillNodeDisplay(ModSkills.SWORD_POWER, 55, -75, "sword_power", VoidIsComing.id("textures/gui/skills/warrior_class.png")));
         register(new SkillNodeDisplay(ModSkills.RAGE_SPELL, 40, -10, "rage_spell", VoidIsComing.id("textures/gui/skills/rage.png")));
         register(new SkillNodeDisplay(ModSkills.VAMPIRISM_SPELL, 80, -40, "vampirism_spell", VoidIsComing.id("textures/gui/skills/vampirism.png")));
+        register(new SkillNodeDisplay(ModSkills.LAST_STAND_SPELL, 70, -170, "last_stand_spell", VoidIsComing.id("textures/gui/skills/last_stand.png")));
 
         register(new SkillNodeDisplay(ModSkills.ARCHER_CLASS, 37, 42, "archer_class", VoidIsComing.id("textures/gui/skills/archer_class.png")));
         register(new SkillNodeDisplay(ModSkills.HEALTH_BONUS, 60, 80, "health_bonus", VoidIsComing.id("textures/gui/skills/heart.png")));
@@ -42,6 +44,8 @@ public class SkillNodeDisplayRegistry {
         register(new SkillNodeDisplay(ModSkills.WAND_POWER, -105, 30, "wand_power", VoidIsComing.id("textures/gui/skills/mage_class.png")));
         register(new SkillNodeDisplay(ModSkills.FROST_AURA_SPELL, -40, -15, "frost_aura_spell", VoidIsComing.id("textures/gui/skills/frost_aura.png")));
         register(new SkillNodeDisplay(ModSkills.TELEPORTATION_SPELL, -120, -30, "teleportation_spell", VoidIsComing.id("textures/gui/skills/teleportation.png")));
+        register(new SkillNodeDisplay(ModSkills.MANA_BOOST_SPELL, -150, 70, "mana_boost_spell", VoidIsComing.id("textures/gui/skills/mana_boost.png")));
+        register(new SkillNodeDisplay(ModSkills.PURIFICATION_SPELL, -160, -5, "purification_spell", VoidIsComing.id("textures/gui/skills/purification.png")));
     }
 
     private static void register(SkillNodeDisplay display) {

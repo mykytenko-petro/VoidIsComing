@@ -13,10 +13,10 @@ public class RageSpell extends Spell {
 
     public RageSpell() {
         super(
-            VoidIsComing.id("textures/gui/spells/rage_spell.png"), 
-            4,                                      
-            ResourceCostType.HP,                                  
-            300                                                
+            VoidIsComing.id("textures/gui/spells/rage.png"),
+            4,
+            ResourceCostType.HP,
+            300
         );
     }
 

@@ -10,8 +10,8 @@ public class LastStandSpell extends Spell {
 
     public LastStandSpell() {
         super(
-            VoidIsComing.id("textures/gui/spells/last_stand_passive_spell.png")
-        ); 
+            VoidIsComing.id("textures/gui/spells/last_stand.png")
+        );
     }
 
     @Override

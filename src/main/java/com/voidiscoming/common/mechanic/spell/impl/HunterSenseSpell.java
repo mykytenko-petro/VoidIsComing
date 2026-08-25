@@ -17,10 +17,10 @@ public class HunterSenseSpell extends Spell {
 
     public HunterSenseSpell() {
         super(
-            VoidIsComing.id("textures/gui/spells/hunter_sense_spell.png"), 
-            6,                                     
-            ResourceCostType.MANA, 
-            400                                    
+            VoidIsComing.id("textures/gui/spells/hunter_sense.png"), 
+            6,
+            ResourceCostType.MANA,
+            400
         );
     }
 

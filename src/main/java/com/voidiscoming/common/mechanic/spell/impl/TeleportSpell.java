@@ -13,9 +13,9 @@ import net.minecraft.world.RaycastContext;
 public class TeleportSpell extends Spell {
     public TeleportSpell() {
         super(
-            VoidIsComing.id("textures/gui/spells/teleportation_spell.png"), 
-            10, 
-            ResourceCostType.MANA, 
+            VoidIsComing.id("textures/gui/spells/teleportation.png"),
+            10,
+            ResourceCostType.MANA,
             400
         );
     }

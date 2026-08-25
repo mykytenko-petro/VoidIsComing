@@ -15,6 +15,7 @@ public class ModSkills {
 
     // root spells
     public static final Identifier HEAL_SPELL = VoidIsComing.id("heal_spell_skill");
+    public static final Identifier CONCENTRATION_SPELL = VoidIsComing.id("concentration_spell_skill");
     
     // warrior
     public static final Identifier WARRIOR_CLASS = VoidIsComing.id("warrior_class_skill");
@@ -45,9 +46,13 @@ public class ModSkills {
     public static final Identifier WAND_POWER = VoidIsComing.id("wand_power_skill");
     public static final Identifier FROST_AURA_SPELL = VoidIsComing.id("frost_aura_spell_skill");
     public static final Identifier TELEPORTATION_SPELL = VoidIsComing.id("teleportation_spell_skill");
+    public static final Identifier LAST_STAND_SPELL = VoidIsComing.id("last_stand_spell_skill");
+    public static final Identifier MANA_BOOST_SPELL = VoidIsComing.id("mana_boost_spell_skill");
+    public static final Identifier PURIFICATION_SPELL = VoidIsComing.id("purification_spell_skill");
 
     public static void registerSkills() {
         registerSkill(new SkillNode(HEAL_SPELL, 1, ModSpells.HEAL));
+        registerSkill(new SkillNode(CONCENTRATION_SPELL, 2, ModSpells.CONCENTRATION));
 
         registerSkill(new SkillNode(WARRIOR_CLASS, HEAL_SPELL, 4, new Identifier[] {ARCHER_CLASS, MAGE_CLASS}));
         registerSkill(new SkillNode(ARMOR_BONUS, WARRIOR_CLASS, 1));
@@ -57,6 +62,7 @@ public class ModSkills {
         registerSkill(new SkillNode(SWORD_POWER, ARMOR_BONUS_2, 1));
         registerSkill(new SkillNode(RAGE_SPELL, WARRIOR_CLASS, 3, ModSpells.RAGE));
         registerSkill(new SkillNode(VAMPIRISM_SPELL, SWORD_POWER, 3, ModSpells.VAMPIRISM));
+        registerSkill(new SkillNode(LAST_STAND_SPELL, ARMOR_BONUS_2, 3, ModSpells.LAST_STAND));
 
         registerSkill(new SkillNode(ARCHER_CLASS, HEAL_SPELL, 4, new Identifier[] {WARRIOR_CLASS, MAGE_CLASS}));
         registerSkill(new SkillNode(HEALTH_BONUS, ARCHER_CLASS, 1));
@@ -75,6 +81,8 @@ public class ModSkills {
         registerSkill(new SkillNode(WAND_POWER, MANA_BONUS_2, 1));
         registerSkill(new SkillNode(FROST_AURA_SPELL, MAGE_CLASS, 3, ModSpells.FROST_AURA));
         registerSkill(new SkillNode(TELEPORTATION_SPELL, WAND_POWER, 3, ModSpells.TELEPORT));
+        registerSkill(new SkillNode(MANA_BOOST_SPELL, MANA_BONUS, 3, ModSpells.MANA_BOOST));
+        registerSkill(new SkillNode(PURIFICATION_SPELL, WAND_POWER, 3, ModSpells.PURIFICATION));
     }
 
     private static void registerSkill(SkillNode node) {

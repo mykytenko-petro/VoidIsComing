@@ -12,8 +12,8 @@ public class ManaBoostSpell extends Spell {
 
     public ManaBoostSpell() {
         super(
-            VoidIsComing.id("textures/gui/spells/manaboost_passive_spell.png")
-        ); 
+            VoidIsComing.id("textures/gui/spells/mana_boost.png")
+        );
     }
 
     @Override
