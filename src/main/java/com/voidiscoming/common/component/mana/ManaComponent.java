@@ -9,6 +9,4 @@ public interface ManaComponent extends AutoSyncedComponent{
     void removeMana(double amount);
 
     double getMaxMana();
-
-    double getManaRegen();
 }

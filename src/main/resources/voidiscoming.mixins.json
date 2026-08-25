@@ -3,21 +3,28 @@
     "package": "com.voidiscoming.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
-        "client.gui.HandledScreenAccessor",
-        "client.gui.HideBarsMixin",
-        
         "common.player.PreventXpDropMixin",
+        "common.player.FlatArmorDamageCalculationMixin",
+        "common.player.ClampedEntityAttributeMixin",
+
         "common.food.HungerManagerMixin",
         "common.food.FoodMixin",
+        "common.food.MilkBucketMixin",
+
         "common.entity.QuadrupedEntityModelAccessor",
         "common.entity.LivingEntityDamageMixin",
+        
         "common.world.MultiNoiseBiomeSourceMixin",
         "common.world.NoiseChunkGeneratorMixin",
-        
-        "common.brewingstand.BrewingAccess",
-        "common.brewingstand.BrewingFuelLogic",
-        "common.brewingstand.BrewingFuelSlot",
-        "common.brewingstand.BrewingFuelSlotMixin"
+
+        "common.brewingstand.BrewingStandBlockEntityAccessor",
+        "common.brewingstand.BrewingStandBlockEntityMixin",
+        "common.brewingstand.BrewingStandFuelSlotMixin",
+        "common.brewingstand.BrewingStandSlotMixin"
+    ],
+    "client": [
+        "client.gui.HandledScreenAccessor",
+        "client.gui.HideBarsMixin"
     ],
     "injectors": {
         "defaultRequire": 1

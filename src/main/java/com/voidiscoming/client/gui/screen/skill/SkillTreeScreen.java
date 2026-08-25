@@ -99,7 +99,7 @@ public class SkillTreeScreen extends Screen {
         SkillNodeConnectionRenderer.renderConnections(context, originX, originY);
 
         for (SkillNodeDisplay node : SkillNodeDisplayRegistry.getAll()) {
-            node.render(context, mouseX, mouseY, originX, originY);
+            node.render(context, this.client.player, mouseX, mouseY, originX, originY);
         }
         context.disableScissor();
 
