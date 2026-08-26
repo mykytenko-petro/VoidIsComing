@@ -1,6 +1,7 @@
 package com.voidiscoming.common.mechanic.level;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.HashMap;
@@ -11,6 +12,15 @@ public class PlayerLevelManager {
     private static final Map<UUID, Integer> lastLevels = new HashMap<>();
 
     public static void registerEvents() {
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            ServerPlayerEntity player = handler.getPlayer();
+            lastLevels.put(player.getUuid(), player.experienceLevel);
+        });
+
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+            lastLevels.remove(handler.getPlayer().getUuid());
+        });
+
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                 UUID uuid = player.getUuid();
