@@ -96,7 +96,7 @@ public enum PlayerStats {
     
     RESILIENCE("stat.voidiscoming.resilience", player -> {
         var skills = ModComponents.SKILLS.get(player);
-        double base = 70.0;
+        double base = 0.0;
 
         double bonus = skills.hasUnlocked(ModSkills.RESILIENCE_BONUS)
             ? 10.0
