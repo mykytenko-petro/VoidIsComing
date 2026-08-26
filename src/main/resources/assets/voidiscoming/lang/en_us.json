@@ -9,6 +9,8 @@
   "stat.voidiscoming.attack_damage": "Attack",
   "stat.voidiscoming.speed": "Speed",
   "stat.voidiscoming.armor": "Armor",
+  "stat.voidiscoming.affinity": "Affinity",
+  "stat.voidiscoming.resilience": "Resilience",
 
   "block.voidiscoming.void_grass": "Void Dirt",
   "block.voidiscoming.little_void_grass": "Void Grass",

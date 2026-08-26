@@ -2,7 +2,6 @@ package com.voidiscoming.common.mechanic.stat;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -16,10 +15,12 @@ public class PlayerStatApplier {
 
     private static final UUID HEALTH_BONUS_UUID = UUID.fromString("f482d8a0-2b1c-4f81-a7b2-9388bf379b32");
     private static final UUID ARMOR_BONUS_UUID = UUID.fromString("e721a9c1-5d3e-4f1a-b892-123456789abc");
+    private static final UUID SPEED_BONUS_UUID = UUID.fromString("a1b2c3d4-e5f6-4a5b-8c9d-0123456789ab");
 
     public static void syncPlayerStats(ServerPlayerEntity player) {
         applyHealthBonus(player);
         applyArmorBonus(player);
+        applySpeedBonus(player);
         updateMana(player);
     }
 
@@ -76,6 +77,26 @@ public class PlayerStatApplier {
                 EntityAttributeModifier.Operation.ADDITION
             );
             armorInstance.addPersistentModifier(modifier);
+        }
+    }
+
+    private static void applySpeedBonus(ServerPlayerEntity player) {
+        var speedInstance = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        if (speedInstance == null) return;
+
+        speedInstance.removeModifier(SPEED_BONUS_UUID);
+
+        // Fetch the raw percentage decimal (0.10 = +10%)
+        double speedPercentage = PlayerStats.MOVEMENT_SPEED.getValue(player);
+
+        if (speedPercentage > 0) {
+            EntityAttributeModifier modifier = new EntityAttributeModifier(
+                SPEED_BONUS_UUID,
+                "VoidIsComing Speed Bonus",
+                speedPercentage,
+                EntityAttributeModifier.Operation.MULTIPLY_BASE
+            );
+            speedInstance.addPersistentModifier(modifier);
         }
     }
 

@@ -64,7 +64,7 @@ public class InventoryStatOverlay {
 
     private static String formatStatValue(PlayerStats stat, double val) {
         if (stat == PlayerStats.MOVEMENT_SPEED) {
-            return String.format("%.0f%%", val * 1000);
+            return String.format("%.0f%%", 100 + val * 100);
         }
         if (val % 1 == 0) {
             return String.format("%.0f", val);
