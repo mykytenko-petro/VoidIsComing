@@ -57,7 +57,7 @@ public class ModSkills {
         registerSkill(new SkillNode(WARRIOR_CLASS, HEAL_SPELL, 4, new Identifier[] {ARCHER_CLASS, MAGE_CLASS}));
         registerSkill(new SkillNode(ARMOR_BONUS, WARRIOR_CLASS, 1));
         registerSkill(new SkillNode(ARMOR_BONUS_2, ARMOR_BONUS, 1));
-        registerSkill(new SkillNode(STONE_BASTION, ARMOR_BONUS_2, 1));
+        registerSkill(new SkillNode(STONE_BASTION, ARMOR_BONUS_2, 2));
         registerSkill(new SkillNode(RESILIENCE_BONUS, ARMOR_BONUS, 1));
         registerSkill(new SkillNode(SWORD_POWER, ARMOR_BONUS_2, 1));
         registerSkill(new SkillNode(RAGE_SPELL, WARRIOR_CLASS, 3, ModSpells.RAGE));
@@ -67,7 +67,7 @@ public class ModSkills {
         registerSkill(new SkillNode(ARCHER_CLASS, HEAL_SPELL, 4, new Identifier[] {WARRIOR_CLASS, MAGE_CLASS}));
         registerSkill(new SkillNode(HEALTH_BONUS, ARCHER_CLASS, 1));
         registerSkill(new SkillNode(HEALTH_BONUS_2, HEALTH_BONUS, 1));
-        registerSkill(new SkillNode(WILD_BLOOM, HEALTH_BONUS_2, 1));
+        registerSkill(new SkillNode(WILD_BLOOM, HEALTH_BONUS_2, 2));
         registerSkill(new SkillNode(SPEED_BONUS, HEALTH_BONUS, 1));
         registerSkill(new SkillNode(BOW_POWER, HEALTH_BONUS_2, 1));
         registerSkill(new SkillNode(HUNTER_SENSE_SPELL, ARCHER_CLASS, 3, ModSpells.HUNTER_SENSE));
@@ -77,7 +77,7 @@ public class ModSkills {
         registerSkill(new SkillNode(MAGE_CLASS, HEAL_SPELL, 4, new Identifier[] {ARCHER_CLASS, WARRIOR_CLASS}));
         registerSkill(new SkillNode(MANA_BONUS, MAGE_CLASS, 1));
         registerSkill(new SkillNode(MANA_BONUS_2, MANA_BONUS, 1));
-        registerSkill(new SkillNode(ABYSSAL_RESERVOIR, MANA_BONUS_2, 1));
+        registerSkill(new SkillNode(ABYSSAL_RESERVOIR, MANA_BONUS_2, 2));
         registerSkill(new SkillNode(AFFINITY_BONUS, MANA_BONUS, 1));
         registerSkill(new SkillNode(WAND_POWER, MANA_BONUS_2, 1));
         registerSkill(new SkillNode(FROST_AURA_SPELL, MAGE_CLASS, 3, ModSpells.FROST_AURA));

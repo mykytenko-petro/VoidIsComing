@@ -48,8 +48,8 @@ public class RageSpell extends Spell {
                 1, 0.0, 0.02, 0.0, 0.01
             );
         }
-        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 200, 3, false, false));
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 150, 2, false, false));
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 1, false, false));
-        player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 1, false, false));
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 150, 1, false, false));
     }
 }

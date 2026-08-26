@@ -11,31 +11,64 @@ import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.mechanic.skill.ModSkills;
 
 public enum PlayerStats {
-    MAX_HEALTH("stat.voidiscoming.max_health", player -> {
-        double base = 20;
-        
-        double perLevelBonus = 
-            ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.ARCHER_CLASS)
-            ? (player.experienceLevel / 3)
-            : 0;
+        MAX_HEALTH("stat.voidiscoming.max_health", player -> {
+            double base = 20.0;
+            var skills = ModComponents.SKILLS.get(player);
+            
+            double perLevelBonus = 
+                skills.hasUnlocked(ModSkills.ARCHER_CLASS)
+                ? (player.experienceLevel / 3)
+                : 0;
+                
+            double health_bonus = 
+                skills.hasUnlocked(ModSkills.HEALTH_BONUS)
+                ? 1
+                : 0;
+                
+            double health_bonus_2 = 
+                skills.hasUnlocked(ModSkills.HEALTH_BONUS_2)
+                ? 1
+                : 0;
+                
 
-        double bonus = perLevelBonus;
+            double subtotal = base + perLevelBonus + health_bonus + health_bonus_2;
+            
+            double health_bonus_3 = 
+                skills.hasUnlocked(ModSkills.WILD_BLOOM)
+                ? subtotal * 0.10
+                : 0;
+                
+            return (int) (subtotal + health_bonus_3);
+        }),
 
-        return base + bonus;
-    }),
-
-    MAX_MANA("stat.voidiscoming.max_mana", player -> {
-        double base = 20.0;
-
-        double perLevelBonus = 
-            ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.MAGE_CLASS)
-            ? (player.experienceLevel / 3)
-            : 0;
-
-        double bonus = perLevelBonus;
-
-        return base + bonus;
-    }),
+        MAX_MANA("stat.voidiscoming.max_mana", player -> {
+            double base = 20.0;
+            var skills = ModComponents.SKILLS.get(player);
+            
+            double perLevelBonus = 
+                skills.hasUnlocked(ModSkills.MAGE_CLASS)
+                ? (player.experienceLevel / 3)
+                : 0;
+                
+            double mana_bonus = 
+                skills.hasUnlocked(ModSkills.MANA_BONUS)
+                ? 1
+                : 0;
+                
+            double mana_bonus_2 = 
+                skills.hasUnlocked(ModSkills.MANA_BONUS_2)
+                ? 1
+                : 0;
+                
+            double subtotal = base + perLevelBonus + mana_bonus + mana_bonus_2;
+            
+            double mana_bonus_3 = 
+                skills.hasUnlocked(ModSkills.ABYSSAL_RESERVOIR)
+                ? subtotal * 0.10
+                : 0;
+                
+            return (int) (subtotal + mana_bonus_3);
+        }),
 
     ARMOR("stat.voidiscoming.armor", player -> {
         return getAttribute(player, EntityAttributes.GENERIC_ARMOR);
@@ -47,16 +80,33 @@ public enum PlayerStats {
     public static double getArmorBonus(PlayerEntity player) {
         if (player == null) return 0.0;
 
+        var skills = ModComponents.SKILLS.get(player);
+
         double perLevelBonus = 
-            ModComponents.SKILLS.get(player).hasUnlocked(ModSkills.WARRIOR_CLASS)
+            skills.hasUnlocked(ModSkills.WARRIOR_CLASS)
             ? (player.experienceLevel / 3)
             : 0.0;
 
-        double bonus = perLevelBonus;
+        double armor_bonus = 
+            skills.hasUnlocked(ModSkills.ARMOR_BONUS)
+            ? 1.0
+            : 0.0;
 
-        return bonus;
+        double armor_bonus_2 = 
+            skills.hasUnlocked(ModSkills.ARMOR_BONUS_2)
+            ? 1.0
+            : 0.0;
+
+        double subtotal = perLevelBonus + armor_bonus + armor_bonus_2;
+
+        double armor_bonus_3 = 
+            skills.hasUnlocked(ModSkills.STONE_BASTION)
+            ? subtotal * 0.10
+            : 0.0;
+
+        return (int) (subtotal + armor_bonus_3);
     }
-
+    
     private final String translationKey;
     private final ToDoubleFunction<PlayerEntity> valueGetter;
 
