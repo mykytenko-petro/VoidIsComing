@@ -134,6 +134,14 @@ public enum PlayerStats {
 
         return (int) (subtotal + armor_bonus_3);
     }
+
+    public static double getSpellCostReduction(PlayerEntity entity, double stat) {
+        if (AFFINITY.getValue(entity) != 0) {
+            return stat * (1 - (AFFINITY.getValue(entity) / 100.0));
+        } else {
+            return stat;
+        }
+    }
     
     private final String translationKey;
     private final ToDoubleFunction<PlayerEntity> valueGetter;

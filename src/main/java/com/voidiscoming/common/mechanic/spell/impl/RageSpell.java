@@ -23,7 +23,6 @@ public class RageSpell extends Spell {
     @Override
     public void castBehaviour(PlayerEntity player) {
         if (!(player.getWorld() instanceof ServerWorld serverWorld)) return;
-        player.damage(serverWorld.getDamageSources().magic(), 4.0F);
 
         Vec3d pos = player.getPos();
 
