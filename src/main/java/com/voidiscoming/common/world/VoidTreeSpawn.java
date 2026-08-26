@@ -25,7 +25,7 @@ public class VoidTreeSpawn {
     private static final int AREA_SIZE = 128;
     private static final int TREE_CHANCE = 35;
 
-    private static final String STATE_KEY = "voidiscoming_tree_spawn_v1";
+    private static final String STATE_KEY = "voidiscoming_tree_spawn_v2";
 
     public static void register() {
         ServerTickEvents.END_WORLD_TICK.register(world -> {
@@ -67,6 +67,8 @@ public class VoidTreeSpawn {
 
                 BlockPos checkPos = new BlockPos(x, world.getSeaLevel(), z);
 
+                world.getChunk(x >> 4, z >> 4);
+
                 if (!world.getBiome(checkPos).matchesKey(ModBiomes.VOID_PLAINS_KEY)) {
                     continue;
                 }
@@ -100,8 +102,6 @@ public class VoidTreeSpawn {
 
                 if (tree == null) {
                     System.out.println("[VoidIsComing] Void Tree configured feature not found!");
-                    state.processedAreas.add(areaKey);
-                    state.markDirty();
                     continue;
                 }
 
@@ -112,10 +112,11 @@ public class VoidTreeSpawn {
                         treePos
                 );
 
-                if (generated) {
-                    System.out.println("[VoidIsComing] Void Tree spawned at " + treePos);
+                if (!generated) {
+                    continue;
                 }
 
+                System.out.println("[VoidIsComing] Void Tree spawned at " + treePos);
                 state.processedAreas.add(areaKey);
                 state.markDirty();
             }
