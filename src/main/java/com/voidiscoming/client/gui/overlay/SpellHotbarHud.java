@@ -6,6 +6,7 @@ import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.spell.SpellComponent;
 import com.voidiscoming.common.mechanic.spell.ModSpells;
 import com.voidiscoming.common.mechanic.spell.Spell;
+import com.voidiscoming.common.mechanic.stat.PlayerStats;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
@@ -89,7 +90,7 @@ public class SpellHotbarHud implements HudRenderCallback {
                     }
 
                     if (spell.getCost() > 0 && spell.getCostType() != Spell.ResourceCostType.NONE) {
-                        String costText = String.valueOf(spell.getCost());
+                        String costText = String.valueOf((int) (PlayerStats.getSpellCostReduction(client.player, spell.getCost())));
                         
                         int textWidth = client.textRenderer.getWidth(costText);
                         int textX = startX + slotSize - textWidth - 1;
