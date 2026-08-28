@@ -57,7 +57,6 @@ public class VoidSheepWoolFeatureRenderer
             return;
         }
 
-        // Анимация шерсти
         this.model.animateModel(
                 sheep,
                 limbAngle,
@@ -65,33 +64,60 @@ public class VoidSheepWoolFeatureRenderer
                 tickDelta
         );
 
-        /*
-         * НЕ УБИРАЕМ!
-         *
-         * Сохраняет нормальный размер шерсти.
-         */
         this.getContextModel().copyStateTo(this.model);
 
-        /*
-         * Получаем головы через Accessor,
-         * потому что head находится в QuadrupedEntityModel.
-         */
-        ModelPart woolHead =
-                ((QuadrupedEntityModelAccessor) this.model).voidiscoming$getHead();
+        QuadrupedEntityModelAccessor woolAccessor =
+                (QuadrupedEntityModelAccessor) this.model;
 
-        ModelPart mainHead =
-                ((QuadrupedEntityModelAccessor) this.getContextModel())
-                        .voidiscoming$getHead();
+        QuadrupedEntityModelAccessor mainAccessor =
+                (QuadrupedEntityModelAccessor) this.getContextModel();
 
-        /*
-         * Синхронизируем только вращение.
-         *
-         * yaw   = влево / вправо
-         * pitch = вверх / вниз
-         */
+        ModelPart woolHead = woolAccessor.voidiscoming$getHead();
+        ModelPart mainHead = mainAccessor.voidiscoming$getHead();
+
         woolHead.yaw = mainHead.yaw;
         woolHead.pitch = mainHead.pitch;
         woolHead.roll = mainHead.roll;
+
+        ModelPart woolLeftFrontLeg =
+                woolAccessor.voidiscoming$getLeftFrontLeg();
+
+        ModelPart mainLeftFrontLeg =
+                mainAccessor.voidiscoming$getLeftFrontLeg();
+
+        ModelPart woolRightFrontLeg =
+                woolAccessor.voidiscoming$getRightFrontLeg();
+
+        ModelPart mainRightFrontLeg =
+                mainAccessor.voidiscoming$getRightFrontLeg();
+
+        ModelPart woolLeftHindLeg =
+                woolAccessor.voidiscoming$getLeftHindLeg();
+
+        ModelPart mainLeftHindLeg =
+                mainAccessor.voidiscoming$getLeftHindLeg();
+
+        ModelPart woolRightHindLeg =
+                woolAccessor.voidiscoming$getRightHindLeg();
+
+        ModelPart mainRightHindLeg =
+                mainAccessor.voidiscoming$getRightHindLeg();
+
+        woolLeftFrontLeg.pitch = mainLeftFrontLeg.pitch;
+        woolLeftFrontLeg.yaw = mainLeftFrontLeg.yaw;
+        woolLeftFrontLeg.roll = mainLeftFrontLeg.roll;
+
+        woolRightFrontLeg.pitch = mainRightFrontLeg.pitch;
+        woolRightFrontLeg.yaw = mainRightFrontLeg.yaw;
+        woolRightFrontLeg.roll = mainRightFrontLeg.roll;
+
+        woolLeftHindLeg.pitch = mainLeftHindLeg.pitch;
+        woolLeftHindLeg.yaw = mainLeftHindLeg.yaw;
+        woolLeftHindLeg.roll = mainLeftHindLeg.roll;
+
+        woolRightHindLeg.pitch = mainRightHindLeg.pitch;
+        woolRightHindLeg.yaw = mainRightHindLeg.yaw;
+        woolRightHindLeg.roll = mainRightHindLeg.roll;
 
         VertexConsumer vertexConsumer =
                 vertexConsumers.getBuffer(

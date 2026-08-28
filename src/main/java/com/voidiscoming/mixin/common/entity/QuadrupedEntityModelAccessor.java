@@ -10,4 +10,16 @@ public interface QuadrupedEntityModelAccessor {
 
     @Accessor("head")
     ModelPart voidiscoming$getHead();
+
+    @Accessor("leftFrontLeg")
+    ModelPart voidiscoming$getLeftFrontLeg();
+
+    @Accessor("rightFrontLeg")
+    ModelPart voidiscoming$getRightFrontLeg();
+
+    @Accessor("leftHindLeg")
+    ModelPart voidiscoming$getLeftHindLeg();
+
+    @Accessor("rightHindLeg")
+    ModelPart voidiscoming$getRightHindLeg();
 }
