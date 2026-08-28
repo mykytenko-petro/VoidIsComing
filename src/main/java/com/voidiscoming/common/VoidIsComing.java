@@ -39,7 +39,6 @@ public class VoidIsComing implements ModInitializer {
         ModBiomes.register();
         VoidWorldSpawn.register();
         VoidTreeGeneration.register();
-        VoidTreeSpawn.register();
         ModBrewingRecipes.registerRecipes();
         
     }
