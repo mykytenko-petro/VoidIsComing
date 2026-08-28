@@ -11,8 +11,11 @@ import net.minecraft.world.Heightmap;
 public class VoidLittleGrassSpawn {
 
     private static final int AREA_SIZE = 128;
-    private static final int MIN_GRASS_PER_AREA = 8;
-    private static final int MAX_GRASS_PER_AREA = 14;
+    private static final int MIN_CLUSTERS_PER_AREA = 4;
+    private static final int MAX_CLUSTERS_PER_AREA = 7;
+    private static final int MIN_GRASS_PER_CLUSTER = 5;
+    private static final int MAX_GRASS_PER_CLUSTER = 10;
+    private static final int CLUSTER_RADIUS = 5;
     private static final int SEARCH_ATTEMPTS = 100;
 
     public static void spawnInitialGrass(ServerWorld world) {
@@ -21,8 +24,6 @@ public class VoidLittleGrassSpawn {
 
         int centerAreaX = Math.floorDiv(centerX, AREA_SIZE);
         int centerAreaZ = Math.floorDiv(centerZ, AREA_SIZE);
-
-        Random random = Random.create(world.getSeed());
 
         for (int offsetX = -2; offsetX <= 2; offsetX++) {
             for (int offsetZ = -2; offsetZ <= 2; offsetZ++) {
@@ -43,68 +44,113 @@ public class VoidLittleGrassSpawn {
                         getAreaKey(areaX, areaZ) ^ world.getSeed()
                 );
 
-                int grassToSpawn = MIN_GRASS_PER_AREA
-                        + areaRandom.nextInt(MAX_GRASS_PER_AREA - MIN_GRASS_PER_AREA + 1);
+                int clustersToSpawn = MIN_CLUSTERS_PER_AREA
+                        + areaRandom.nextInt(MAX_CLUSTERS_PER_AREA - MIN_CLUSTERS_PER_AREA + 1);
 
-                int spawned = 0;
+                int spawnedClusters = 0;
 
                 int minX = areaX * AREA_SIZE;
                 int minZ = areaZ * AREA_SIZE;
 
-                for (int attempt = 0; attempt < SEARCH_ATTEMPTS && spawned < grassToSpawn; attempt++) {
-                    int x = minX + areaRandom.nextInt(AREA_SIZE);
-                    int z = minZ + areaRandom.nextInt(AREA_SIZE);
+                for (int clusterAttempt = 0; clusterAttempt < SEARCH_ATTEMPTS && spawnedClusters < clustersToSpawn; clusterAttempt++) {
+                    int centerGrassX = minX + areaRandom.nextInt(AREA_SIZE);
+                    int centerGrassZ = minZ + areaRandom.nextInt(AREA_SIZE);
 
-                    BlockPos checkPos = new BlockPos(x, world.getSeaLevel(), z);
+                    BlockPos centerCheck = new BlockPos(
+                            centerGrassX,
+                            world.getSeaLevel(),
+                            centerGrassZ
+                    );
 
-                    if (!world.getBiome(checkPos).matchesKey(ModBiomes.VOID_PLAINS_KEY)) {
+                    if (!world.getBiome(centerCheck).matchesKey(ModBiomes.VOID_PLAINS_KEY)) {
                         continue;
                     }
 
-                    world.getChunk(x >> 4, z >> 4);
+                    world.getChunk(centerGrassX >> 4, centerGrassZ >> 4);
 
-                    BlockPos ground = world.getTopPosition(
+                    BlockPos centerGround = world.getTopPosition(
                             Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                            checkPos
+                            centerCheck
                     );
 
-                    if (!world.getBiome(ground).matchesKey(ModBiomes.VOID_PLAINS_KEY)) {
+                    if (!world.getBiome(centerGround).matchesKey(ModBiomes.VOID_PLAINS_KEY)) {
                         continue;
                     }
 
-                    BlockPos grassPos = ground;
-
-                    if (!world.getBlockState(grassPos.down()).isOf(ModBlocks.VOID_GRASS)) {
+                    if (!world.getBlockState(centerGround.down()).isOf(ModBlocks.VOID_GRASS)) {
                         continue;
                     }
 
-                    if (!world.getBlockState(grassPos).isAir()) {
-                        continue;
+                    int grassToSpawn = MIN_GRASS_PER_CLUSTER
+                            + areaRandom.nextInt(MAX_GRASS_PER_CLUSTER - MIN_GRASS_PER_CLUSTER + 1);
+
+                    int spawnedGrass = 0;
+
+                    for (int grassAttempt = 0; grassAttempt < grassToSpawn * 4 && spawnedGrass < grassToSpawn; grassAttempt++) {
+                        int x = centerGrassX + areaRandom.nextInt(CLUSTER_RADIUS * 2 + 1) - CLUSTER_RADIUS;
+                        int z = centerGrassZ + areaRandom.nextInt(CLUSTER_RADIUS * 2 + 1) - CLUSTER_RADIUS;
+
+                        if (x < minX || x >= minX + AREA_SIZE || z < minZ || z >= minZ + AREA_SIZE) {
+                            continue;
+                        }
+
+                        BlockPos checkPos = new BlockPos(
+                                x,
+                                world.getSeaLevel(),
+                                z
+                        );
+
+                        if (!world.getBiome(checkPos).matchesKey(ModBiomes.VOID_PLAINS_KEY)) {
+                            continue;
+                        }
+
+                        world.getChunk(x >> 4, z >> 4);
+
+                        BlockPos ground = world.getTopPosition(
+                                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                                checkPos
+                        );
+
+                        if (!world.getBiome(ground).matchesKey(ModBiomes.VOID_PLAINS_KEY)) {
+                            continue;
+                        }
+
+                        BlockPos grassPos = ground;
+
+                        if (!world.getBlockState(grassPos.down()).isOf(ModBlocks.VOID_GRASS)) {
+                            continue;
+                        }
+
+                        if (!world.getBlockState(grassPos).isAir()) {
+                            continue;
+                        }
+
+                        if (!world.getBlockState(grassPos.down()).isSolidBlock(world, grassPos.down())) {
+                            continue;
+                        }
+
+                        if (!world.getBlockState(grassPos).canPlaceAt(world, grassPos)) {
+                            continue;
+                        }
+
+                        world.setBlockState(
+                                grassPos,
+                                ModBlocks.LITTLE_VOID_GRASS.getDefaultState(),
+                                3
+                        );
+
+                        spawnedGrass++;
                     }
 
-                    if (!world.getBlockState(grassPos.down()).isSolidBlock(world, grassPos.down())) {
-                        continue;
+                    if (spawnedGrass > 0) {
+                        spawnedClusters++;
+
+                        System.out.println(
+                                "[VoidIsComing] Little Void Grass cluster spawned in area "
+                                        + areaX + ", " + areaZ
+                                        + " (" + spawnedGrass + " grass)"
+                        );
                     }
-
-                    if (!world.getBlockState(grassPos).canPlaceAt(world, grassPos)) {
-                        continue;
-                    }
-
-                    world.setBlockState(
-                            grassPos,
-                            ModBlocks.LITTLE_VOID_GRASS.getDefaultState(),
-                            3
-                    );
-
-                    spawned++;
-                }
-
-                if (spawned > 0) {
-                    System.out.println(
-                            "[VoidIsComing] Little Void Grass spawned in area "
-                                    + areaX + ", " + areaZ
-                                    + " (" + spawned + "/" + grassToSpawn + ")"
-                    );
                 }
             }
         }
