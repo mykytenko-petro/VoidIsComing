@@ -33,6 +33,7 @@ public class ModItems {
 
     public static final Item VOID_PIG_TAIL = register("void_pig_tail", new Item(new Item.Settings()));
     public static final Item VOID_COW_HORN = register("void_cow_horn", new Item(new Item.Settings()));
+    public static final Item STONE_GOLEM_CORE = register("stone_golem_core", new Item(new Item.Settings()));
 
     public static final Item HEAL_BOTTLE = register("heal_potion",
             new HealBottleItem(new FabricItemSettings().maxCount(16)));
