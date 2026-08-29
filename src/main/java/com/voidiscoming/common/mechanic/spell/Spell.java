@@ -4,9 +4,11 @@ import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.mana.ManaComponent;
 import com.voidiscoming.common.component.spell.PlayerSpellComponent;
+import com.voidiscoming.common.mechanic.stat.PlayerStats;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
 public abstract class Spell {
@@ -63,22 +65,35 @@ public abstract class Spell {
     }
 
     public void cast(PlayerEntity player, Identifier spellId) {
-        // if (player.getWorld().isClient()) return;
-
         ModComponents.SPELLS.maybeGet(player).ifPresent(spellComp -> {
-            VoidIsComing.LOGGER.info(spellComp.toString());
-
             if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
                 if (playerSpellComp.isOnCooldown(spellId)) {
                     return;
                 }
             }
 
-            ManaComponent mana = ModComponents.MANA.get(player);
+            boolean resourcePaid = false;
 
-            if (mana.getMana() >= getCost()) {
-                mana.removeMana(getCost());
+            switch (getCostType()) {
+                case NONE -> resourcePaid = true;
+                case MANA -> {
+                    ManaComponent mana = ModComponents.MANA.get(player);
+                    if (mana.getMana() >= PlayerStats.getSpellCostReduction(player, getCost())) {
+                        mana.removeMana(PlayerStats.getSpellCostReduction(player, getCost()));
+                        resourcePaid = true;
+                    }
+                }
+                case HP -> {
+                    if (player.getHealth() > PlayerStats.getSpellCostReduction(player, getCost())) {
+                        if (player.getWorld() instanceof ServerWorld serverWorld) {
+                            player.damage(serverWorld.getDamageSources().magic(), (float) (PlayerStats.getSpellCostReduction(player, getCost())));
+                        }
+                        resourcePaid = true;
+                    }
+                }
+            }
 
+            if (resourcePaid) {
                 if (spellComp instanceof PlayerSpellComponent playerSpellComp) {
                     playerSpellComp.setCooldown(spellId, getCooldownTicks());
                 }

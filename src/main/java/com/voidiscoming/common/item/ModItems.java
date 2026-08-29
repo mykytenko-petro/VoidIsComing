@@ -2,9 +2,9 @@ package com.voidiscoming.common.item;
 
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.item.consumables.HealBottleItem;
-import com.voidiscoming.common.item.ModBookItem;
 import com.voidiscoming.common.item.consumables.ManaPotionItem;
 import com.voidiscoming.common.item.consumables.WandItem;
+
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;

@@ -3,5 +3,6 @@ package com.voidiscoming.common.event;
 public class ModEvents {
     public static void registerEvents() {
         BlockEvents.register();
+        BookGiveEvent.register();
     }
 }

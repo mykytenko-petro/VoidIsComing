@@ -1,73 +1,71 @@
 plugins {
-	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
-	id 'maven-publish'
+    id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+    id 'maven-publish'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven {
-		name = "ladysnakeReleases"
-		url = "https://maven.ladysnake.org/releases"
-	}
+    maven {
+        name = "ladysnakeReleases"
+        url = "https://maven.ladysnake.org/releases"
+    }
 
-	maven {
-		name = "Gegy"
-		url = "https://maven.gegy.dev"
-	}
+    maven {
+        name = "Gegy"
+        url = "https://maven.gegy.dev"
+    }
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_components_version}"
-	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cardinal_components_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_components_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cardinal_components_version}"
 
-	modImplementation "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:4.1.4+1.20.1"
-
-	include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_components_version}"
-	include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cardinal_components_version}"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_components_version}"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cardinal_components_version}"
 }
 
 processResources {
-	def version = project.version
-	inputs.property "version", version
+    def version = project.version
+    inputs.property "version", version
 
-	filesMatching("fabric.mod.json") {
-		expand "version": version
-	}
+    filesMatching("fabric.mod.json") {
+        expand "version": version
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+    it.options.release = 17
 }
 
 java {
-	withSourcesJar()
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
-	def projectName = project.name
-	inputs.property "projectName", projectName
+    def projectName = project.name
+    inputs.property "projectName", projectName
 
-	from("LICENSE") {
-		rename { "${it}_$projectName" }
-	}
+    from("LICENSE") {
+        rename { "${it}_${projectName}" }
+    }
 }
 
 publishing {
-	publications {
-		create("mavenJava", MavenPublication) {
-			from components.java
-		}
-	}
+    publications {
+        create("mavenJava", MavenPublication) {
+            from components.java
+        }
+    }
 
-	repositories {
-	}
+    repositories {
+    }
 }
