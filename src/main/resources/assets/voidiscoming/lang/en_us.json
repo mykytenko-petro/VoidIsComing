@@ -29,6 +29,10 @@
   "item.voidiscoming.void_essence": "Void Essence",
   "item.voidiscoming.heal_potion.effect.water": "Heal potion",
   "item.voidiscoming.heal_potion.effect.empty": "Heal potion",
+  "item.voidiscoming.iron_wand": "Iron Wand",
+  "item.voidiscoming.wooden_wand": "Wooden Wand",
+  "item.voidiscoming.diamond_wand": "Diamond Wand",
+  "item.voidiscoming.netherite_wand": "Netherite Wand",
 
   "gui.voidiscoming.equip": "Equip",
   "gui.voidiscoming.unequip": "Unequip",
@@ -103,5 +107,13 @@
   "skill_description.voidiscoming.teleportation_spell": "Teleports you up to 30 blocks in direction you looking. Cannot teleport through blocks",
   "skill_description.voidiscoming.mana_boost_spell": "Gives bonus speed when mana below 50%",
 
+  
+  "book.voidiscoming.page.1": "МРОЛУРГОРГВРАГШРУГАРЧИСМОУГАШЩРОЛВЧОАМШГЩЦУІРАГМІМАШЩІЦУРАШГР",
+  "book.voidiscoming.page.2": "МРОЛУРГОРГВРАГШРУГАРЧИСМОУГАШЩРОЛВЧОАМШГЩЦУІРАГМІМАШЩІЦУРАШГР",
+  "book.voidiscoming.page.3": "МРОЛУРГОРГВРАГШРУГАРЧИСМОУГАШЩРОЛВЧОАМШГЩЦУІРАГМІМАШЩІЦУРАШГР",
+  "book.voidiscoming.page.4": "МРОЛУРГОРГВРАГШРУГАРЧИСМОУГАШЩРОЛВЧОАМШГЩЦУІРАГМІМАШЩІЦУРАШГР",
+  "book.voidiscoming.page.5": "МРОЛУРГОРГВРАГШРУГАРЧИСМОУГАШЩРОЛВЧОАМШГЩЦУІРАГМІМАШЩІЦУРАШГР",
+  "book.voidiscoming.page.6": "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  
   "itemGroup.voidiscoming.void_is_coming": "Void Is Coming"
 }

@@ -2,16 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "pattern": [
-    "  D",
-     " S ",
-    "S  "
+    "DED",
+    " S "
   ],
   "key": {
-    "S": {
-      "item": "minecraft:stick"
-    },
     "D": {
       "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "voidiscoming:void_essence"
+    },
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "result": {
