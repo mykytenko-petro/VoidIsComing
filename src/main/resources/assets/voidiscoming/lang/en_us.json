@@ -27,6 +27,10 @@
   "item.voidiscoming.void_essence": "Void Essence",
   "item.voidiscoming.heal_potion.effect.water": "Heal potion",
   "item.voidiscoming.heal_potion.effect.empty": "Heal potion",
+  "item.voidiscoming.iron_wand": "Iron Wand",
+  "item.voidiscoming.wooden_wand": "Wooden Wand",
+  "item.voidiscoming.diamond_wand": "Diamond Wand",
+  "item.voidiscoming.netherite_wand": "Netherite Wand",
 
   "gui.voidiscoming.equip": "Equip",
   "gui.voidiscoming.unequip": "Unequip",
