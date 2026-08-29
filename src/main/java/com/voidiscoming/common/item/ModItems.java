@@ -3,8 +3,8 @@ package com.voidiscoming.common.item;
 import com.voidiscoming.common.VoidIsComing;
 import com.voidiscoming.common.item.consumables.HealBottleItem;
 import com.voidiscoming.common.item.consumables.ManaPotionItem;
-
 import com.voidiscoming.common.item.consumables.WandItem;
+
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -31,12 +31,9 @@ public class ModItems {
     public static final Item BIG_EMPTY_BOTTLE = register("big_empty_bottle",
             new Item(new Item.Settings().maxCount(16)));
 
-    private static Item register(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(VoidIsComing.MOD_ID, name), item);
-    }
-
     public static final Item VOID_PIG_TAIL = register("void_pig_tail", new Item(new Item.Settings()));
     public static final Item VOID_COW_HORN = register("void_cow_horn", new Item(new Item.Settings()));
+    public static final Item STONE_GOLEM_CORE = register("stone_golem_core", new Item(new Item.Settings()));
 
     public static final Item HEAL_BOTTLE = register("heal_potion",
             new HealBottleItem(new FabricItemSettings().maxCount(16)));
@@ -52,6 +49,14 @@ public class ModItems {
 
     public static final Item NETHERITE_STAFF = register("netherite_wand",
         new WandItem(new FabricItemSettings().maxDamage(750), 12.0F));
+
+    // Используем ModBookItem, чтобы книга открывала интерфейс при клике ПКМ
+    public static final Item MOD_BOOK = register("mod_book",
+            new ModBookItem(new FabricItemSettings().maxCount(1)));
+
+    private static Item register(String name, Item item) {
+        return Registry.register(Registries.ITEM, new Identifier(VoidIsComing.MOD_ID, name), item);
+    }
 
     public static void initialize() {
     }

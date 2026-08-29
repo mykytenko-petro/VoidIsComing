@@ -59,10 +59,13 @@ public class SkillTreeScreen extends Screen {
         this.centerX = this.width / 2;
         this.centerY = this.height / 2;
 
-        int bgLeft = centerX - backgroundWidth / 2;
-        int bgTop = centerY - backgroundHeight / 2;
+        int bgLeft =
+                centerX - backgroundWidth / 2;
 
-        resetButton = ButtonWidget.builder(
+        int bgTop =
+                centerY - backgroundHeight / 2;
+
+        this.resetButton = ButtonWidget.builder(
                 Text.translatable("gui.voidiscoming.reset"),
                 button -> resetSkills()
         ).dimensions(
@@ -72,14 +75,23 @@ public class SkillTreeScreen extends Screen {
                 20
         ).build();
 
-        this.skillDescriptionPanel = new SkillDescriptionPanel(this.client.player);
-        this.skillDescriptionPanel.init(this, this::addDrawableChild);
+        this.skillDescriptionPanel =
+                new SkillDescriptionPanel(
+                        this.client.player
+                );
+
+        this.skillDescriptionPanel.init(
+                this,
+                this::addDrawableChild
+        );
 
         this.setSelectedNode(null);
     }
 
     private void resetSkills() {
-        if (this.client != null && this.client.player != null) {
+        if (this.client != null &&
+                this.client.player != null) {
+
             SkillResetSender.send();
 
             if (this.skillDescriptionPanel != null) {
@@ -88,7 +100,9 @@ public class SkillTreeScreen extends Screen {
         }
     }
 
-    public void setSelectedNode(SkillNodeDisplay node) {
+    public void setSelectedNode(
+            SkillNodeDisplay node
+    ) {
         this.selectedNode = node;
 
         if (this.skillDescriptionPanel != null) {
@@ -105,19 +119,40 @@ public class SkillTreeScreen extends Screen {
     ) {
         this.renderBackground(context);
 
-        double scale = getContentScale();
+        double scale =
+                getContentScale();
 
         int scaledBackgroundWidth =
-                (int) Math.round(backgroundWidth * scale);
+                (int) Math.round(
+                        backgroundWidth * scale
+                );
 
         int scaledBackgroundHeight =
-                (int) Math.round(backgroundHeight * scale);
+                (int) Math.round(
+                        backgroundHeight * scale
+                );
 
         int bgLeft =
-                centerX - scaledBackgroundWidth / 2;
+                centerX
+                        - scaledBackgroundWidth / 2;
 
         int bgTop =
-                centerY - scaledBackgroundHeight / 2;
+                centerY
+                        - scaledBackgroundHeight / 2;
+
+        int guiMouseX =
+                (int) Math.round(
+                        centerX
+                                + (mouseX - centerX)
+                                / scale
+                );
+
+        int guiMouseY =
+                (int) Math.round(
+                        centerY
+                                + (mouseY - centerY)
+                                / scale
+                );
 
         context.getMatrices().push();
 
@@ -176,12 +211,14 @@ public class SkillTreeScreen extends Screen {
                 originY
         );
 
-        for (SkillNodeDisplay node : SkillNodeDisplayRegistry.getAll()) {
+        for (SkillNodeDisplay node :
+                SkillNodeDisplayRegistry.getAll()) {
+
             node.render(
                     context,
                     this.client.player,
-                    mouseX,
-                    mouseY,
+                    guiMouseX,
+                    guiMouseY,
                     originX,
                     originY
             );
@@ -201,7 +238,9 @@ public class SkillTreeScreen extends Screen {
                 12
         );
 
-        if (this.client != null && this.client.player != null) {
+        if (this.client != null &&
+                this.client.player != null) {
+
             int points =
                     ModComponents.SKILLS
                             .get(this.client.player)
@@ -209,7 +248,9 @@ public class SkillTreeScreen extends Screen {
 
             context.drawText(
                     this.textRenderer,
-                    Text.literal(String.valueOf(points)),
+                    Text.literal(
+                            String.valueOf(points)
+                    ),
                     baseBgLeft + 25,
                     baseBgTop + 13,
                     0xFFFFAA00,
@@ -218,31 +259,35 @@ public class SkillTreeScreen extends Screen {
         }
 
         /*
-         * RESET BUTTON
-         *
-         * Теперь кнопка рендерится внутри того же MatrixStack,
-         * поэтому и сама кнопка, и её текст масштабируются одинаково
-         * вместе со всем Skill Tree.
+         * RESET остаётся как был.
          */
         resetButton.render(
                 context,
-                (int) Math.round(
-                        centerX + (mouseX - centerX) / scale
-                ),
-                (int) Math.round(
-                        centerY + (mouseY - centerY) / scale
-                ),
+                guiMouseX,
+                guiMouseY,
                 delta
         );
 
         context.getMatrices().pop();
 
-        this.skillDescriptionPanel.render(
-                context,
-                this.textRenderer,
-                this.width,
-                this.height
-        );
+        /*
+         * DESCRIPTION PANEL
+         *
+         * Панель сама создаёт отдельный MatrixStack
+         * и масштабирует ВСЁ своё содержимое.
+         */
+        if (this.skillDescriptionPanel != null) {
+            this.skillDescriptionPanel.renderScaled(
+                    context,
+                    this.textRenderer,
+                    this.width,
+                    this.height,
+                    scale,
+                    mouseX,
+                    mouseY,
+                    delta
+            );
+        }
     }
 
     @Override
@@ -251,20 +296,21 @@ public class SkillTreeScreen extends Screen {
             double mouseY,
             int button
     ) {
-        double scale = getContentScale();
+        double scale =
+                getContentScale();
 
         double guiMouseX =
-                centerX + (mouseX - centerX) / scale;
+                centerX
+                        + (mouseX - centerX)
+                        / scale;
 
         double guiMouseY =
-                centerY + (mouseY - centerY) / scale;
+                centerY
+                        + (mouseY - centerY)
+                        / scale;
 
         if (button == 0) {
 
-            /*
-             * Проверяем Reset вручную,
-             * потому что он больше не находится в DrawableChild.
-             */
             if (resetButton.mouseClicked(
                     guiMouseX,
                     guiMouseY,
@@ -273,11 +319,16 @@ public class SkillTreeScreen extends Screen {
                 return true;
             }
 
-            if (super.mouseClicked(
-                    mouseX,
-                    mouseY,
-                    button
-            )) {
+            /*
+             * Equip / Upgrade сами знают,
+             * где находится масштабированная панель.
+             */
+            if (this.skillDescriptionPanel != null &&
+                    this.skillDescriptionPanel.mouseClicked(
+                            mouseX,
+                            mouseY,
+                            button
+                    )) {
                 return true;
             }
 
@@ -338,13 +389,19 @@ public class SkillTreeScreen extends Screen {
             double deltaY
     ) {
         if (button == 0) {
-            double scale = getContentScale();
+
+            double scale =
+                    getContentScale();
 
             this.originDeltaX +=
-                    (int) Math.round(deltaX / scale);
+                    (int) Math.round(
+                            deltaX / scale
+                    );
 
             this.originDeltaY +=
-                    (int) Math.round(deltaY / scale);
+                    (int) Math.round(
+                            deltaY / scale
+                    );
 
             return true;
         }

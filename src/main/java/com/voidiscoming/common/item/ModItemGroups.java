@@ -35,6 +35,7 @@ public class ModItemGroups {
                         entries.add(ModItems.VOID_ESSENCE);
                         entries.add(ModItems.VOID_PIG_TAIL);
                         entries.add(ModItems.HEAL_BOTTLE);
+                        entries.add(ModItems.STONE_GOLEM_CORE);
                     })
                     .build()
     );
