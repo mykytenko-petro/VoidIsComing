@@ -21,8 +21,10 @@ import net.minecraft.world.World;
 public class VoidSheepEntity extends SheepEntity {
 
     private static final int CLONE_COOLDOWN = 2400;
+    private static final int EAT_COOLDOWN = 2400;
 
     private int cloneCooldown = 0;
+    private int eatCooldown = 0;
 
     public VoidSheepEntity(EntityType<? extends SheepEntity> entityType, World world) {
         super(entityType, world);
@@ -60,6 +62,10 @@ public class VoidSheepEntity extends SheepEntity {
             this.cloneCooldown--;
         }
 
+        if (this.eatCooldown > 0) {
+            this.eatCooldown--;
+        }
+
         if (!this.getWorld().isClient) {
             if (!this.isSheared()) {
                 if (this.cloneCooldown <= 0) {
@@ -72,7 +78,6 @@ public class VoidSheepEntity extends SheepEntity {
     }
 
     private void createClone() {
-
         if (!(this.getWorld() instanceof ServerWorld serverWorld)) {
             return;
         }
@@ -93,6 +98,7 @@ public class VoidSheepEntity extends SheepEntity {
         clone.setHealth(clone.getMaxHealth());
         clone.setSheared(true);
         clone.cloneCooldown = CLONE_COOLDOWN;
+        clone.eatCooldown = EAT_COOLDOWN;
 
         serverWorld.spawnEntity(clone);
 
@@ -121,6 +127,14 @@ public class VoidSheepEntity extends SheepEntity {
 
         @Override
         public boolean canStart() {
+            if (this.sheep.isSheared()) {
+                return false;
+            }
+
+            if (this.sheep.eatCooldown > 0) {
+                return false;
+            }
+
             this.grassPos = findGrass();
 
             return this.grassPos != null;
@@ -128,7 +142,10 @@ public class VoidSheepEntity extends SheepEntity {
 
         @Override
         public boolean shouldContinue() {
-            return this.grassPos != null && this.eatTimer < 40;
+            return !this.sheep.isSheared()
+                    && this.sheep.eatCooldown <= 0
+                    && this.grassPos != null
+                    && this.eatTimer < 40;
         }
 
         @Override
@@ -146,6 +163,11 @@ public class VoidSheepEntity extends SheepEntity {
         @Override
         public void tick() {
             if (this.grassPos == null) {
+                return;
+            }
+
+            if (this.sheep.isSheared()) {
+                this.stop();
                 return;
             }
 
@@ -180,6 +202,10 @@ public class VoidSheepEntity extends SheepEntity {
         }
 
         private BlockPos findGrass() {
+            if (this.sheep.isSheared()) {
+                return null;
+            }
+
             BlockPos origin = this.sheep.getBlockPos();
 
             for (int x = -4; x <= 4; x++) {
@@ -202,7 +228,7 @@ public class VoidSheepEntity extends SheepEntity {
         }
 
         private void eatGrass() {
-            if (this.grassPos == null) {
+            if (this.grassPos == null || this.sheep.isSheared()) {
                 return;
             }
 
@@ -215,12 +241,13 @@ public class VoidSheepEntity extends SheepEntity {
                 );
 
                 this.sheep.onEatingGrass();
-                this.sheep.setSheared(false);
+                this.sheep.setSheared(true);
             } else if (world.getBlockState(this.grassPos).isOf(Blocks.GRASS_BLOCK)) {
                 this.sheep.onEatingGrass();
-                this.sheep.setSheared(false);
+                this.sheep.setSheared(true);
             }
 
+            this.sheep.eatCooldown = EAT_COOLDOWN;
             this.eatTimer = 40;
         }
     }

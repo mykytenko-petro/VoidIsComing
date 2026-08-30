@@ -39,16 +39,16 @@ public class ModItems {
             new HealBottleItem(new FabricItemSettings().maxCount(16)));
 
     public static final Item WOODEN_STAFF = register("wooden_wand",
-        new WandItem(new FabricItemSettings().maxDamage(60), 6.0F));
+            new WandItem(new FabricItemSettings().maxDamage(60), 1.0F, 1));
 
     public static final Item IRON_STAFF = register("iron_wand",
-        new WandItem(new FabricItemSettings().maxDamage(150), 8.0F));
+            new WandItem(new FabricItemSettings().maxDamage(150), 3.0F, 2));
 
     public static final Item DIAMOND_STAFF = register("diamond_wand",
-        new WandItem(new FabricItemSettings().maxDamage(400), 10.0F));
+            new WandItem(new FabricItemSettings().maxDamage(400), 6.0F, 3));
 
     public static final Item NETHERITE_STAFF = register("netherite_wand",
-        new WandItem(new FabricItemSettings().maxDamage(750), 12.0F));
+            new WandItem(new FabricItemSettings().maxDamage(750), 9.0F, 4));
 
     // Используем ModBookItem, чтобы книга открывала интерфейс при клике ПКМ
     public static final Item MOD_BOOK = register("mod_book",
