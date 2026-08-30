@@ -16,11 +16,14 @@ public class PlayerStatApplier {
     private static final UUID HEALTH_BONUS_UUID = UUID.fromString("f482d8a0-2b1c-4f81-a7b2-9388bf379b32");
     private static final UUID ARMOR_BONUS_UUID = UUID.fromString("e721a9c1-5d3e-4f1a-b892-123456789abc");
     private static final UUID SPEED_BONUS_UUID = UUID.fromString("a1b2c3d4-e5f6-4a5b-8c9d-0123456789ab");
+    // UUID для модификатора атаки
+    private static final UUID ATTACK_BONUS_UUID = UUID.fromString("b2c3d4e5-f6a7-4b8c-9d0e-123456789abc");
 
     public static void syncPlayerStats(ServerPlayerEntity player) {
         applyHealthBonus(player);
         applyArmorBonus(player);
         applySpeedBonus(player);
+        applyAttackBonus(player); // <-- ДОБАВИЛИ ВЫЗОВ
         updateMana(player);
     }
 
@@ -86,7 +89,6 @@ public class PlayerStatApplier {
 
         speedInstance.removeModifier(SPEED_BONUS_UUID);
 
-        // Fetch the raw percentage decimal (0.10 = +10%)
         double speedPercentage = PlayerStats.MOVEMENT_SPEED.getValue(player);
 
         if (speedPercentage > 0) {
@@ -97,6 +99,29 @@ public class PlayerStatApplier {
                 EntityAttributeModifier.Operation.MULTIPLY_BASE
             );
             speedInstance.addPersistentModifier(modifier);
+        }
+    }
+
+    // НОВЫЙ МЕТОД ДЛЯ АТАКИ
+    private static void applyAttackBonus(ServerPlayerEntity player) {
+        var attackInstance = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+        if (attackInstance == null) return;
+
+        // Очищаем модификатор от VoidIsComing
+        attackInstance.removeModifier(ATTACK_BONUS_UUID);
+
+        var skills = ModComponents.SKILLS.get(player);
+        boolean holdingSword = player.getMainHandStack().getItem() instanceof net.minecraft.item.SwordItem;
+
+        // Если держит меч и есть навык SWORD_POWER, накладываем 10% от базового урона
+        if (holdingSword && skills.hasUnlocked(com.voidiscoming.common.mechanic.skill.ModSkills.SWORD_POWER)) {
+            EntityAttributeModifier modifier = new EntityAttributeModifier(
+                ATTACK_BONUS_UUID,
+                "VoidIsComing Sword Power",
+                0.10,
+                EntityAttributeModifier.Operation.MULTIPLY_BASE
+            );
+            attackInstance.addPersistentModifier(modifier);
         }
     }
 
