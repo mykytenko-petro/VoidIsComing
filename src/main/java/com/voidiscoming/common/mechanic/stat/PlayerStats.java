@@ -85,7 +85,19 @@ public enum PlayerStats {
             
         return base + sword_bonus;
     }),
-
+    BOW_ATTACK_DAMAGE("stat.voidiscoming.bow_attack_damage", player -> {
+        double base = getAttribute(player, EntityAttributes.GENERIC_ATTACK_DAMAGE);
+        var skills = ModComponents.SKILLS.get(player);
+        
+        boolean holdingBow = player.getMainHandStack().getItem() instanceof net.minecraft.item.BowItem;
+        
+        double bow_bonus = 
+            (holdingBow && skills.hasUnlocked(ModSkills.BOW_POWER))
+            ? base * 0.10
+            : 0.0;
+            
+        return base + bow_bonus;
+    }),
     MOVEMENT_SPEED("stat.voidiscoming.speed", player -> {
         var skills = ModComponents.SKILLS.get(player);
 
