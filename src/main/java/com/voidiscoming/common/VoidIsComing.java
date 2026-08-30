@@ -7,6 +7,7 @@ import com.voidiscoming.common.block.ModBlocks;
 import com.voidiscoming.common.effects.ModEffects;
 import com.voidiscoming.common.entity.ModEntities;
 import com.voidiscoming.common.entity.ModEntitySpawns;
+import com.voidiscoming.common.event.ModEvents;
 import com.voidiscoming.common.item.ModItemGroups;
 import com.voidiscoming.common.item.ModItems;
 import com.voidiscoming.common.mechanic.ModMechanics;
@@ -39,7 +40,7 @@ public class VoidIsComing implements ModInitializer {
         VoidWorldSpawn.register();
         VoidTreeGeneration.register();
         ModBrewingRecipes.registerRecipes();
-        
+        ModEvents.registerEvents();
     }
 
     public static Identifier id(String path) {
