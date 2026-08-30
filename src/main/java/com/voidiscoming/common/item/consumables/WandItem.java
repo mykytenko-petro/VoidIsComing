@@ -16,33 +16,36 @@ import net.minecraft.world.World;
 
 public class WandItem extends Item {
     private final float projectileDamage;
-    private static final float MANA_COST = 1.0f;
+    private final float manaCost; // Поле для хранения индивидуальной стоимости маны
 
-    public WandItem(Settings settings, float projectileDamage) {
+    // Основной конструктор с возможностью указать урон и расход маны
+    public WandItem(Settings settings, float projectileDamage, float manaCost) {
         super(settings);
         this.projectileDamage = projectileDamage;
+        this.manaCost = manaCost;
+    }
+
+    // Дополнительный конструктор (по умолчанию мана = 1.0f), чтобы не переписывать старые палочки
+    public WandItem(Settings settings, float projectileDamage) {
+        this(settings, projectileDamage, 1.0f);
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
 
-        // Проверяем режим креатива
         boolean isCreative = user.isCreative();
 
-        // Получаем ману игрока
         ManaComponent manaComponent = ModComponents.MANA.get(user);
 
-        // Если игрок НЕ в креативе и маны не хватает — отменяем выстрел без сообщений
-        if (!isCreative && manaComponent.getMana() < MANA_COST) {
+        // Используем переменную manaCost вместо константы
+        if (!isCreative && manaComponent.getMana() < manaCost) {
             return TypedActionResult.fail(itemStack);
         }
 
-        // Логика выстрела только на сервере
         if (!world.isClient) {
-            // Списываем ману только если игрок НЕ в креативе
             if (!isCreative) {
-                manaComponent.removeMana(MANA_COST);
+                manaComponent.removeMana(manaCost); // Снимаем индивидуальное количество маны
             }
 
             WandProjectileEntity projectile = new WandProjectileEntity(world, user, projectileDamage);
@@ -50,7 +53,6 @@ public class WandItem extends Item {
             world.spawnEntity(projectile);
         }
 
-        // Воспроизведение звука
         world.playSound(
             null,
             user.getX(), user.getY(), user.getZ(),
