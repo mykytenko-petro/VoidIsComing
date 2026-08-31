@@ -3,6 +3,7 @@ package com.voidiscoming.common.item.consumables;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.mana.ManaComponent;
 import com.voidiscoming.common.entity.projectile.WandProjectileEntity;
+import com.voidiscoming.common.mechanic.skill.ModSkills; 
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -45,7 +46,14 @@ public class WandItem extends Item {
                 manaComponent.removeMana(manaCost);
             }
 
-            WandProjectileEntity projectile = new WandProjectileEntity(world, user, projectileDamage);
+float finalDamage = this.projectileDamage;
+            var skills = ModComponents.SKILLS.get(user);
+
+            if (skills.hasUnlocked(ModSkills.WAND_POWER)) {
+                finalDamage = (float) Math.ceil(finalDamage * 1.10f);
+            }
+
+            WandProjectileEntity projectile = new WandProjectileEntity(world, user, finalDamage);
             projectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.5F, 1.0F);
             world.spawnEntity(projectile);
         }

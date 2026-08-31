@@ -23,26 +23,25 @@ public class WandProjectileEntity extends PersistentProjectileEntity {
         super(ModEntities.WAND_PROJECTILE, owner, world);
         this.customDamage = damage;
         this.setDamage(damage);
-        this.setNoGravity(true); // Летит идеально прямо без падения вниз
+        this.setNoGravity(true); 
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        // Спавним синие частицы на сервере — теперь они летят точно вместе с пулей и видны всем!
+  
         if (!this.getWorld().isClient()) {
             ServerWorld serverWorld = (ServerWorld) this.getWorld();
             serverWorld.spawnParticles(
-                ParticleTypes.SOUL, // Яркие синие частицы души
+                ParticleTypes.SOUL, 
                 this.getX(), this.getY(), this.getZ(),
-                4,                    // Количество частиц за один тик
-                0.1, 0.1, 0.1,        // Небольшой разброс вокруг пули
-                0.02                  // Скорость разлета частиц
+                4,                 
+                0.1, 0.1, 0.1,       
+                0.02               
             );
         }
 
-        // Если пуля летит больше 4 секунд и никуда не попала — удаляем
         if (this.age > 80) {
             this.discard();
         }
@@ -50,23 +49,20 @@ public class WandProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
         if (!this.getWorld().isClient()) {
-            // Наносим урон мобу/игроку
-            entityHitResult.getEntity().damage(this.getDamageSources().arrow(this, this.getOwner()), customDamage);
+            entityHitResult.getEntity().damage(this.getDamageSources().arrow(this, this.getOwner()), this.customDamage);
             this.discard();
         }
     }
 
     @Override
     protected void onCollision(HitResult hitResult) {
-        // Полностью убираем звук и застревание при ударе о блок
         HitResult.Type type = hitResult.getType();
         if (type == HitResult.Type.ENTITY) {
             super.onCollision(hitResult);
         } else if (type == HitResult.Type.BLOCK) {
             if (!this.getWorld().isClient()) {
-                this.discard(); // Мгновенно исчезает при касании блока без звука
+                this.discard(); 
             }
         }
     }
