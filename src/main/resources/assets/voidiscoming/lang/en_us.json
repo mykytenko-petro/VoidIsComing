@@ -18,21 +18,18 @@
   "block.voidiscoming.void_sapling": "Void Sapling",
   "block.voidiscoming.void_leaves": "Void Leaves",
 
-  "item.voidiscoming.mana_potion.effect.water": "Mana potion",
+  "item.voidiscoming.mana_potion.effect.water": "Mana Potion",
   "item.voidiscoming.big_empty_bottle": "Big Empty Bottle",
-  "item.voidiscoming.big_mana_potion.effect.empty": "Big Mana potion",
+  "item.voidiscoming.big_mana_potion.effect.empty": "Big Mana Potion",
   "item.voidiscoming.empty_small_bottle": "Small Empty Bottle",
-  "item.voidiscoming.small_mana_potion.effect.empty": "Small Mana potion",
-  "item.voidiscoming.mana_potion.effect.empty": "Mana potion",
-
-  "item.voidiscoming.void_pig_tail": "Void Pig Taill",
+  "item.voidiscoming.small_mana_potion.effect.empty": "Small Mana Potion",
+  "item.voidiscoming.mana_potion.effect.empty": "Mana Potion",
+  "item.voidiscoming.void_pig_tail": "Void Pig Tail",
   "item.voidiscoming.void_cow_horn": "Void Cow Horn",
   "item.voidiscoming.void_essence": "Void Essence",
   "item.voidiscoming.stone_golem_core": "Stone Golem Core",
-
-  "item.voidiscoming.heal_potion.effect.water": "Heal potion",
-  "item.voidiscoming.heal_potion.effect.empty": "Heal potion",
-
+  "item.voidiscoming.heal_potion.effect.water": "Heal Potion",
+  "item.voidiscoming.heal_potion.effect.empty": "Heal Potion",
   "item.voidiscoming.iron_wand": "Iron Wand",
   "item.voidiscoming.wooden_wand": "Wooden Wand",
   "item.voidiscoming.diamond_wand": "Diamond Wand",
@@ -62,7 +59,6 @@
   "skill_name.voidiscoming.rage_spell": "Rage Spell",
   "skill_name.voidiscoming.vampirism_spell": "Vampirism Spell",
   "skill_name.voidiscoming.purification_spell": "Purification Spell",
-
   "skill_name.voidiscoming.archer_class": "Archer mastery",
   "skill_name.voidiscoming.health_bonus": "Health bonus",
   "skill_name.voidiscoming.health_bonus_2": "Health bonus II",
@@ -72,7 +68,6 @@
   "skill_name.voidiscoming.hunter_sense_spell": "Hunter Sense",
   "skill_name.voidiscoming.invisibility_spell": "Invisibility",
   "skill_name.voidiscoming.last_stand_spell": "Last Stand",
-
   "skill_name.voidiscoming.mage_class": "Mage knowlege",
   "skill_name.voidiscoming.mana_bonus": "Mana bonus",
   "skill_name.voidiscoming.mana_bonus_2": "Mana bonus II",
@@ -94,7 +89,6 @@
   "skill_description.voidiscoming.rage_spell": "Damage yourself and increase your stats",
   "skill_description.voidiscoming.vampirism_spell": "Heal 1 hp on kill",
   "skill_description.voidiscoming.purification_spell": "Clear all effects",
-
   "skill_description.voidiscoming.archer_class": "Become an archer and gain 1 max health per 3 levels",
   "skill_description.voidiscoming.health_bonus": "Increases maximum health by 1",
   "skill_description.voidiscoming.health_bonus_2": "Increases maximum health by 1",
@@ -104,7 +98,6 @@
   "skill_description.voidiscoming.hunter_sense_spell": "Mark enemies within 30 block range. Marked enemies glows and recieves more damage",
   "skill_description.voidiscoming.invisibility_spell": "Gives Short invisibility and speed boost",
   "skill_description.voidiscoming.last_stand_spell": "Gives protection when hp below 50%",
-
   "skill_description.voidiscoming.mage_class": "Become a mage and gain 1 max mana per 3 levels",
   "skill_description.voidiscoming.mana_bonus": "Increases max mana by 1",
   "skill_description.voidiscoming.mana_bonus_2": "Increases max mana by 1",
@@ -115,35 +108,19 @@
   "skill_description.voidiscoming.teleportation_spell": "Teleports you up to 30 blocks in direction you looking. Cannot teleport through blocks",
   "skill_description.voidiscoming.mana_boost_spell": "Gives bonus speed when mana below 50%",
 
-  "book.voidiscoming.page.1": "VOID IS COMING\n\nWelcome to Void Is Coming!\n\nThis book explains the main features of the mod.",
+  "book.voidiscoming.page.1": "VOID IS COMING\n\nThis book explains the new mechanics of the mod.",
 
-  "book.voidiscoming.page.2": "VOID GRASS\n\nVoid Grass is found in Void Plains.\n\nVoid Sheep can eat it and restore their wool.",
+  "book.voidiscoming.page.2": "NEW UI\n\nA Mana bar has been added.\nMana is used for spells and restored with Mana Potions.\n\nHP no longer regenerates.\nHunger has been removed.",
 
-  "book.voidiscoming.page.3": "VOID CREATURES\n\nVoid Pig — 20 HP, 4 DMG, speed 0.3.\n\nVoid Cow — 30 HP, 5 DMG, speed 0.4.",
+  "book.voidiscoming.page.3": "POTIONS\n\nMana Potions restore Mana.\n\nHeal Potions restore HP.",
 
-  "book.voidiscoming.page.4": "VOID SHEEP\n\n27 HP, 4.5 DMG, speed 0.25.\n\nIt can attack players and has a special cloning ability.",
+  "book.voidiscoming.page.4": "ARMOR\n\nArmor requires a certain level to wear.\n\nArmor protection is shown in numbers, not %.",
 
-  "book.voidiscoming.page.5": "SHEEP CLONE\n\nA Void Sheep can clone itself every 2 minutes.\n\nIt needs wool and a target.\n\nThe original loses its wool. The clone starts sheared.",
+  "book.voidiscoming.page.5": "FOOD\n\nAll food restores only 1 HP.\n\nGolden Apples and Golden Carrots also restore only 1 HP.\n\nFood gives no buffs.",
 
-  "book.voidiscoming.page.6": "VOID ESSENCE\n\nVoid Essence can rarely drop from Void creatures.\n\nThe Stone Golem guarantees Void Essence.\n\nIt is also needed to craft magical staffs.",
+  "book.voidiscoming.page.6": "SPELLS\n\nSpells are unlocked in the Skill Tree.\n\nUnlocked spells can be equipped into 2 spell slots.\n\nUse the spell keys to cast them.",
 
-  "book.voidiscoming.page.7": "MAGICAL STAFFS\n\nWooden — 1 DMG\nIron — 3 DMG\nDiamond — 6 DMG\nNetherite — 9 DMG\n\nVoid Essence is needed for crafting.",
-
-  "book.voidiscoming.page.8": "POTIONS\n\nSmall Mana Potion — 4 mana\nMedium Mana Potion — 8 mana\nLarge Mana Potion — 12 mana\n\nHeal Potion restores health.",
-
-  "book.voidiscoming.page.9": "BOTTLES\n\nEmpty Small Bottle\n\nBig Empty Bottle\n\nBoth have a maximum stack size of 16.",
-
-  "book.voidiscoming.page.10": "SKILL TREE\n\nSpend Skill Points to unlock skills.\n\nThere are different paths, bonuses and spells.\n\nSkills have different costs and requirements.",
-
-  "book.voidiscoming.page.11": "SPELLS\n\nUnlocked spells can be equipped.\n\nUse Equip and Unequip to manage them.\n\nThere are limited spell slots.",
-
-  "book.voidiscoming.page.12": "SKILL PATHS\n\nWarrior — armor and sword power.\n\nArcher — health, speed and bow power.\n\nMage — mana, affinity and wand power.",
-
-  "book.voidiscoming.page.13": "STONE GOLEM\n\nHP: 200\nDMG: 15\nSpeed: 0.22\nKnockback Resistance: 1.0\nFollow Range: 32\n\nThe Stone Golem does not despawn.",
-
-  "book.voidiscoming.page.14": "GOLEM ATTACKS\n\nThe Stone Golem uses melee attacks.\n\nIt can throw Stone Projectiles.\n\nIt can also use Ground Slam.",
-
-  "book.voidiscoming.page.15": "GOLEM REWARD\n\nDefeating the Stone Golem gives a Stone Golem Core and Void Essence.\n\nExplore the Void and discover its secrets.",
+  "book.voidiscoming.page.7": "SKILL TREE\n\nSkill Points are used to unlock skills.\n\n1 level of experience gives 1 Skill Point.",
 
   "itemGroup.voidiscoming.void_is_coming": "Void Is Coming"
 }
