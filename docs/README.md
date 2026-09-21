@@ -4,9 +4,12 @@
 A Fabric mod for Minecraft focused on RPG progression, skill-based weapon damage scaling, mana management, and magic wands. Built as part of the "VoidIsComing" modding framework.
 
 ## Features
-
+- **Mod Entities**: New mobs and boss
+![skilltree](./boss.jpg)
 - **Skill Progression System**: Unlocks weapon damage bonuses for swords, bows, and wands.
+![skilltree](./SkillTree.jpg)
 - **Magic Wands**: Tiered magic wands (Wooden, Iron, Diamond, Netherite) shooting custom.
+![wands](./wands.jpg)
 - **Custom Player Attributes**: Dynamic scaling for health, armor, movement speed, and mana.
 - **Consumables**: Custom health and mana potions.
 - **In-Game Guide**: After creating the world you will get guidebook (`mod_book`) for progression tracking.
@@ -28,12 +31,27 @@ A Fabric mod for Minecraft focused on RPG progression, skill-based weapon damage
 - Cardinal Components API
 
 ## Getting Started
+### How to start playing?
+- You will need Minecraft 1.20.1 with Fabric mod loader installed
+- Also you will need Fabric API 
+- Then you shall download our mod from: GitHub,ModRinth,PlanetMC
+- And JUST DROP IT INSIDE .minecraft/mods
+- After all you should run your minecraft and check it running properly
 
 ### Installation
 
-1. Download the latest `.jar` release.
-2. Place the file into your `.minecraft/mods` directory alongside **Fabric API** and **Cardinal Components API**.
-3. Launch Minecraft with the Fabric profile.
-
+Clone the repository:
+```bash
+git clone https://github.com/mykytenko-petro/VoidIsComing.git
+```
+```bash
+cd VoidIsComing
+```
+```bash
+gradlew Build
+```
+```bash
+gradlew runClient
+```
 ---
 
