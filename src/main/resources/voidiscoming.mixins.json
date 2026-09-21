@@ -20,7 +20,8 @@
         "common.brewingstand.BrewingStandBlockEntityAccessor",
         "common.brewingstand.BrewingStandBlockEntityMixin",
         "common.brewingstand.BrewingStandFuelSlotMixin",
-        "common.brewingstand.BrewingStandSlotMixin"
+        "common.brewingstand.BrewingStandSlotMixin",
+        "common.weapon.BowItemMixin"
     ],
     "client": [
         "client.gui.HandledScreenAccessor",

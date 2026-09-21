@@ -1,9 +1,12 @@
 package com.voidiscoming.common.mechanic.stat;
 
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
 
+import java.util.UUID;
 import java.util.function.ToDoubleFunction;
 
 import com.voidiscoming.common.VoidIsComing;
@@ -36,7 +39,7 @@ public enum PlayerStats {
             skills.hasUnlocked(ModSkills.WILD_BLOOM)
             ? subtotal * 0.10
             : 0;
-           
+            
         return (int) (subtotal + health_bonus_3);
     }),
 
@@ -68,18 +71,38 @@ public enum PlayerStats {
             
         return (int) (subtotal + mana_bonus_3);
     }),
-
-    ARMOR("stat.voidiscoming.armor", player -> {
-        return getAttribute(player, EntityAttributes.GENERIC_ARMOR);
+   
+    ATTACK_DAMAGE("stat.voidiscoming.attack_damage", player -> {
+        double base = getAttribute(player, EntityAttributes.GENERIC_ATTACK_DAMAGE);
+        var skills = ModComponents.SKILLS.get(player);
+        
+        boolean holdingSword = player.getMainHandStack().getItem() instanceof net.minecraft.item.SwordItem;
+        
+        double sword_bonus = 
+            (holdingSword && skills.hasUnlocked(ModSkills.SWORD_POWER))
+            ? base * 0.10
+            : 0.0;
+            
+        return base + sword_bonus;
     }),
-    
-    ATTACK_DAMAGE("stat.voidiscoming.attack_damage", player -> getAttribute(player, EntityAttributes.GENERIC_ATTACK_DAMAGE)),
-
+    BOW_ATTACK_DAMAGE("stat.voidiscoming.bow_attack_damage", player -> {
+        double base = getAttribute(player, EntityAttributes.GENERIC_ATTACK_DAMAGE);
+        var skills = ModComponents.SKILLS.get(player);
+        
+        boolean holdingBow = player.getMainHandStack().getItem() instanceof net.minecraft.item.BowItem;
+        
+        double bow_bonus = 
+            (holdingBow && skills.hasUnlocked(ModSkills.BOW_POWER))
+            ? base * 0.10
+            : 0.0;
+            
+        return base + bow_bonus;
+    }),
     MOVEMENT_SPEED("stat.voidiscoming.speed", player -> {
         var skills = ModComponents.SKILLS.get(player);
 
         return skills.hasUnlocked(ModSkills.SPEED_BONUS)
-            ? 0.10
+            ? 0.10  
             : 0.0;
     }),
     
@@ -103,7 +126,7 @@ public enum PlayerStats {
             : 0;
 
         return base + bonus;
-    }),;
+    });
 
     public static double getArmorBonus(PlayerEntity player) {
         if (player == null) return 0.0;
