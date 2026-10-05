@@ -3,6 +3,7 @@ package com.voidiscoming.common.item.consumables;
 import com.voidiscoming.common.component.ModComponents;
 import com.voidiscoming.common.component.mana.ManaComponent;
 import com.voidiscoming.common.entity.projectile.WandProjectileEntity;
+import com.voidiscoming.common.mechanic.skill.ModSkills; 
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,18 +17,16 @@ import net.minecraft.world.World;
 
 public class WandItem extends Item {
     private final float projectileDamage;
-    private final float manaCost; // Поле для хранения индивидуальной стоимости маны
+    private final float manaCost;
 
-    // Основной конструктор с возможностью указать урон и расход маны
     public WandItem(Settings settings, float projectileDamage, float manaCost) {
         super(settings);
         this.projectileDamage = projectileDamage;
         this.manaCost = manaCost;
     }
 
-    // Дополнительный конструктор (по умолчанию мана = 1.0f), чтобы не переписывать старые палочки
     public WandItem(Settings settings, float projectileDamage) {
-        this(settings, projectileDamage, 1.0f);
+        this(settings, projectileDamage, 1.0F);
     }
 
     @Override
@@ -38,17 +37,23 @@ public class WandItem extends Item {
 
         ManaComponent manaComponent = ModComponents.MANA.get(user);
 
-        // Используем переменную manaCost вместо константы
         if (!isCreative && manaComponent.getMana() < manaCost) {
             return TypedActionResult.fail(itemStack);
         }
 
         if (!world.isClient) {
             if (!isCreative) {
-                manaComponent.removeMana(manaCost); // Снимаем индивидуальное количество маны
+                manaComponent.removeMana(manaCost);
             }
 
-            WandProjectileEntity projectile = new WandProjectileEntity(world, user, projectileDamage);
+float finalDamage = this.projectileDamage;
+            var skills = ModComponents.SKILLS.get(user);
+
+            if (skills.hasUnlocked(ModSkills.WAND_POWER)) {
+                finalDamage = (float) Math.ceil(finalDamage * 1.10f);
+            }
+
+            WandProjectileEntity projectile = new WandProjectileEntity(world, user, finalDamage);
             projectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.5F, 1.0F);
             world.spawnEntity(projectile);
         }
@@ -64,6 +69,8 @@ public class WandItem extends Item {
 
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         itemStack.damage(1, user, p -> p.sendToolBreakStatus(hand));
+
+        user.getItemCooldownManager().set(this, 8);
 
         return TypedActionResult.success(itemStack, world.isClient());
     }

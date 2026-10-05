@@ -1,5 +1,7 @@
 package com.voidiscoming.common.entity.stonegolem;
 
+import com.voidiscoming.common.item.ModItems;
+
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -10,8 +12,10 @@ import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -104,9 +108,17 @@ public class StoneGolemEntity extends HostileEntity {
 
             if (this.activeProjectile != null) {
                 if (this.activeProjectile.isAlive()) {
-                    ((ServerWorld) this.getWorld()).spawnParticles(ParticleTypes.SMOKE,
-                            this.activeProjectile.getX(), this.activeProjectile.getY(), this.activeProjectile.getZ(),
-                            2, 0.05D, 0.05D, 0.05D, 0.0D);
+                    ((ServerWorld) this.getWorld()).spawnParticles(
+                            ParticleTypes.SMOKE,
+                            this.activeProjectile.getX(),
+                            this.activeProjectile.getY(),
+                            this.activeProjectile.getZ(),
+                            2,
+                            0.05D,
+                            0.05D,
+                            0.05D,
+                            0.0D
+                    );
                 } else {
                     this.activeProjectile = null;
                 }
@@ -141,6 +153,16 @@ public class StoneGolemEntity extends HostileEntity {
     protected void mobTick() {
         super.mobTick();
         this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
+    }
+
+    @Override
+    public void onDeath(DamageSource source) {
+        super.onDeath(source);
+
+        if (!this.getWorld().isClient()) {
+            this.dropStack(new ItemStack(ModItems.STONE_GOLEM_CORE));
+            this.dropStack(new ItemStack(ModItems.VOID_ESSENCE));
+        }
     }
 
     @Override

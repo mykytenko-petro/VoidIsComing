@@ -33,21 +33,22 @@ public class ModItems {
 
     public static final Item VOID_PIG_TAIL = register("void_pig_tail", new Item(new Item.Settings()));
     public static final Item VOID_COW_HORN = register("void_cow_horn", new Item(new Item.Settings()));
+    public static final Item STONE_GOLEM_CORE = register("stone_golem_core", new Item(new Item.Settings()));
 
     public static final Item HEAL_BOTTLE = register("heal_potion",
             new HealBottleItem(new FabricItemSettings().maxCount(16)));
 
     public static final Item WOODEN_STAFF = register("wooden_wand",
-        new WandItem(new FabricItemSettings().maxDamage(60), 1.0F));
+            new WandItem(new FabricItemSettings().maxDamage(60), 1.0F, 1));
 
     public static final Item IRON_STAFF = register("iron_wand",
-        new WandItem(new FabricItemSettings().maxDamage(150), 3.0F));
+            new WandItem(new FabricItemSettings().maxDamage(150), 3.0F, 2));
 
     public static final Item DIAMOND_STAFF = register("diamond_wand",
-        new WandItem(new FabricItemSettings().maxDamage(400), 6.0F));
+            new WandItem(new FabricItemSettings().maxDamage(400), 6.0F, 3));
 
     public static final Item NETHERITE_STAFF = register("netherite_wand",
-        new WandItem(new FabricItemSettings().maxDamage(750), 9.0F));
+            new WandItem(new FabricItemSettings().maxDamage(750), 9.0F, 4));
 
     public static final Item MOD_BOOK = register("mod_book",
             new ModBookItem(new FabricItemSettings().maxCount(1)));
