@@ -135,4 +135,8 @@ public class VoidSheepEntity extends SheepEntity {
          */
         this.cloneCooldown = CLONE_COOLDOWN;
     }
+    @Override
+    public int getXpToDrop() {
+        return 50;
+    }
 }

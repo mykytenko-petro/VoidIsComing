@@ -170,4 +170,8 @@ public class StoneGolemEntity extends HostileEntity {
     public boolean isPersistent() {
         return true;
     }
+    @Override
+    public int getXpToDrop() {
+        return 50;
+    }
 }

@@ -29,4 +29,9 @@ public class VoidPigEntity extends PigEntity {
         this.goalSelector.add(1, new MeleeAttackGoal(this, 1.2D, false));
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
+
+    @Override
+    public int getXpToDrop() {
+        return 50;
+    }
 }
