@@ -1,70 +1,119 @@
-[Українська версія](#void-is-coming-українська)
+**English** | [Українська](README.uk.md)
 
 ![Void Is Coming banner](./banner.png)
 
-# How to Download
-
-- **First, click Edit in the right corner, then click Mods.**
-
-  ![Opening the Mods menu](./download.gif)
-
-- **Then click Download Mods, select CurseForge, and search for Void Is Coming. At the bottom, click Select mod for download, then Review and confirm. Click Launch.**
-
-  ![Downloading the mod from CurseForge](./downloadMod.gif)
-
 # Void Is Coming
 
-A Fabric mod for Minecraft focused on RPG progression, skill-based weapon damage scaling, mana management, and magic wands. Built as part of the "VoidIsComing" modding project.
+**A hardcore RPG overhaul for Minecraft: choose a class, grow through a skill tree, cast spells with mana, and face the creatures of the Void Plains.**
 
-## Features
+![Minecraft 1.20.1](https://img.shields.io/badge/Minecraft-1.20.1-62b47a) ![Fabric](https://img.shields.io/badge/Loader-Fabric-dbd0b4) ![Java 17+](https://img.shields.io/badge/Java-17%2B-orange) ![License: MIT](https://img.shields.io/badge/License-MIT-blue)
 
 ![Gameplay preview](./game.gif)
 
-- **Mod Entities**: New mobs and a boss.
+## The Idea
 
-![Mod entities](./boss.jpg)
+Vanilla Minecraft progression is mostly about better materials. **Void Is Coming** adds a second layer: your character grows too. Your combat, movement and magic are shaped by the class you choose and the skills you unlock, so two players with the same gear can play very differently.
 
-- **Skill Progression System**: Unlocks weapon damage bonuses for swords, bows, and wands.
+- **Progression you choose.** Pick a path through the skill tree: Warrior, Archer or Mage.
+- **Levels give you skill points.** Every level-up rewards points you spend on new skills.
+- **Spells with a cost.** Equip spells and manage your mana during fights.
+- **One system for everything.** Swords, bows, wands and spells all scale from the same skill and stat system, which keeps the game consistent and easy to extend.
+- **Hardcore survival.** There is no passive regeneration, and the Void creatures are much harder than vanilla mobs, so every fight and every potion matters.
+
+## Features
+
+### Classes and skill tree
 
 ![Skill tree](./SkillTree.jpg)
 
-- **Magic Wands**: Tiered magic wands (Wooden, Iron, Diamond, Netherite) that shoot custom projectiles.
+A node-based skill tree with three branches. Skills unlock passive bonuses, grant access to spells and gate further progression.
+
+- **Warrior**: armor and melee-focused buffs.
+- **Archer**: extra health, speed, bow bonuses and stealth / detection skills.
+- **Mage**: mana scaling, wand power, utility spells, mobility and sustain.
+
+### Spells and mana
+
+Equip spells and cast them with mana. Some spells are active, others work passively or trigger on kills.
+
+### The Void Plains and its creatures
+
+![Mod entities](./boss.jpg)
+
+A new Void Plains biome with its own trees and grass, populated by Void Pigs, Void Cows and Void Sheep, and guarded by the Stone Golem, a strong boss-like mob. These mobs are far tougher than their vanilla counterparts and give your skills something to be tested against.
+
+### Magic wands
 
 ![Wands](./wands.jpg)
 
-- **Custom Player Attributes**: Dynamic scaling for health, armor, movement speed, and mana.
-- **Consumables**: Custom health and mana potions.
-- **In-Game Guide**: After creating a world, you will receive a guidebook (`mod_book`) for tracking your progression.
+Tiered wands (Wooden, Iron, Diamond, Netherite) that shoot custom projectiles. Their damage depends on the wand tier and on the skills you have unlocked.
 
-## Technical & Architecture Highlights
+### And more
 
-- **Dynamic Attribute Modifiers**: Swords and bows scale attack damage via `PlayerStatApplier` using `EntityAttributeModifier`.
-- **Custom Projectile Scaling**: Wand damage is calculated dynamically in `WandItem.java` based on tier values and unlocked skills.
-- **Tick-Based Stat Sync**: Player stats and modifiers are re-evaluated using `ServerTickEvents`.
-- **Cardinal Components API**: Player mana and skill data are managed via `ModComponents`.
-- **Node-Based Skill Tree**: The skill tree uses a node-based structure.
+- **Custom player attributes**: dynamic scaling for health, armor, movement speed, mana and damage.
+- **Consumables**: health and mana potions.
+- **Custom interface**: a skill tree screen plus HUD overlays for mana, stats and your equipped spells.
+- **In-game guide**: a guidebook for tracking your progression.
 
-## Requirements
+## Conclusion
+
+In this project, we learned how to work with:
+
+- The Java programming language and OOP principles
+- 2D and 3D design
+- Teamwork using Git and GitHub
+
+Our biggest challenges were:
+
+- **Skills and spells**: designing skills that actually change how weapons and wands behave, and keeping all of that data in sync with the player.
+- **Animations**: making new mobs and the boss feel alive.
+- **World generation (biomes)**: building new terrain that fits the mod's atmosphere.
+
+Our mod can also serve as a useful example for developing Minecraft (Fabric) modifications.
+
+## Team
+
+- [Petro Mykytenko](https://github.com/mykytenko-petro): team lead, developer, 2D artist
+- [Vadim Kuchnii](https://github.com/vxdlmchk-code): developer, 2D artist
+- [Andrew Skulskyi](https://github.com/andrewskulskuia): developer, 2D artist, 3D artist
+- [Mykola Boyarkin](https://github.com/KolyaBojarkin): developer, 2D artist
+
+## Installation
+
+### Requirements
 
 - Minecraft `1.20.1`
-- Fabric Loader `>=0.14.0`
-- Java 17+
-- Fabric API
-- Cardinal Components API
+- [Fabric Loader](https://fabricmc.net/use/) `>=0.14.0`
+- [Fabric API](https://modrinth.com/mod/fabric-api)
+- [Cardinal Components API](https://modrinth.com/mod/cardinal-components-api)
 
-## Getting Started
+### Install with Pinecone MC Launcher
 
-### How to start playing
+1. Click **Edit** in the right corner, then click **Mods**.
 
-1. You will need Minecraft 1.20.1 with the Fabric mod loader installed.
-2. You will also need Fabric API and Cardinal Components API.
-3. Download our mod from GitHub, Modrinth, or PlanetMC.
-4. Simply move the mod file into `.minecraft/mods`.
-5. Launch Minecraft and check that the mod works properly.
+   ![Opening the Mods menu](./download.gif)
 
-### Installation (for developers)
+2. Click **Download Mods**, select **CurseForge**, and search for **Void Is Coming**.
+3. At the bottom, click **Select mod for download**, then **Review and confirm**.
+4. Click **Launch**.
 
-Clone the repository and run the client:
+   ![Downloading the mod from CurseForge](./downloadMod.gif)
+
+<details>
+<summary>Manual installation</summary>
+
+1. Install Minecraft 1.20.1 with the Fabric loader.
+2. Download Fabric API and Cardinal Components API.
+3. Download the latest Void Is Coming `.jar` from [GitHub Releases](https://github.com/mykytenko-petro/VoidIsComing/releases) (also available on CurseForge, Modrinth and PlanetMC).
+4. Put all `.jar` files into `.minecraft/mods`.
+5. Launch Minecraft with the Fabric profile and check that the mod loads.
+
+</details>
+
+<details>
+<summary>Build from source</summary>
+
+Requires Java 17+ (check your Gradle configuration if the build asks for a newer version).
 
 ```bash
 git clone https://github.com/mykytenko-petro/VoidIsComing.git
@@ -75,129 +124,12 @@ cd VoidIsComing
 
 On Windows, use `gradlew.bat` instead of `./gradlew`.
 
----
+</details>
 
-### Conclusion
+## Bug Reports & Contributing
 
-In this project, we learned how to work with:
+Found a bug or have an idea? Open an [issue](https://github.com/mykytenko-petro/VoidIsComing/issues). Pull requests are welcome.
 
-* The Java programming language and OOP principles
-* 2D and 3D design
-* Teamwork using Git and GitHub
+## License
 
-**Our biggest challenges were:**
-
-* Creating skills and spells
-* Developing animations
-* World generation (biomes)
-
-Our mod can serve as a useful example for developing Minecraft (Fabric) modifications.
-
-### Team
-
-- [Petro Mykytenko](https://github.com/mykytenko-petro): team lead, developer, 2D artist
-- [Vadim Kuchnii](https://github.com/vxdlmchk-code): member, developer, 2D artist
-- [Andrew Skulskyi](https://github.com/andrewskulskuia): member, developer, 2D artist, 3D artist
-- [Mykola Boyarkin](https://github.com/KolyaBojarkin): member, developer, 2D artist
-
----
-
-# Void Is Coming (Українська)
-
-# Як завантажити
-
-- **Спочатку натисніть Edit у правому куті, а потім натисніть Mods.**
-
-  ![Відкриття меню Mods](./download.gif)
-
-- **Потім натисніть Download Mods, виберіть CurseForge та введіть Void Is Coming. Внизу натисніть Select mod for download, потім Review and confirm. Натисніть Launch.**
-
-  ![Завантаження моду з CurseForge](./downloadMod.gif)
-
-# Void Is Coming
-
-Мод для Minecraft на Fabric, зосереджений на RPG-прогресії, масштабуванні шкоди зброї залежно від навичок, управлінні маною та магічних паличках. Мод створений у межах моддингового проєкту "VoidIsComing".
-
-## Можливості
-
-![Попередній перегляд гри](./game.gif)
-
-- **Сутності моду**: нові моби та бос.
-
-![Сутності моду](./boss.jpg)
-
-- **Система розвитку навичок**: відкриває бонуси до шкоди для мечів, луків та чарівних паличок.
-
-![Дерево навичок](./SkillTree.jpg)
-
-- **Магічні палички**: чарівні палички різних рівнів (дерев'яна, залізна, діамантова, незеритова), які стріляють власними снарядами.
-
-![Палички](./wands.jpg)
-
-- **Власні характеристики гравця**: динамічне масштабування здоров'я, броні, швидкості пересування та мани.
-- **Витратні предмети**: власні зілля здоров'я та мани.
-- **Ігровий посібник**: після створення світу ви отримаєте книгу-посібник (`mod_book`) для відстеження прогресу.
-
-## Технічні особливості та архітектура
-
-- **Динамічні модифікатори характеристик**: мечі та луки масштабують шкоду від атаки через `PlayerStatApplier`, використовуючи `EntityAttributeModifier`.
-- **Динамічне масштабування снарядів**: шкода від паличок динамічно розраховується у `WandItem.java` залежно від рівня палички та відкритих навичок.
-- **Синхронізація характеристик на основі тиків**: характеристики гравця та модифікатори повторно перевіряються за допомогою `ServerTickEvents`.
-- **Cardinal Components API**: мана та дані про навички гравця керуються через `ModComponents`.
-- **Деревоподібна система навичок**: дерево навичок із вузловою структурою.
-
-## Вимоги
-
-- Minecraft `1.20.1`
-- Fabric Loader `>=0.14.0`
-- Java 17+
-- Fabric API
-- Cardinal Components API
-
-## Початок роботи
-
-### Як почати грати?
-
-1. Вам знадобиться Minecraft 1.20.1 із встановленим Fabric mod loader.
-2. Також вам знадобляться Fabric API та Cardinal Components API.
-3. Завантажте наш мод з GitHub, Modrinth або PlanetMC.
-4. Просто перемістіть його до `.minecraft/mods`.
-5. Запустіть Minecraft і перевірте, чи мод працює належним чином.
-
-### Встановлення (для розробників)
-
-Клонуйте репозиторій та запустіть клієнт:
-
-```bash
-git clone https://github.com/mykytenko-petro/VoidIsComing.git
-cd VoidIsComing
-./gradlew build
-./gradlew runClient
-```
-
-У Windows використовуйте `gradlew.bat` замість `./gradlew`.
-
----
-
-### Висновок
-
-У цьому проєкті ми навчилися працювати з:
-
-* Мовою програмування Java та принципами ООП
-* 2D- та 3D-дизайном
-* Командною роботою з використанням Git та GitHub
-
-**Нашими найбільшими труднощами були:**
-
-* Створення навичок та заклинань
-* Розробка анімацій
-* Генерація світу (біомів)
-
-Наш мод може бути корисним прикладом для розробки модифікацій для Minecraft (Fabric).
-
-### Команда
-
-- [Петро Микитенко](https://github.com/mykytenko-petro): керівник команди, розробник, 2D-артист
-- [Вадим Кучмій](https://github.com/vxdlmchk-code): учасник, розробник, 2D-артист
-- [Андрій Скульський](https://github.com/andrewskulskuia): учасник, розробник, 2D-артист, 3D-артист
-- [Микола Бояркін](https://github.com/KolyaBojarkin): учасник, розробник, 2D-артист
+This project is licensed under the [MIT License](LICENSE).
