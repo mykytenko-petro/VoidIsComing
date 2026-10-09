@@ -50,7 +50,6 @@ public class ModItems {
     public static final Item NETHERITE_STAFF = register("netherite_wand",
             new WandItem(new FabricItemSettings().maxDamage(750), 9.0F, 4));
 
-    // Используем ModBookItem, чтобы книга открывала интерфейс при клике ПКМ
     public static final Item MOD_BOOK = register("mod_book",
             new ModBookItem(new FabricItemSettings().maxCount(1)));
 
